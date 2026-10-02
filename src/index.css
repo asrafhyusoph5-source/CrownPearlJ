@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .font-heading {
+    font-family: 'Josefin Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  .font-serif {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+  .font-script {
+    font-family: 'Pinyon Script', cursive;
+  }
+  .font-sans {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+@keyframes pearlGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 15px rgba(127, 200, 192, 0.25));
+  }
+  50% {
+    filter: drop-shadow(0 0 28px rgba(127, 200, 192, 0.45));
+  }
+}
+
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-pearl-glow {
+  animation: pearlGlow 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: floatGentle 5s ease-in-out infinite;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #FAFAF8;
+}
+::-webkit-scrollbar-thumb {
+  background: #C9D1D3;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #7FC8C0;
+}
