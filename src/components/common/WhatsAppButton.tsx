@@ -62,7 +62,7 @@ export const WhatsAppButton: React.FC = () => {
                 "Welcome to Crown Pearl. Click below to message us directly on Facebook Messenger."
               </p>
               <span className="text-[10px] text-[#3B4A50]/70 font-heading uppercase tracking-widest">
-                — Crown, Jeweler
+                — Delma, Jeweler
               </span>
             </div>
 
