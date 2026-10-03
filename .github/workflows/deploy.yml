@@ -34,11 +34,14 @@ jobs:
 
       - name: Build Crown Pearl
         run: npm run build
+        
+      - name: Create GitHub Pages SPA fallback
+        run: cp dist/index.html dist/404.html
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ./dist
+            path: ./dist
 
   deploy:
     needs: build
