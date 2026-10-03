@@ -109,15 +109,7 @@ export const Footer: React.FC = () => {
         <div>Mon–Sat: 7:00 AM – 7:00 PM EST</div>
         
 
-        {/* GET DIRECTIONS */}
-        <a
-          href="https://maps.app.goo.gl/96soae2PvdQmpwUo7?g_st=ac"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block mt-2 text-[#7FC8C0] hover:text-white transition-colors underline underline-offset-2"
-        >
-          Get Directions →
-        </a>
+
       </div>
     </div>
 
