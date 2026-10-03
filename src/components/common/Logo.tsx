@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import crownPearlLogo from '../../assets/crown-pearl-logo.png';
 
 interface LogoProps {
   className?: string;
@@ -24,7 +25,7 @@ export const Logo: React.FC<LogoProps> = ({
       aria-label="Crown Pearl – Jewelry Shop by Delma, Estd. 2003"
     >
       <img
-        src="/CrownPearlJ/crown-pearl-logo.png"
+        src={crownPearlLogo}
         alt="Crown Pearl"
         className={`${logoSize} w-auto object-contain`}
       />
