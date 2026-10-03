@@ -19,7 +19,7 @@ export const WhatsAppButton: React.FC = () => {
       textToSend || 'Hello Delma Atelier, I am browsing Crown Pearl and would appreciate concierge assistance.'
     );
     // Direct link to open Facebook Messenger chat with your page:
-    window.open(`https://m.me/anneescubin?text=${encoded}`, '_blank', 'noopener,noreferrer');
+    window.open(`https://m.me/${FB_PAGE_USERNAME}?text=${encoded}`, '_blank', 'noopener,noreferrer');
     setIsOpen(false);
   };
 
