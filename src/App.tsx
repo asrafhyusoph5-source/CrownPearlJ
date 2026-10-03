@@ -39,7 +39,7 @@ function ScrollToTop() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/CrownPearlJ">
       <ShopProvider>
         <ScrollToTop />
         <div className="min-h-screen flex flex-col bg-[#FAFAF8] text-[#111111] antialiased">
@@ -59,9 +59,8 @@ export default function App() {
               <Route path="/faq" element={<FAQPage />} />
               <Route path="/shipping-returns" element={<ShippingReturnsPage />} />
               <Route path="/legal" element={<LegalPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-              
               <Route path="/verify" element={<CertificateVerificationPage />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>
           <Footer />
