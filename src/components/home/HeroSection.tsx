@@ -28,7 +28,7 @@ export const HeroSection: React.FC = () => {
           </h1>
 
           <p className="text-base sm:text-lg text-[#C9D1D3] leading-relaxed max-w-xl font-light">
-            Individually hand-knotted on pure silk in our New York atelier. Certified Japanese Akoya, Australian South Sea, and exotic French Polynesian Tahitian pearls.
+            Individually hand-knotted on pure silk in our Palawan atelier, each piece is thoughtfully crafted to preserve the natural beauty of every pearl for generations to come.
           </p>
 
           <div className="pt-2 flex flex-col sm:flex-row gap-4">
