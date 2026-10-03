@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MessageCircle, X, Send, Sparkles } from 'lucide-react';
 
 // 👇 1. REPLACE THIS WITH YOUR FACEBOOK PAGE USERNAME OR NUMBER ID
-const FB_PAGE_USERNAME = 'anneescubin'; // e.g. 'yourpage' from facebook.com/yourpage
+const FB_PAGE_USERNAME = 'shoponlineph'; // e.g. 'yourpage' from facebook.com/yourpage
 
 export const WhatsAppButton: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
