@@ -27,6 +27,8 @@ import { ShippingReturnsPage } from './pages/ShippingReturnsPage';
 import { LegalPage } from './pages/LegalPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
+import { CertificateVerificationPage } from './pages/CertificateVerificationPage';
+
 function ScrollToTop() {
   const { pathname, search } = useLocation();
   useEffect(() => {
@@ -58,6 +60,8 @@ export default function App() {
               <Route path="/shipping-returns" element={<ShippingReturnsPage />} />
               <Route path="/legal" element={<LegalPage />} />
               <Route path="*" element={<NotFoundPage />} />
+              
+              <Route path="/verify" element={<CertificateVerificationPage />} />
             </Routes>
           </main>
           <Footer />
