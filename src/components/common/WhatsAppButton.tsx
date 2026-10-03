@@ -14,10 +14,8 @@ export const WhatsAppButton: React.FC = () => {
     'I would like to book a private bespoke bridal appointment.'
   ];
 
-  const handleSendMessenger = (textToSend: string) => {
-    const encoded = encodeURIComponent(
-      textToSend || 'Hello Delma Atelier, I am browsing Crown Pearl and would appreciate concierge assistance.'
-    );
+  const handleSendMessenger = ( ) => {
+    
     // Direct link to open Facebook Messenger chat with your page:
     window.open(`https://m.me/${FB_PAGE_USERNAME}?text=${encoded}`, '_blank', 'noopener,noreferrer');
     setIsOpen(false);
@@ -73,7 +71,7 @@ export const WhatsAppButton: React.FC = () => {
               {quickInquiries.map((q, idx) => (
                 <button
                   key={idx}
-                  onClick={() => handleSendMessenger(q)}
+                  onClick={() => handleSendMessenger( )}
                   className="w-full text-left text-xs p-2 rounded bg-white hover:bg-[#0084FF]/10 border border-[#E5E7EB] hover:border-[#0084FF] text-[#3B4A50] transition-colors"
                 >
                   {q}
@@ -95,7 +93,7 @@ export const WhatsAppButton: React.FC = () => {
               />
               <button
                 type="button"
-                onClick={() => handleSendMessenger(customMsg)}
+                onClick={() => handleSendMessenger( )}
                 className="p-2 bg-[#0084FF] hover:bg-[#0073e6] text-white rounded transition-colors"
                 aria-label="Send Messenger message"
               >
