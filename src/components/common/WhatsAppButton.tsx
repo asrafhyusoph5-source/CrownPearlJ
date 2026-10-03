@@ -12,11 +12,11 @@ export const WhatsAppButton: React.FC = () => {
   ];
 
 // ✅ New Facebook Messenger link:
-const FB_PAGE_USERNAME = 'YOUR_FACEBOOK_PAGE_USERNAME'; // 👈 Put your FB page username or ID here (e.g. 'crownpearl')
+const FB_PAGE_USERNAME = 'najierzzz'; // 👈 Put your FB page username or ID here (e.g. 'crownpearl')
 
 const handleSendWhatsApp = (textToSend: string) => {
   const encoded = encodeURIComponent(textToSend || 'Hello Delma Atelier, I am browsing Crown Pearl and would appreciate concierge assistance.');
-  window.open(`https://m.me/${FB_PAGE_USERNAME}?text=${encoded}`, '_blank', 'noopener,noreferrer');
+  window.open(`https://www.facebook.com/najierzzz?text=${encoded}`, '_blank', 'noopener,noreferrer');
   setIsOpen(false);
 };
 
