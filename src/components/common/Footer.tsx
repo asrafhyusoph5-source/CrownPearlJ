@@ -58,45 +58,45 @@ export const Footer: React.FC = () => {
     Visit The Atelier
   </h4>
 
-  <div className="space-y-2.5 text-xs text-[#C9D1D3]">
+  <div className="space-y-3 text-xs text-[#C9D1D3]">
 
     {/* LOCATION */}
     <a
       href="https://maps.app.goo.gl/96soae2PvdQmpwUo7?g_st=ac"
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-start gap-2.5 group hover:text-white transition-colors"
-      aria-label="Open Crown Pearl Atelier location in Google Maps"
+      className="flex items-start gap-2.5 hover:text-white transition-colors"
+      aria-label="Open Crown Pearl location in Google Maps"
     >
       <MapPin className="w-4 h-4 text-[#7FC8C0] shrink-0 mt-0.5" />
 
-      <span className="underline-offset-2 group-hover:underline">
+      <span className="underline-offset-2 hover:underline">
         San Manuel Road, Puerto Princesa City, 5300 Palawan
       </span>
     </a>
 
     {/* PHONE */}
     <a
-      href="tel:+639XXXXXXXXX"
-      className="flex items-center gap-2.5 group hover:text-white transition-colors"
+      href="tel:+18002769675"
+      className="flex items-center gap-2.5 hover:text-white transition-colors"
       aria-label="Call Crown Pearl"
     >
       <Phone className="w-4 h-4 text-[#7FC8C0] shrink-0" />
 
-      <span className="underline-offset-2 group-hover:underline">
-        +63 9XX XXX XXXX
+      <span className="underline-offset-2 hover:underline">
+        +1 (800) 276-9675
       </span>
     </a>
 
     {/* EMAIL */}
     <a
       href="mailto:concierge@crownpearl.com"
-      className="flex items-center gap-2.5 group hover:text-white transition-colors"
-      aria-label="Email Crown Pearl Concierge"
+      className="flex items-center gap-2.5 hover:text-white transition-colors"
+      aria-label="Email Crown Pearl"
     >
       <Mail className="w-4 h-4 text-[#7FC8C0] shrink-0" />
 
-      <span className="underline-offset-2 group-hover:underline">
+      <span className="underline-offset-2 hover:underline">
         concierge@crownpearl.com
       </span>
     </a>
@@ -106,14 +106,14 @@ export const Footer: React.FC = () => {
       <Clock className="w-4 h-4 text-[#7FC8C0] shrink-0 mt-0.5" />
 
       <div>
-        <div>Monday–Saturday: 7:00 AM – 7:00 PM</div>
+        <div>Mon–Sat: 7:00 AM – 7:00 PM</div>
         <div>Philippine Time (PHT)</div>
       </div>
     </div>
 
   </div>
 </div>
-
+          
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#C9D1D3]/80">
           <div>© 2003–2026 Crown Pearl. Jewelry Shop by Delma. All rights reserved.</div>
