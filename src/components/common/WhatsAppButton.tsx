@@ -16,7 +16,7 @@ const FB_PAGE_USERNAME = 'anneescubin'; // 👈 Put your FB page username or ID 
 
 const handleSendWhatsApp = (textToSend: string) => {
   const encoded = encodeURIComponent(textToSend || 'Hello Delma Atelier, I am browsing Crown Pearl and would appreciate concierge assistance.');
-  window.open(`https://m.me/${FB_PAGE_USERNAME}?text=${encoded}`, '_blank', 'noopener,noreferrer');
+  window.open(`https://m.me/anneescubin?text=${encoded}`, '_blank', 'noopener,noreferrer');
   setIsOpen(false);
 };
 
