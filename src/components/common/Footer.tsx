@@ -53,33 +53,76 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Atelier Contact & Boutique Hours */}
-          <div className="space-y-3">
-            <h4 className="font-heading font-semibold text-xs uppercase tracking-[0.25em] text-[#7FC8C0]">
-              Visit The Atelier
-            </h4>
-            <div className="space-y-2.5 text-xs text-[#C9D1D3]">
-              <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-[#7FC8C0] shrink-0 mt-0.5" />
-                <span>488 Madison Avenue, Atelier Suite 702, New York, NY 10022</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-[#7FC8C0] shrink-0" />
-                <a href="tel:+18002769675" className="hover:text-white">+1 (800) 276-9675</a>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-[#7FC8C0] shrink-0" />
-                <a href="mailto:concierge@crownpearl.com" className="hover:text-white">concierge@crownpearl.com</a>
-              </div>
-              <div className="flex items-start gap-2.5 pt-1">
-                <Clock className="w-4 h-4 text-[#7FC8C0] shrink-0 mt-0.5" />
-                <div>
-                  <div>Mon–Sat: 10:00 AM – 7:00 PM EST</div>
-                  <div>Sunday: By Private Atelier Appointment</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+<div className="space-y-3">
+  <h4 className="font-heading font-semibold text-xs uppercase tracking-[0.25em] text-[#7FC8C0]">
+    Visit The Atelier
+  </h4>
+
+  <div className="space-y-2.5 text-xs text-[#C9D1D3]">
+
+    {/* LOCATION */}
+    <a
+      href="https://maps.app.goo.gl/96soae2PvdQmpwUo7?g_st=ac"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-start gap-2.5 group hover:text-white transition-colors"
+      aria-label="Open Crown Pearl Atelier location in Google Maps"
+    >
+      <MapPin className="w-4 h-4 text-[#7FC8C0] shrink-0 mt-0.5" />
+
+      <span className="underline-offset-2 group-hover:underline">
+        San Manuel Road, Puerto Princesa City, 5300 Palawan
+      </span>
+    </a>
+
+    {/* PHONE */}
+    <a
+      href="tel:+18002769675"
+      className="flex items-center gap-2.5 group hover:text-white transition-colors"
+      aria-label="Call Crown Pearl"
+    >
+      <Phone className="w-4 h-4 text-[#7FC8C0] shrink-0" />
+
+      <span className="underline-offset-2 group-hover:underline">
+        +1 (800) 276-9675
+      </span>
+    </a>
+
+    {/* EMAIL */}
+    <a
+      href="mailto:concierge@crownpearl.com"
+      className="flex items-center gap-2.5 group hover:text-white transition-colors"
+      aria-label="Email Crown Pearl Concierge"
+    >
+      <Mail className="w-4 h-4 text-[#7FC8C0] shrink-0" />
+
+      <span className="underline-offset-2 group-hover:underline">
+        concierge@crownpearl.com
+      </span>
+    </a>
+
+    {/* BOUTIQUE HOURS */}
+    <div className="flex items-start gap-2.5 pt-1">
+      <Clock className="w-4 h-4 text-[#7FC8C0] shrink-0 mt-0.5" />
+
+      <div>
+        <div>Mon–Sat: 7:00 AM – 7:00 PM EST</div>
+        
+
+        {/* GET DIRECTIONS */}
+        <a
+          href="https://maps.app.goo.gl/96soae2PvdQmpwUo7?g_st=ac"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block mt-2 text-[#7FC8C0] hover:text-white transition-colors underline underline-offset-2"
+        >
+          Get Directions →
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#C9D1D3]/80">
