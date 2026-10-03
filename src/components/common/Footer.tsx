@@ -77,14 +77,14 @@ export const Footer: React.FC = () => {
 
     {/* PHONE */}
     <a
-      href="tel:+18002769675"
+      href="tel:+639XXXXXXXXX"
       className="flex items-center gap-2.5 group hover:text-white transition-colors"
       aria-label="Call Crown Pearl"
     >
       <Phone className="w-4 h-4 text-[#7FC8C0] shrink-0" />
 
       <span className="underline-offset-2 group-hover:underline">
-        +1 (800) 276-9675
+        +63 9XX XXX XXXX
       </span>
     </a>
 
@@ -106,10 +106,8 @@ export const Footer: React.FC = () => {
       <Clock className="w-4 h-4 text-[#7FC8C0] shrink-0 mt-0.5" />
 
       <div>
-        <div>Mon–Sat: 7:00 AM – 7:00 PM EST</div>
-        
-
-
+        <div>Monday–Saturday: 7:00 AM – 7:00 PM</div>
+        <div>Philippine Time (PHT)</div>
       </div>
     </div>
 
