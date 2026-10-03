@@ -4,7 +4,7 @@ import { ShopProvider } from './context/ShopContext';
 import { AnnouncementBar } from './components/common/AnnouncementBar';
 import { Header } from './components/common/Header';
 import { Footer } from './components/common/Footer';
-import { WhatsAppButton } from './components/common/WhatsAppButton';
+import { FBMessegerButton } from './components/common/FBMessegerButton';
 import { SocialProofToast } from './components/common/SocialProofToast';
 import { ExitIntentModal } from './components/common/ExitIntentModal';
 import { ConsultationModal } from './components/common/ConsultationModal';
@@ -73,7 +73,7 @@ export default function App() {
           <SearchModal />
           <ExitIntentModal />
           <SocialProofToast />
-          <WhatsAppButton />
+          <FBMessegerButton />
         </div>
       </ShopProvider>
     </BrowserRouter>
