@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-2 space-y-4">
             <Logo size="lg" isLightMode={true} />
             <p className="text-sm text-[#C9D1D3] leading-relaxed max-w-sm mt-3">
-              Founded in 2003 by Delma, Crown Pearl is an artisanal fine jewelry house specializing in certified natural saltwater Akoya, South Sea, and Tahitian pearls. Handcrafted with generational silk-knotting discipline in our New York atelier.
+              Founded in 2003 by Delma, Crown Pearl is an artisanal fine jewelry house specializing in certified natural saltwater Akoya, South Sea, and Tahitian pearls. Handcrafted with generational silk-knotting discipline in our Palawan atelier.
             </p>
             <div className="pt-2 flex items-center gap-3 text-xs text-[#7FC8C0] font-heading uppercase tracking-widest">
               <Sparkles className="w-4 h-4" />
