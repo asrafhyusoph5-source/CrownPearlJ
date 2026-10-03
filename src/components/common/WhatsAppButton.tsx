@@ -9,14 +9,14 @@ export const WhatsAppButton: React.FC = () => {
   const [customMsg, setCustomMsg] = useState('');
 
   const quickInquiries = [
-    'Hello Delma Atelier, I would like to inquire about customized necklace lengths.',
+    'Hello Crown, I would like to inquire about customized necklace lengths.',
     'Could you help me choose between Akoya and South Sea pearl luster for an anniversary gift?',
-    'I would like to book a private bespoke bridal appointment.'
+    'I would like the best South Sea Pearl for my bridal.'
   ];
 
   const handleSendMessenger = (textToSend: string) => {
     const encoded = encodeURIComponent(
-      textToSend || 'Hello Delma Atelier, I am browsing Crown Pearl and would appreciate concierge assistance.'
+      textToSend || 'Hello Crown, I am browsing Crown Pearl and would appreciate concierge assistance.'
     );
     // Direct link to open Facebook Messenger chat with your page:
     window.open(`https://m.me/${FB_PAGE_USERNAME}?text=${encoded}`, '_blank', 'noopener,noreferrer');
@@ -32,7 +32,7 @@ export const WhatsAppButton: React.FC = () => {
             <div className="flex items-center gap-3">
               <div className="relative">
                 <div className="w-10 h-10 rounded-full bg-white/20 border border-white flex items-center justify-center font-script text-2xl text-white">
-                  D
+                  C
                 </div>
                 <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 rounded-full ring-2 ring-[#0084FF]"></span>
               </div>
@@ -62,7 +62,7 @@ export const WhatsAppButton: React.FC = () => {
                 "Welcome to Crown Pearl. Click below to message us directly on Facebook Messenger."
               </p>
               <span className="text-[10px] text-[#3B4A50]/70 font-heading uppercase tracking-widest">
-                — Delma, Master Jeweler
+                — Crown, Jeweler
               </span>
             </div>
 
@@ -110,7 +110,7 @@ export const WhatsAppButton: React.FC = () => {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        aria-label="Chat with Delma Atelier on Facebook Messenger"
+        aria-label="Chat with Crown Agent on Facebook Messenger"
         className="flex items-center gap-2.5 bg-[#0084FF] hover:bg-[#0073e6] text-white px-4 py-3 rounded-full shadow-lg border border-white/20 transition-all duration-300 hover:scale-105 group"
       >
         <div className="relative">
