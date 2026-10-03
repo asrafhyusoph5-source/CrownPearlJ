@@ -1,17 +1,8 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+
 import { ShopProvider } from './context/ShopContext';
-import { AnnouncementBar } from './components/common/AnnouncementBar';
 import { Header } from './components/common/Header';
-import { Footer } from './components/common/Footer';
-import { WhatsAppButton } from './components/common/WhatsAppButton';
-import { SocialProofToast } from './components/common/SocialProofToast';
-import { ExitIntentModal } from './components/common/ExitIntentModal';
-import { ConsultationModal } from './components/common/ConsultationModal';
-import { SizeGuideModal } from './components/common/SizeGuideModal';
-import { SearchModal } from './components/common/SearchModal';
-import { CartDrawer } from './components/cart/CartDrawer';
-import { QuickViewModal } from './components/product/QuickViewModal';
 
 import { HomePage } from './pages/HomePage';
 import { ShopPage } from './pages/ShopPage';
@@ -48,8 +39,6 @@ export default function App() {
         <ScrollToTop />
 
         <div className="min-h-screen flex flex-col bg-[#FAFAF8] text-[#111111] antialiased">
-          <AnnouncementBar />
-
           <Header />
 
           <main className="flex-1">
@@ -72,20 +61,8 @@ export default function App() {
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>
-
-          <Footer />
-
-          {/* Global Interactive Overlays */}
-          <CartDrawer />
-          <QuickViewModal />
-          <ConsultationModal />
-          <SizeGuideModal />
-          <SearchModal />
-          <ExitIntentModal />
-          <SocialProofToast />
-          <WhatsAppButton />
         </div>
       </ShopProvider>
     </BrowserRouter>
   );
-      }
+}
