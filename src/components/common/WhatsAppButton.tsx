@@ -11,11 +11,14 @@ export const WhatsAppButton: React.FC = () => {
     'I would like to book a private bespoke bridal appointment.'
   ];
 
-  const handleSendWhatsApp = (textToSend: string) => {
-    const encoded = encodeURIComponent(textToSend || 'Hello Delma Atelier, I am browsing Crown Pearl and would appreciate concierge assistance.');
-    window.open(`https://wa.me/18002769675?text=${encoded}`, '_blank', 'noopener,noreferrer');
-    setIsOpen(false);
-  };
+// ✅ New Facebook Messenger link:
+const FB_PAGE_USERNAME = 'YOUR_FACEBOOK_PAGE_USERNAME'; // 👈 Put your FB page username or ID here (e.g. 'crownpearl')
+
+const handleSendWhatsApp = (textToSend: string) => {
+  const encoded = encodeURIComponent(textToSend || 'Hello Delma Atelier, I am browsing Crown Pearl and would appreciate concierge assistance.');
+  window.open(`https://m.me/${FB_PAGE_USERNAME}?text=${encoded}`, '_blank', 'noopener,noreferrer');
+  setIsOpen(false);
+};
 
   return (
     <div className="fixed bottom-6 right-6 z-40">
