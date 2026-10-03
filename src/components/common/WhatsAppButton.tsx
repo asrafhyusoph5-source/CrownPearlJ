@@ -12,7 +12,7 @@ export const WhatsAppButton: React.FC = () => {
   ];
 
 // ✅ New Facebook Messenger link:
-const FB_PAGE_USERNAME = 'najierzzz'; // 👈 Put your FB page username or ID here (e.g. 'crownpearl')
+const FB_PAGE_USERNAME = 'anneescubin'; // 👈 Put your FB page username or ID here (e.g. 'crownpearl')
 
 const handleSendWhatsApp = (textToSend: string) => {
   const encoded = encodeURIComponent(textToSend || 'Hello Delma Atelier, I am browsing Crown Pearl and would appreciate concierge assistance.');
