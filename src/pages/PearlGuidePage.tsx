@@ -8,6 +8,17 @@ import TahitianPearlGuide from './TahitianPearlGuide.jpg';
 import BaroquePearlGuide from './BaroquePearlGuide.jpg';
 import KeshiPearlGuide from './KeshiPearlGuide.jpg';
 
+export const ASSET_IMAGES = {
+  // your existing images...
+
+  pearlSouthSea: SouthSeaPearlGuide,
+  pearlAkoya: AkoyaPearlGuide,
+  pearlFreshwater: FreshwaterPearlGuide,
+  pearlTahitian: TahitianPearlGuide,
+  pearlBaroque: BaroquePearlGuide,
+  pearlKeshi: KeshiPearlGuide,
+};
+
 export const PearlGuidePage: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
