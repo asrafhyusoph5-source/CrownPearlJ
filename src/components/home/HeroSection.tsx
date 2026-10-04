@@ -11,18 +11,27 @@ export const HeroSection: React.FC = () => {
           src={ASSET_IMAGES.hero}
           alt="Crown Pearl High Jewelry Collection"
           className="w-full h-full object-cover object-center opacity-85"
+        referrerPolicy="no-referrer"
         />
+        {/* Measured Scrim for contrast per Section 1.F */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#1A2327]/90 via-[#1A2327]/60 to-[#1A2327]/30" />
+        <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#1A2327]/20 to-[#1A2327]/80" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+      {/* Floating Pearl Specular Ambient Orb */}
+      <div className="absolute top-1/4 right-10 lg:right-1/4 w-72 h-72 rounded-full bg-[#7FC8C0]/15 blur-3xl pointer-events-none animate-pearl-glow" />
+
+      {/* Hero Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 w-full">
         <div className="max-w-2xl text-left space-y-6">
-          <div className="flex items-center gap-2 text-xs font-heading uppercase tracking-[0.3em] text-[#7FC8C0] font-semibold">
+          {/* Eyebrow / Heritage Kicker: Zero-Pill text */}
+          <div className="flex items-center gap-2.5 text-xs sm:text-sm font-heading uppercase tracking-[0.3em] text-[#7FC8C0] font-semibold">
             <Sparkles className="w-4 h-4 text-[#7FC8C0]" />
             <span>Jewelry Shop by Delma · Estd. 2003</span>
           </div>
 
-          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-white font-medium leading-[1.1]">
+          {/* Headline with text-wrap: balance */}
+          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-white font-medium tracking-tight leading-[1.1] [text-wrap:balance]">
             Timeless Pearls. <br />
             <span className="italic font-normal text-[#FAFAF8]">Crafted Since 2003.</span>
           </h1>
@@ -45,6 +54,23 @@ export const HeroSection: React.FC = () => {
             >
               Explore Bridal
             </Link>
+          </div>
+
+          {/* Heritage Trust Badges */}
+          <div className="pt-6 border-t border-white/15 flex flex-wrap items-center gap-6 text-xs text-[#C9D1D3]">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-[#7FC8C0]" />
+              <span>GIA AAA Grading Standards</span>
+            </div>
+            <span className="text-white/30">·</span>
+            <div className="flex items-center gap-2">
+              <span className="text-[#7FC8C0] font-heading font-bold">20+</span>
+              <span>Years of Atelier Craft</span>
+            </div>
+            <span className="text-white/30">·</span>
+            <div>
+              <span>Complimentary Worldwide Courier</span>
+            </div>
           </div>
         </div>
       </div>
