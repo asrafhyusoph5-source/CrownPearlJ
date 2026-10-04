@@ -36,7 +36,7 @@ export const PearlGuidePage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
             <img
-  src={ASSET_IMAGES.pearlSouthsea}
+  src={ASSET_IMAGES.pearlSouthSea}
   alt="South Sea Pearl"
   className="w-full h-56 object-cover"
 />
