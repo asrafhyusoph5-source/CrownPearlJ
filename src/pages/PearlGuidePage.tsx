@@ -34,12 +34,8 @@ export const PearlGuidePage: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-white rounded-2xl border border-[#E5E7EB] overflow-hidden">
-            <img
-  src={ASSET_IMAGES.pearlSouthSea}
-  alt="South Sea Pearl"
-  className="w-full h-56 object-cover"
-/>
+          <<div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
+            
             <h3 className="font-serif text-xl font-semibold text-[#111]">South Sea Pearls</h3>
             <b className="text-xs text-[#3B4A50] leading-relaxed">
               Born in the warm waters of the ocean and sea
@@ -60,11 +56,7 @@ export const PearlGuidePage: React.FC = () => {
           </div>
 
           <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
-            <img
-  src={ASSET_IMAGES.pearlAkoya}
-  alt="Akoya Pearl"
-  className="w-full h-56 object-cover"
-/>
+            
             <h3 className="font-serif text-xl font-semibold text-[#111]">Akoya Pearls</h3>
             <b className="text-xs text-[#3B4A50] leading-relaxed">
               Born in the warm waters of the ocean and sea
