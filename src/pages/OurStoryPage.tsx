@@ -38,7 +38,7 @@ export const OurStoryPage: React.FC = () => {
               Rejecting Mass Production for Generational Integrity
             </h2>
             <p className="text-sm text-[#3B4A50] leading-relaxed">
-              When Delma opened the atelier doors on Madison Avenue in 2003, commercial jewelry was rapidly transitioning to synthetic filaments and glued composite pearls. Delma chose the harder path: establishing direct relationships with multi-generational pearl farmers in Ago Bay, Japan, and the coral lagoons of French Polynesia.
+              When Delma opened the atelier doors on Puerto Princesa, Palawan in 2003, commercial jewelry was rapidly transitioning to synthetic filaments and glued composite pearls. Delma chose the harder path: establishing direct relationships with multi-generational pearl farmers in Ago Bay, Japan, and the coral lagoons of French Polynesia.
             </p>
           </div>
         </div>
