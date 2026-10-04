@@ -35,6 +35,9 @@ export const PearlGuidePage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
             <h3 className="font-serif text-xl font-semibold text-[#111]">South Sea Pearls</h3>
+            <b className="text-xs text-[#3B4A50] leading-relaxed">
+              Born in the warm waters of the ocean and sea
+            </b>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
               Cultivated in large saltwater oysters, particularly the Pinctada maxima.
               They are associated with the warm waters of regions such as the Philippines, Indonesia, and Australia.
@@ -70,56 +73,53 @@ export const PearlGuidePage: React.FC = () => {
           <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
             <h3 className="font-serif text-xl font-semibold text-[#111]">Freshwater Pearls</h3>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
-              Cultured in saltwater oysters, primarily associated with Japan and other parts of Asia.
-              They are generally smaller than South Sea Pearls but are especially valued for their bright, sharp luster and classic appearance.
+              Unlike saltwater pearls, Freshwater Pearls are cultivated in freshwater mussels. They can be grown in rivers, lakes, ponds, and other freshwater environments, particularly in China.
             </p>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
-            Akoya Pearls are commonly round and are often found in white and cream shades, sometimes with delicate pink or silver overtones.
+            Freshwater Pearls come in an impressive variety of shapes, sizes, and natural colors. Many are known for their soft, creamy appearance and excellent value.
             </p>
             <b className="text-xs text-[#3B4A50] leading-relaxed">
-              Why choose Akoya?
+              Why choose Freshwater?
             </b>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
-             A wonderful choice for customers who love the classic, refined look of a traditional round pearl with brilliant shine.
+             Ideal for customers who want beautiful, versatile pearls with many shapes and styles to choose from, often at a more accessible price.
             </p>
           </div>
 
           <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
-            <h3 className="font-serif text-xl font-semibold text-[#111]">Freshwater Pearls</h3>
+            <h3 className="font-serif text-xl font-semibold text-[#111]">Tahitian Pearls</h3>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
-              Cultured in saltwater oysters, primarily associated with Japan and other parts of Asia.
-              They are generally smaller than South Sea Pearls but are especially valued for their bright, sharp luster and classic appearance.
+              Tahitian Pearls are cultivated in saltwater oysters, particularly the black-lipped oyster Pinctada margaritifera. They are strongly associated with French Polynesia and the tropical waters of the South Pacific.
             </p>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
-            Akoya Pearls are commonly round and are often found in white and cream shades, sometimes with delicate pink or silver overtones.
+            Despite often being called “black pearls,” their natural colors can range from dark gray and charcoal to green, blue, silver, and peacock-like overtones.
             </p>
             <b className="text-xs text-[#3B4A50] leading-relaxed">
-              Why choose Akoya?
+              Why choose Tahitian?
             </b>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
-             A wonderful choice for customers who love the classic, refined look of a traditional round pearl with brilliant shine.
+             For those who prefer something bold and distinctive, Tahitian Pearls offer naturally darker colors and captivating overtones.
             </p>
           </div>
 
           <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
-            <h3 className="font-serif text-xl font-semibold text-[#111]">Freshwater Pearls</h3>
+            <h3 className="font-serif text-xl font-semibold text-[#111]">Baroque Pearls</h3>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
-              Cultured in saltwater oysters, primarily associated with Japan and other parts of Asia.
-              They are generally smaller than South Sea Pearls but are especially valued for their bright, sharp luster and classic appearance.
+              Baroque is not a specific place where a pearl comes from. Instead, it describes a pearl with an irregular, non-symmetrical shape.
             </p>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
-            Akoya Pearls are commonly round and are often found in white and cream shades, sometimes with delicate pink or silver overtones.
+            Baroque Pearls can come from both freshwater and saltwater environments. Their unusual curves, wrinkles, contours, and organic forms make each pearl different from the next.
             </p>
             <b className="text-xs text-[#3B4A50] leading-relaxed">
-              Why choose Akoya?
+              Why choose Baroque?
             </b>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
-             A wonderful choice for customers who love the classic, refined look of a traditional round pearl with brilliant shine.
+             Perfect for customers who appreciate individuality and want a pearl that feels artistic, natural, and truly one of a kind.
             </p>
           </div>
 
           <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
-            <h3 className="font-serif text-xl font-semibold text-[#111]">Freshwater Pearls</h3>
+            <h3 className="font-serif text-xl font-semibold text-[#111]">Keshi Pearls</h3>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
               Cultured in saltwater oysters, primarily associated with Japan and other parts of Asia.
               They are generally smaller than South Sea Pearls but are especially valued for their bright, sharp luster and classic appearance.
@@ -128,7 +128,7 @@ export const PearlGuidePage: React.FC = () => {
             Akoya Pearls are commonly round and are often found in white and cream shades, sometimes with delicate pink or silver overtones.
             </p>
             <b className="text-xs text-[#3B4A50] leading-relaxed">
-              Why choose Akoya?
+              Why choose Keshi?
             </b>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
              A wonderful choice for customers who love the classic, refined look of a traditional round pearl with brilliant shine.
