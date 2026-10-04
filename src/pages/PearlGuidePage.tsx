@@ -155,16 +155,16 @@ export const PearlGuidePage: React.FC = () => {
             <h1 className="font-serif text-4xl sm:text-5xl text-[#111111] font-semibold">
             Choose the Pearl That Tells Your Story
           </h1>
-            <b className="text-xs text-[#3B4A50] leading-relaxed">
+            <b className="text-sm text-[#3B4A50]">
               There is no single pearl that is perfect for everyone.
             </b>
-            <p className="text-xs text-[#3B4A50] leading-relaxed">
+            <p className="text-sm text-[#3B4A50]">
               Some customers are drawn to the impressive presence of a South Sea Pearl. Others prefer the classic brilliance of Akoya, the versatility of Freshwater, the dramatic character of Tahitian, or the individuality of Baroque pearls.
             </p>
-            <p className="text-xs text-[#3B4A50] leading-relaxed">
+            <p className="text-sm text-[#3B4A50]">
             Knowing where a pearl comes from and how it is formed allows you to look beyond its appearance and understand what you are truly purchasing.
             </p>
-            <b className="text-xs text-[#3B4A50] leading-relaxed">
+            <b className="text-sm text-[#3B4A50]">
               A pearl is more than something that shines — it is a natural creation shaped by water, time, and nature.
             </b>
           
