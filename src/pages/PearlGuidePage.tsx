@@ -176,6 +176,87 @@ export const PearlGuidePage: React.FC = () => {
             </b>
         </div>
         
+      
+    
+        {/* 5 Quality Factors */}
+        <div className="bg-white rounded-2xl border border-[#E5E7EB] p-8 sm:p-12 shadow-xs space-y-8">
+          <div className="max-w-2xl space-y-2">
+            <span className="text-xs font-heading font-semibold uppercase tracking-widest text-[#7FC8C0]">
+              GIA Evaluation Benchmarks
+            </span>
+            <h2 className="font-serif text-3xl text-[#111] font-semibold">
+              The Five Quality Factors of Fine Pearls
+            </h2>
+            <p className="text-xs sm:text-sm text-[#3B4A50]">
+              Every Crown Pearl creation includes an authenticated appraisal graded against these rigorous criteria.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {qualityFactors.map((q, idx) => (
+              <div key={idx} className="p-5 bg-[#FAFAF8] rounded-xl border border-[#E5E7EB] space-y-2">
+                <h4 className="font-heading font-semibold text-xs uppercase tracking-wider text-[#111]">
+                  {q.factor}
+                </h4>
+                <p className="text-xs text-[#3B4A50] leading-relaxed">
+                  {q.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Daily Care Guide Section */}
+        <div id="care" className="bg-[#FAFAF8] border border-[#7FC8C0]/40 rounded-2xl p-8 sm:p-12 space-y-6">
+          <div className="flex items-center gap-2 text-xs font-heading font-semibold uppercase tracking-widest text-[#7FC8C0]">
+            <ShieldCheck className="w-4 h-4" />
+            <span>Preserving Generational Radiance</span>
+          </div>
+
+          <h2 className="font-serif text-3xl text-[#111] font-semibold">
+            Delma's Daily Care Protocol: "Last On, First Off"
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+            <div className="bg-white p-5 rounded-xl border border-gray-200 space-y-2">
+              <h4 className="font-heading uppercase text-xs font-semibold text-[#111]">
+                1. Avoid Cosmetic Acids
+              </h4>
+              <p className="text-xs text-[#3B4A50] leading-relaxed">
+                Perfume, hairspray, alcohol, and setting powders contain acidic ingredients that degrade delicate conchiolin protein. Put your pearls on 10 minutes after applying cosmetics.
+              </p>
+            </div>
+
+            <div className="bg-white p-5 rounded-xl border border-gray-200 space-y-2">
+              <h4 className="font-heading uppercase text-xs font-semibold text-[#111]">
+                2. Wipe with Microfiber
+              </h4>
+              <p className="text-xs text-[#3B4A50] leading-relaxed">
+                After an evening of wear, use the dry, lint-free microfiber shammy provided in your Crown Pearl case to gently wipe away skin oils and atmospheric dust.
+              </p>
+            </div>
+
+            <div className="bg-white p-5 rounded-xl border border-gray-200 space-y-2">
+              <h4 className="font-heading uppercase text-xs font-semibold text-[#111]">
+                3. Store Flat, Away from Diamonds
+              </h4>
+              <p className="text-xs text-[#3B4A50] leading-relaxed">
+                Never hang heavy pearl strands continuously on hooks (which stretches silk cord). Store flat in your velvet pouch separated from harder gemstones.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="text-center pt-4">
+          <Link
+            to="/shop"
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#3B4A50] hover:bg-[#111] text-white font-heading uppercase text-xs tracking-widest font-semibold rounded-lg shadow-md transition-colors"
+          >
+            <span>Explore Hand-Selected Pearl Creations</span>
+            <ArrowRight className="w-4 h-4 text-[#7FC8C0]" />
+          </Link>
+        </div>
       </div>
     </div>
   );
