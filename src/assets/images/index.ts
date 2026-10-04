@@ -9,6 +9,8 @@ import FreshwaterPearlGuide from './FreshwaterPearlGuide.jpg';
 import TahitianPearlGuide from './TahitianPearlGuide.jpg';
 import BaroquePearlGuide from './BaroquePearlGuide.jpg';
 import KeshiPearlGuide from './KeshiPearlGuide.jpg';
+import KeshiPearlGuide from './PearlGuide.png';
+
 
 export const ASSET_IMAGES = {
   hero: heroImage,
@@ -22,4 +24,5 @@ export const ASSET_IMAGES = {
   pearlTahitian: TahitianPearlGuide,
   pearlBaroque: BaroquePearlGuide,
   pearlKeshi: KeshiPearlGuide,
+  pearlGuide: PearlGuide,
 };
