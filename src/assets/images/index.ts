@@ -16,7 +16,6 @@ export const ASSET_IMAGES = {
   workshop: workshopImage,
   pearlTypes: pearlTypesImage,
   earrings: earringsImage,
-
   pearlSouthSea: SouthSeaPearlGuide,
   pearlAkoya: AkoyaPearlGuide,
   pearlFreshwater: FreshwaterPearlGuide,
