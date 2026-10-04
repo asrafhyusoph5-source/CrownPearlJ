@@ -19,7 +19,7 @@ export const LegalPage: React.FC = () => {
             Every piece created by Crown Pearl is guaranteed for life against structural and material defects in precious metals and artisanal stringing.
           </p>
           <ul className="list-disc pl-5 space-y-1">
-            <li>Complimentary annual knotting inspections at our Manhattan Atelier.</li>
+            <li>Complimentary annual knotting inspections at our Palawan Atelier.</li>
             <li>One complimentary restringing on Japanese silk thread every 24 months.</li>
             <li>Ultrasonic inspection of diamond pavé mounts and safety clasps.</li>
           </ul>
