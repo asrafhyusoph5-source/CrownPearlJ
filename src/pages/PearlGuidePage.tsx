@@ -2,16 +2,6 @@ import React, { useEffect } from 'react';
 import { Sparkles, ShieldCheck } from 'lucide-react';
 import { ASSET_IMAGES } from '../assets/images';
 
-export const ASSET_IMAGES = {
-  // your existing images...
-
-  pearlSouthSea: '/SouthSeaPearlGuide.jpg',
-  pearlAkoya: '/AkoyaPearlGuide.jpg',
-  pearlFreshwater: '/FreshwaterPearlGuide.jpg',
-  pearlTahitian: '/TahitianPearlGuide.jpg',
-  pearlBaroque: '/BaroquePearlGuide.jpg',
-  pearlKeshi: '/KeshiPearlGuide.jpg',
-};
 
 export const PearlGuidePage: React.FC = () => {
   useEffect(() => {
