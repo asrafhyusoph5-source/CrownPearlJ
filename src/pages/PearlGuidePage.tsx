@@ -55,6 +55,9 @@ export const PearlGuidePage: React.FC = () => {
 
           <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
             <h3 className="font-serif text-xl font-semibold text-[#111]">Akoya Pearls</h3>
+            <b className="text-xs text-[#3B4A50] leading-relaxed">
+              Born in the warm waters of the ocean and sea
+            </b>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
               Cultured in saltwater oysters, primarily associated with Japan and other parts of Asia.
               They are generally smaller than South Sea Pearls but are especially valued for their bright, sharp luster and classic appearance.
@@ -72,6 +75,9 @@ export const PearlGuidePage: React.FC = () => {
 
           <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
             <h3 className="font-serif text-xl font-semibold text-[#111]">Freshwater Pearls</h3>
+            <b className="text-xs text-[#3B4A50] leading-relaxed">
+              Grown in freshwater rivers, lakes, and ponds
+            </b>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
               Unlike saltwater pearls, Freshwater Pearls are cultivated in freshwater mussels. They can be grown in rivers, lakes, ponds, and other freshwater environments, particularly in China.
             </p>
@@ -88,6 +94,9 @@ export const PearlGuidePage: React.FC = () => {
 
           <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
             <h3 className="font-serif text-xl font-semibold text-[#111]">Tahitian Pearls</h3>
+            <b className="text-xs text-[#3B4A50] leading-relaxed">
+              Born in the tropical saltwater of the South Pacific
+            </b>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
               Tahitian Pearls are cultivated in saltwater oysters, particularly the black-lipped oyster Pinctada margaritifera. They are strongly associated with French Polynesia and the tropical waters of the South Pacific.
             </p>
@@ -104,6 +113,9 @@ export const PearlGuidePage: React.FC = () => {
 
           <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
             <h3 className="font-serif text-xl font-semibold text-[#111]">Baroque Pearls</h3>
+            <b className="text-xs text-[#3B4A50] leading-relaxed">
+              Nature's beauty without a perfect shape
+            </b>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
               Baroque is not a specific place where a pearl comes from. Instead, it describes a pearl with an irregular, non-symmetrical shape.
             </p>
@@ -120,22 +132,40 @@ export const PearlGuidePage: React.FC = () => {
 
           <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
             <h3 className="font-serif text-xl font-semibold text-[#111]">Keshi Pearls</h3>
+            <b className="text-xs text-[#3B4A50] leading-relaxed">
+              Small in formation, remarkable in luster
+            </b>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
-              Cultured in saltwater oysters, primarily associated with Japan and other parts of Asia.
-              They are generally smaller than South Sea Pearls but are especially valued for their bright, sharp luster and classic appearance.
+              Keshi Pearls are naturally formed without a traditional pearl nucleus. They can occur in both saltwater and freshwater pearl cultivation.
             </p>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
-            Akoya Pearls are commonly round and are often found in white and cream shades, sometimes with delicate pink or silver overtones.
+            Because they are composed almost entirely of nacre, Keshi Pearls can display an exceptionally beautiful luster. Their shapes are often irregular, giving them a distinctive natural character.
             </p>
             <b className="text-xs text-[#3B4A50] leading-relaxed">
               Why choose Keshi?
             </b>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
-             A wonderful choice for customers who love the classic, refined look of a traditional round pearl with brilliant shine.
+             For pearl lovers who appreciate strong luster, organic shapes, and the unique character created by nature.
             </p>
           </div>
 
         </div>
+        <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
+            <h3 className="font-serif text-xl font-semibold text-[#111]">Choose the Pearl That Tells Your Story</h3>
+            <b className="text-xs text-[#3B4A50] leading-relaxed">
+              There is no single pearl that is perfect for everyone.
+            </b>
+            <p className="text-xs text-[#3B4A50] leading-relaxed">
+              Some customers are drawn to the impressive presence of a South Sea Pearl. Others prefer the classic brilliance of Akoya, the versatility of Freshwater, the dramatic character of Tahitian, or the individuality of Baroque pearls.
+            </p>
+            <p className="text-xs text-[#3B4A50] leading-relaxed">
+            Knowing where a pearl comes from and how it is formed allows you to look beyond its appearance and understand what you are truly purchasing.
+            </p>
+            <b className="text-xs text-[#3B4A50] leading-relaxed">
+              A pearl is more than something that shines — it is a natural creation shaped by water, time, and nature.
+            </b>
+          </div>
+        
       </div>
     </div>
   );
