@@ -51,7 +51,7 @@ export const PearlGuidePage: React.FC = () => {
             <p className="text-xs text-[#3B4A50] leading-relaxed">
             Akoya Pearls are commonly round and are often found in white and cream shades, sometimes with delicate pink or silver overtones.
             </p>
-            <b>
+            <p className="text-xs text-[#3B4A50] leading-relaxed">
               Why choose Akoya?
             </b>
             <p className="text-xs text-[#3B4A50] leading-relaxed">
