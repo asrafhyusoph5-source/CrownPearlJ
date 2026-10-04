@@ -9,7 +9,9 @@ export const PearlGuideTeaser: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
         <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-[#111]">The Crown Pearl Guide to Gem Selection</h2>
         <p className="text-xs sm:text-sm text-[#3B4A50] max-w-lg mx-auto">
-          Understanding the four major pearl varieties: Japanese Akoya, Australian South Sea, Tahitian Black Pearls, and Freshwater Pearls.
+          Understanding the Different Types of Pearls
+Pearls may look similar at first glance, but each type has its own story. The water where it grows, the mollusk that produces it, and the way the pearl develops all influence its size, shape, color, surface, and luster.
+Understanding these differences can help you choose a pearl that matches your taste, style, and budget.
         </p>
         <div className="max-w-3xl mx-auto rounded-xl overflow-hidden border border-[#E5E7EB] aspect-[16/9]">
           <img src={ASSET_IMAGES.pearlTypes} alt="Pearl Types" className="w-full h-full object-cover" />
