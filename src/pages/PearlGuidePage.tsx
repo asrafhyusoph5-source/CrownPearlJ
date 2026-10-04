@@ -1,22 +1,16 @@
 import React, { useEffect } from 'react';
 import { Sparkles, ShieldCheck } from 'lucide-react';
 import { ASSET_IMAGES } from '../assets/images';
-import SouthSeaPearlGuide from './SouthSeaPearlGuide.jpg';
-import AkoyaPearlGuide from './AkoyaPearlGuide.jpg';
-import FreshwaterPearlGuide from './FreshwaterPearlGuide.jpg';
-import TahitianPearlGuide from './TahitianPearlGuide.jpg';
-import BaroquePearlGuide from './BaroquePearlGuide.jpg';
-import KeshiPearlGuide from './KeshiPearlGuide.jpg';
 
 export const ASSET_IMAGES = {
   // your existing images...
 
-  pearlSouthSea: SouthSeaPearlGuide,
-  pearlAkoya: AkoyaPearlGuide,
-  pearlFreshwater: FreshwaterPearlGuide,
-  pearlTahitian: TahitianPearlGuide,
-  pearlBaroque: BaroquePearlGuide,
-  pearlKeshi: KeshiPearlGuide,
+  pearlSouthSea: '/SouthSeaPearlGuide.jpg',
+  pearlAkoya: '/AkoyaPearlGuide.jpg',
+  pearlFreshwater: '/FreshwaterPearlGuide.jpg',
+  pearlTahitian: '/TahitianPearlGuide.jpg',
+  pearlBaroque: '/BaroquePearlGuide.jpg',
+  pearlKeshi: '/KeshiPearlGuide.jpg',
 };
 
 export const PearlGuidePage: React.FC = () => {
