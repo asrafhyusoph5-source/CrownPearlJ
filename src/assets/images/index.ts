@@ -12,7 +12,11 @@ import BaroquePearlGuide from './BaroquePearlGuide.jpg';
 import KeshiPearlGuide from './KeshiPearlGuide.jpg';
 
 export const ASSET_IMAGES = {
-  // your existing images...
+  hero: heroImage,
+  bridal: bridalImage,
+  workshop: workshopImage,
+  pearlTypes: pearlTypesImage,
+  earrings: earringsImage,
 
   pearlSouthSea: SouthSeaPearlGuide,
   pearlAkoya: AkoyaPearlGuide,
@@ -20,11 +24,4 @@ export const ASSET_IMAGES = {
   pearlTahitian: TahitianPearlGuide,
   pearlBaroque: BaroquePearlGuide,
   pearlKeshi: KeshiPearlGuide,
-};
-export const ASSET_IMAGES = {
-  hero: heroImage,
-  bridal: bridalImage,
-  workshop: workshopImage,
-  pearlTypes: pearlTypesImage,
-  earrings: earringsImage,
 };
