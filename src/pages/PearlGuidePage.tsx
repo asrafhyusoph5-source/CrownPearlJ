@@ -150,8 +150,11 @@ export const PearlGuidePage: React.FC = () => {
           </div>
 
         </div>
-        <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
-            <h3 className="font-serif text-xl font-semibold text-[#111]">Choose the Pearl That Tells Your Story</h3>
+        
+        
+            <h1 className="font-serif text-4xl sm:text-5xl text-[#111111] font-semibold">
+            Choose the Pearl That Tells Your Story
+          </h1>
             <b className="text-xs text-[#3B4A50] leading-relaxed">
               There is no single pearl that is perfect for everyone.
             </b>
@@ -164,7 +167,7 @@ export const PearlGuidePage: React.FC = () => {
             <b className="text-xs text-[#3B4A50] leading-relaxed">
               A pearl is more than something that shines — it is a natural creation shaped by water, time, and nature.
             </b>
-          </div>
+          
         
       </div>
     </div>
