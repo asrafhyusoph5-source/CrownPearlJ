@@ -1,13 +1,37 @@
 import React, { useEffect } from 'react';
-import { Sparkles, ShieldCheck } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Sparkles, CheckCircle2, ShieldCheck, HeartHandshake, ArrowRight, AlertCircle } from 'lucide-react';
 import { ASSET_IMAGES } from '../assets/images';
-
 
 export const PearlGuidePage: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = 'Pearl Education & Care Guide – Crown Pearl Atelier';
   }, []);
+
+  const qualityFactors = [
+    {
+      factor: '1. Luster (The Soul of the Pearl)',
+      desc: 'The single most vital value factor. Luster is the sharp mirror-like reflection produced when light penetrates semi-translucent crystalline aragonite platelet layers. AAA pearls display clear, crisp silhouettes with unmistakable specular depth.'
+    },
+    {
+      factor: '2. Surface Perfection',
+      desc: 'Because pearls are grown inside living oysters, tiny organic characteristics (dimples, ridges, or spots) are natural proof of authenticity. Crown Pearl accepts only gems in the top 5% of harvest cleanliness, free from visible cracks or dull spots.'
+    },
+    {
+      factor: '3. Symmetry & Shape',
+      desc: 'While baroque pearls are celebrated for their dramatic organic forms, true spherical round pearls are the rarest and most difficult to culture, requiring years of calm waters and balanced oyster vitality.'
+    },
+    {
+      factor: '4. Nacre Thickness',
+      desc: 'Nacre is the crystalline matrix calcium carbonate that shields the pearl. Thicker nacre guarantees that the gemstone will retain its vivid luster across generations without chipping or peeling.'
+    },
+    {
+      factor: '5. Color & Undertone',
+      desc: 'Natural body colors range from crisp snow-white and silvery grey to exotic champagne and peacock green. Look for secondary "overtones" that shimmer across the pearl’s surface when rotated.'
+    }
+  ];
+
 
   return (
     <div className="bg-[#FAFAF8] min-h-screen py-16">
@@ -261,3 +285,8 @@ export const PearlGuidePage: React.FC = () => {
     </div>
   );
 };
+
+
+
+
+
