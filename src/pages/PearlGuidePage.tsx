@@ -30,16 +30,12 @@ export const PearlGuidePage: React.FC = () => {
         </div>
 
         <div className="rounded-2xl overflow-hidden aspect-[16/9] max-h-[440px] border border-[#E5E7EB]">
-          <img src={ASSET_IMAGES.pearlTypes} alt="Crown Pearl varieties" className="w-full h-full object-cover" />
+          <img src={ASSET_IMAGES.pearlGuide} alt="Pearl Guide" className="w-full h-full object-cover" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
-            <img
-  src={ASSET_IMAGES.pearlSouthSea}
-  alt="South Sea Pearl"
-  className="w-full h-56 object-cover"
-/>
+            <img src={ASSET_IMAGES.pearlSouthSea} alt="South Sea Pearl" className="w-full h-56 object-cover" />
             <h3 className="font-serif text-xl font-semibold text-[#111]">South Sea Pearls</h3>
             <b className="text-xs text-[#3B4A50] leading-relaxed">
               Born in the warm waters of the ocean and sea
@@ -60,11 +56,7 @@ export const PearlGuidePage: React.FC = () => {
           </div>
 
           <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
-            <img
-  src={ASSET_IMAGES.pearlAkoya}
-  alt="Akoya Pearl"
-  className="w-full h-56 object-cover"
-/>
+            <img src={ASSET_IMAGES.pearlAkoya} alt="Akoya Pearl" className="w-full h-56 object-cover" />
             <h3 className="font-serif text-xl font-semibold text-[#111]">Akoya Pearls</h3>
             <b className="text-xs text-[#3B4A50] leading-relaxed">
               Born in the warm waters of the ocean and sea
@@ -85,11 +77,7 @@ export const PearlGuidePage: React.FC = () => {
           </div>
 
           <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
-            <img
-  src={ASSET_IMAGES.pearlFreshwater}
-  alt="Freshwater Pearl"
-  className="w-full h-56 object-cover"
-/>
+            <img src={ASSET_IMAGES.pearlFreshwater} alt="Freshwater Pearl" className="w-full h-56 object-cover" />
             <h3 className="font-serif text-xl font-semibold text-[#111]">Freshwater Pearls</h3>
             <b className="text-xs text-[#3B4A50] leading-relaxed">
               Grown in freshwater rivers, lakes, and ponds
@@ -109,11 +97,7 @@ export const PearlGuidePage: React.FC = () => {
           </div>
 
           <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
-            <img
-  src={ASSET_IMAGES.pearlTahitian}
-  alt="Tahitian Pearl"
-  className="w-full h-56 object-cover"
-/>
+            <img src={ASSET_IMAGES.pearlTahitian} alt="Tahitian Pearl" className="w-full h-56 object-cover" />
             <h3 className="font-serif text-xl font-semibold text-[#111]">Tahitian Pearls</h3>
             <b className="text-xs text-[#3B4A50] leading-relaxed">
               Born in the tropical saltwater of the South Pacific
@@ -133,11 +117,7 @@ export const PearlGuidePage: React.FC = () => {
           </div>
 
           <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
-            <img
-  src={ASSET_IMAGES.pearlBaroque}
-  alt="Baroque Pearl"
-  className="w-full h-56 object-cover"
-/>
+            <img src={ASSET_IMAGES.pearlBaroque} alt="Baroque Pearl" className="w-full h-56 object-cover" />
             <h3 className="font-serif text-xl font-semibold text-[#111]">Baroque Pearls</h3>
             <b className="text-xs text-[#3B4A50] leading-relaxed">
               Nature's beauty without a perfect shape
@@ -157,11 +137,7 @@ export const PearlGuidePage: React.FC = () => {
           </div>
 
           <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-2">
-            <img
-  src={ASSET_IMAGES.pearlKeshi}
-  alt="Keshi Pearl"
-  className="w-full h-56 object-cover"
-/>
+            <img src={ASSET_IMAGES.pearlKeshi} alt="Keshi Pearl" className="w-full h-56 object-cover" />
             <h3 className="font-serif text-xl font-semibold text-[#111]">Keshi Pearls</h3>
             <b className="text-xs text-[#3B4A50] leading-relaxed">
               Small in formation, remarkable in luster
