@@ -268,8 +268,8 @@ export const PearlGuidePage: React.FC = () => {
                 Never hang heavy pearl strands continuously on hooks (which stretches silk cord). Store flat in your velvet pouch separated from harder gemstones.
               </p>
             </div>
+            <img src={ASSET_IMAGES.cleanPearl} alt="Clean Pearl" className="w-full h-full object-cover" />
           </div>
-          <img src={ASSET_IMAGES.pearlGuide} alt="Pearl Guide" className="w-full h-full object-cover" />
         </div>
 
         {/* CTA */}
