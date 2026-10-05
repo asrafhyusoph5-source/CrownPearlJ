@@ -67,7 +67,12 @@ export const CheckoutPage: React.FC = () => {
 
     setIsProcessing(true);
 
-    const orderNum = `CP-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+const now = new Date();
+const day = String(now.getDate()).padStart(2, '0');
+const month = String(now.getMonth() + 1).padStart(2, '0');
+const randomNumber = Math.floor(1000 + Math.random() * 9000);
+    
+    const orderNum = `CP-${day}${month}-${randomNumber}`;
 
     // Format item list for Messenger with quantities and prices
     const itemsList = cart
@@ -107,7 +112,7 @@ SHIPPING: ${shippingCost === 0 ? 'Complimentary' : `$${shippingCost}`}
 TOTAL DUE: $${finalTotal.toLocaleString()}
 PREFERRED PAYMENT: ${paymentLabel}
 -----------------------------
-Hello Delma Atelier, please confirm my order and send the payment details!`;
+Hello Crown Atelier, please confirm my order and send the payment details!`;
 
     const encodedMessage = encodeURIComponent(orderMessage);
 
