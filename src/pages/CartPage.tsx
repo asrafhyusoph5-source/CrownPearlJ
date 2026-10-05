@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Trash2, ArrowRight, ShieldCheck, Gift, Check, Tag, ShoppingBag, ArrowLeft } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
+import { PRODUCTS } from '../data/products';
 
 export const CartPage: React.FC = () => {
   const {
@@ -15,10 +16,12 @@ export const CartPage: React.FC = () => {
     appliedPromo,
     applyPromoCode,
     removePromoCode,
-    orderTotal
+    orderTotal,
+    addToCart
   } = useShop();
 
   const [promoCodeInput, setPromoCodeInput] = useState('');
+  const [promoFeedback, setPromoFeedback] = useState<{ text: string; isError: boolean } | null>(null);
   const [giftWrapping, setGiftWrapping] = useState(false);
   const navigate = useNavigate();
 
@@ -32,11 +35,13 @@ export const CartPage: React.FC = () => {
 
   const handleApplyPromo = (e: React.FormEvent) => {
     e.preventDefault();
-    if (promoCodeInput.trim()) {
-      applyPromoCode(promoCodeInput);
-      setPromoCodeInput('');
-    }
+    if (!promoCodeInput.trim()) return;
+    const res = applyPromoCode(promoCodeInput);
+    setPromoFeedback({ text: res.message, isError: !res.success });
+    if (res.success) setPromoCodeInput('');
   };
+
+  const recommendedUpsell = PRODUCTS.find((p) => p.id === 'heirloom-pearl-care-concierge-kit') || PRODUCTS[15];
 
   if (cart.length === 0) {
     return (
@@ -45,9 +50,14 @@ export const CartPage: React.FC = () => {
           <div className="w-16 h-16 rounded-full bg-[#FAFAF8] border border-[#C9D1D3] flex items-center justify-center mx-auto text-[#3B4A50]">
             <ShoppingBag className="w-8 h-8 opacity-40" />
           </div>
-          <h1 className="font-serif text-2xl font-semibold text-[#111]">
-            Your Shopping Bag is Empty
-          </h1>
+          <div className="space-y-1">
+            <h1 className="font-serif text-2xl font-semibold text-[#111]">
+              Your Shopping Bag is Empty
+            </h1>
+            <p className="text-xs sm:text-sm text-[#3B4A50]">
+              Explore our certified saltwater Akoya, South Sea, and Tahitian pearl heirlooms.
+            </p>
+          </div>
           <Link
             to="/shop"
             className="inline-flex items-center gap-2 px-7 py-3 bg-[#3B4A50] hover:bg-[#111] text-white font-heading uppercase text-xs tracking-widest font-semibold rounded-lg shadow-sm transition-colors"
@@ -63,16 +73,22 @@ export const CartPage: React.FC = () => {
   return (
     <div className="bg-[#FAFAF8] min-h-screen py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <Link to="/shop" className="inline-flex items-center gap-1.5 text-xs font-heading uppercase tracking-widest text-[#3B4A50] hover:text-[#7FC8C0] mb-2">
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Continue Shopping</span>
-          </Link>
-          <h1 className="font-serif text-3xl sm:text-4xl text-[#111] font-semibold">
-            Atelier Shopping Bag ({cart.length} creations)
-          </h1>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <Link
+              to="/shop"
+              className="inline-flex items-center gap-1.5 text-xs font-heading uppercase tracking-widest text-[#3B4A50] hover:text-[#7FC8C0] mb-2"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Continue Shopping</span>
+            </Link>
+            <h1 className="font-serif text-3xl sm:text-4xl text-[#111] font-semibold">
+              Atelier Shopping Bag ({cart.length} creations)
+            </h1>
+          </div>
         </div>
 
+        {/* Free Shipping Bar */}
         <div className="bg-white p-4 rounded-xl border border-[#E5E7EB] mb-8 shadow-xs">
           <div className="flex items-center justify-between text-xs text-[#3B4A50] mb-1.5">
             <span className="font-heading uppercase tracking-wider font-semibold">
@@ -82,48 +98,93 @@ export const CartPage: React.FC = () => {
                   Complimentary Insured Courier Delivery Unlocked
                 </span>
               ) : (
-                <span>Add ${amountToFreeShipping} more to qualify for Free Courier</span>
+                <span>Add ${amountToFreeShipping} more to qualify for Complimentary Worldwide Courier</span>
               )}
             </span>
             <span className="tabular-nums font-semibold">{progressPercent}%</span>
           </div>
           <div className="w-full bg-[#FAFAF8] border border-gray-200 h-2 rounded-full overflow-hidden">
-            <div className="bg-[#7FC8C0] h-full transition-all duration-500 rounded-full" style={{ width: `${progressPercent}%` }} />
+            <div
+              className="bg-[#7FC8C0] h-full transition-all duration-500 rounded-full"
+              style={{ width: `${progressPercent}%` }}
+            />
           </div>
         </div>
 
+        {/* Layout Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Items List (8 Cols) */}
           <div className="lg:col-span-8 space-y-4">
             <div className="bg-white rounded-2xl border border-[#E5E7EB] overflow-hidden shadow-xs divide-y divide-gray-100">
               {cart.map((item) => (
                 <div key={item.id} className="p-6 flex flex-col sm:flex-row gap-5 items-start sm:items-center justify-between">
                   <div className="flex items-center gap-4 min-w-0">
-                    <img src={item.product.images[0]} alt={item.product.name} className="w-20 h-20 object-cover rounded-xl bg-[#FAFAF8] border border-gray-100 shrink-0" />
+                    <img
+                      src={item.product.images[0]}
+                      alt={item.product.name}
+                      className="w-20 h-20 object-cover rounded-xl bg-[#FAFAF8] border border-gray-100 shrink-0"
+                      referrerPolicy="no-referrer"
+                    />
                     <div className="min-w-0 space-y-1">
                       <div className="text-[10px] text-[#7FC8C0] font-heading uppercase tracking-widest font-semibold">
                         {item.product.pearlType} Pearl · {item.product.pearlSize}
                       </div>
-                      <Link to={`/product/${item.product.id}`} className="font-serif text-lg font-semibold text-[#111] block truncate">
+                      <Link
+                        to={`/product/${item.product.id}`}
+                        className="font-serif text-lg font-semibold text-[#111] hover:text-[#7FC8C0] transition-colors block truncate"
+                      >
                         {item.product.name}
                       </Link>
-                      <div className="text-xs text-[#3B4A50]/80">
-                        Metal: <strong className="text-[#111]">{item.selectedMetal}</strong> {item.selectedLength ? `· ${item.selectedLength}` : ''}
+                      <div className="text-xs text-[#3B4A50]/80 space-y-0.5">
+                        <div>Precious Metal: <strong className="text-[#111]">{item.selectedMetal}</strong></div>
+                        {item.selectedLength && <div>Length: {item.selectedLength}</div>}
+                        {item.selectedSize && <div>Ring Size: {item.selectedSize}</div>}
+                        {item.engraving && (
+                          <div className="text-[#7FC8C0]">Engraving: "{item.engraving}"</div>
+                        )}
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto">
+                  {/* Quantity Stepper & Price */}
+                  <div className="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-50">
                     <div className="flex items-center border border-[#C9D1D3] rounded-lg bg-[#FAFAF8]">
-                      <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="px-3 py-1.5 text-xs text-[#3B4A50]">-</button>
-                      <span className="px-3 text-xs font-heading font-semibold text-[#111] tabular-nums">{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="px-3 py-1.5 text-xs text-[#3B4A50]">+</button>
+                      <button
+                        type="button"
+                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        className="px-3 py-1.5 text-xs text-[#3B4A50] hover:text-[#111]"
+                        aria-label="Decrease quantity"
+                      >
+                        -
+                      </button>
+                      <span className="px-3 text-xs font-heading font-semibold text-[#111] tabular-nums">
+                        {item.quantity}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        className="px-3 py-1.5 text-xs text-[#3B4A50] hover:text-[#111]"
+                        aria-label="Increase quantity"
+                      >
+                        +
+                      </button>
                     </div>
 
-                    <div className="font-heading font-bold text-base sm:text-lg text-[#111] tabular-nums">
-                      ${(item.product.price * item.quantity).toLocaleString()}
+                    <div className="text-right">
+                      <div className="font-heading font-bold text-base sm:text-lg text-[#111] tabular-nums">
+                        ${(item.product.price * item.quantity).toLocaleString()}
+                      </div>
+                      <div className="text-[11px] text-gray-400 tabular-nums">
+                        ${item.product.price.toLocaleString()} each
+                      </div>
                     </div>
 
-                    <button onClick={() => removeFromCart(item.id)} className="text-gray-400 hover:text-rose-500 p-2">
+                    <button
+                      type="button"
+                      onClick={() => removeFromCart(item.id)}
+                      className="text-gray-400 hover:text-rose-500 p-2"
+                      aria-label="Remove item"
+                    >
                       <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
@@ -131,6 +192,7 @@ export const CartPage: React.FC = () => {
               ))}
             </div>
 
+            {/* Gift Wrap Box */}
             <div className="bg-white p-5 rounded-xl border border-[#E5E7EB] flex items-center justify-between shadow-xs">
               <div className="flex items-center gap-3">
                 <Gift className="w-5 h-5 text-[#7FC8C0]" />
@@ -139,7 +201,7 @@ export const CartPage: React.FC = () => {
                     Crown Pearl Signature Gift Boxing & Wax Seal
                   </h4>
                   <p className="text-xs text-[#3B4A50]/80">
-                    Bespoke teal lacquer presentation box with hand-stamped wax crest.
+                    Each creation arrives in a bespoke teal lacquer presentation box with hand-stamped wax crest.
                   </p>
                 </div>
               </div>
@@ -150,38 +212,101 @@ export const CartPage: React.FC = () => {
                 className="w-5 h-5 accent-[#3B4A50] rounded cursor-pointer"
               />
             </div>
+
+            {/* Recommended Upsell */}
+            {recommendedUpsell && !cart.some((i) => i.productId === recommendedUpsell.id) && (
+              <div className="bg-[#FAFAF8] p-5 rounded-xl border border-[#7FC8C0]/40 flex items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+                  <img
+                    src={recommendedUpsell.images[0]}
+                    alt={recommendedUpsell.name}
+                    className="w-16 h-16 object-cover rounded-lg bg-white border border-gray-100 shrink-0"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div>
+                    <span className="text-[10px] text-[#7FC8C0] font-heading uppercase font-semibold">
+                      Essential Conservation Perk
+                    </span>
+                    <h5 className="font-serif text-sm font-semibold text-[#111]">
+                      {recommendedUpsell.name}
+                    </h5>
+                    <span className="text-xs font-heading font-bold text-[#111] tabular-nums">
+                      ${recommendedUpsell.price}
+                    </span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => addToCart(recommendedUpsell)}
+                  className="px-4 py-2 bg-white hover:bg-[#3B4A50] text-[#3B4A50] hover:text-white border border-[#C9D1D3] text-xs font-heading uppercase tracking-wider font-semibold rounded-lg transition-colors"
+                >
+                  Add to Order
+                </button>
+              </div>
+            )}
           </div>
 
+          {/* Order Summary (4 Cols) */}
           <div className="lg:col-span-4 bg-white p-6 sm:p-8 rounded-2xl border border-[#E5E7EB] shadow-xs space-y-6">
             <h3 className="font-serif text-xl font-semibold text-[#111] pb-3 border-b border-gray-100">
               Acquisition Summary
             </h3>
 
+            {/* Promo Code Form */}
             <form onSubmit={handleApplyPromo} className="space-y-2">
+              <label className="block text-[11px] font-heading uppercase tracking-wider text-[#3B4A50] font-semibold">
+                Promotional Voucher
+              </label>
               <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={promoCodeInput}
-                  onChange={(e) => setPromoCodeInput(e.target.value)}
-                  placeholder="Code (e.g. WELCOME10)"
-                  className="w-full px-3 py-2 text-xs bg-[#FAFAF8] border border-[#C9D1D3] rounded focus:outline-none focus:border-[#7FC8C0]"
-                />
-                <button type="submit" className="px-4 py-2 bg-[#3B4A50] text-white text-xs font-heading uppercase rounded">
+                <div className="relative flex-1">
+                  <Tag className="w-3.5 h-3.5 text-[#3B4A50] absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    value={promoCodeInput}
+                    onChange={(e) => setPromoCodeInput(e.target.value)}
+                    placeholder="Enter code (e.g. WELCOME10)"
+                    className="w-full pl-8 pr-3 py-2 text-xs bg-[#FAFAF8] border border-[#C9D1D3] rounded focus:outline-none focus:border-[#7FC8C0]"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-[#3B4A50] hover:bg-[#111] text-white text-xs font-heading uppercase tracking-wider rounded font-medium transition-colors"
+                >
                   Apply
                 </button>
               </div>
+
               {appliedPromo && (
-                <div className="text-xs text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded flex justify-between">
+                <div className="flex items-center justify-between text-xs text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded mt-2">
                   <span>Code <strong>{appliedPromo}</strong> active</span>
-                  <button type="button" onClick={removePromoCode} className="underline text-[11px]">Remove</button>
+                  <button
+                    type="button"
+                    onClick={removePromoCode}
+                    className="text-emerald-800 underline text-[11px]"
+                  >
+                    Remove
+                  </button>
+                </div>
+              )}
+
+              {promoFeedback && (
+                <div
+                  className={`text-xs ${
+                    promoFeedback.isError ? 'text-rose-600' : 'text-emerald-600'
+                  }`}
+                >
+                  {promoFeedback.text}
                 </div>
               )}
             </form>
 
+            {/* Cost Breakdown */}
             <div className="space-y-3 text-xs text-[#3B4A50] border-t border-gray-100 pt-4">
               <div className="flex justify-between">
                 <span>Subtotal</span>
-                <span className="font-semibold text-[#111] tabular-nums">${subtotal.toLocaleString()}</span>
+                <span className="font-semibold text-[#111] tabular-nums">
+                  ${subtotal.toLocaleString()}
+                </span>
               </div>
               {discountAmount > 0 && (
                 <div className="flex justify-between text-emerald-700 font-medium">
@@ -195,20 +320,39 @@ export const CartPage: React.FC = () => {
                   {shippingFee === 0 ? 'Complimentary' : `$${shippingFee}`}
                 </span>
               </div>
+              <div className="flex justify-between">
+                <span>Certificate & Archival Storage</span>
+                <span className="text-emerald-700 font-medium">Included</span>
+              </div>
               <div className="flex justify-between text-base font-serif font-bold text-[#111] pt-3 border-t border-gray-100">
                 <span>Estimated Total</span>
-                <span className="font-heading text-xl tabular-nums">${orderTotal.toLocaleString()}</span>
+                <span className="font-heading text-xl tabular-nums">
+                  ${orderTotal.toLocaleString()}
+                </span>
               </div>
             </div>
 
+            {/* Checkout Action */}
             <button
               type="button"
               onClick={() => navigate('/checkout')}
-              className="w-full py-4 bg-[#3B4A50] hover:bg-[#111] text-white font-heading uppercase text-xs tracking-widest font-semibold rounded-lg shadow-md flex items-center justify-center gap-2"
+              className="w-full py-4 bg-[#3B4A50] hover:bg-[#111] text-white font-heading uppercase text-xs tracking-widest font-semibold rounded-lg shadow-md transition-all flex items-center justify-center gap-2"
             >
               <span>Proceed to Insured Checkout</span>
               <ArrowRight className="w-4 h-4 text-[#7FC8C0]" />
             </button>
+
+            {/* Guarantees */}
+            <div className="space-y-2 pt-2 text-xs text-[#3B4A50]">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-[#7FC8C0] shrink-0" />
+                <span>30-Day in-home natural daylight examination</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Gift className="w-4 h-4 text-[#7FC8C0] shrink-0" />
+                <span>Complimentary signature gift presentation</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
