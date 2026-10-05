@@ -13,6 +13,7 @@ import { SearchModal } from './components/common/SearchModal';
 import { CartDrawer } from './components/cart/CartDrawer';
 import { QuickViewModal } from './components/product/QuickViewModal';
 
+//Pages
 import { HomePage } from './pages/HomePage';
 import { ShopPage } from './pages/ShopPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
@@ -25,6 +26,7 @@ import { ContactPage } from './pages/ContactPage';
 import { FAQPage } from './pages/FAQPage';
 import { ShippingReturnsPage } from './pages/ShippingReturnsPage';
 import { LegalPage } from './pages/LegalPage';
+import { LiveSellingPage } from './pages/LiveSellingPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
 import { CertificateVerificationPage } from './pages/CertificateVerificationPage';
@@ -52,6 +54,7 @@ export default function App() {
               <Route path="/product/:id" element={<ProductDetailPage />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/live" element={<LiveSellingPage />} />
               <Route path="/our-story" element={<OurStoryPage />} />
               <Route path="/pearl-guide" element={<PearlGuidePage />} />
               <Route path="/reviews" element={<ReviewsPage />} />
