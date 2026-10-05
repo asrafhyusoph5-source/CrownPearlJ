@@ -26,7 +26,7 @@ export const PRODUCTS: Product[] = [
       ASSET_IMAGES.workshop
     ],
     description: 'A benchmark in high-jewelry pearl strands, hand-selected by Delma since 2003. Each Akoya pearl is meticulously graded for deep mirror-like metallic luster, velvety rose blush overtones, and pristine spherical symmetry.',
-    story: 'Conceived in Delma’s first Manhattan atelier in late 2003, this necklace embodies the atelier’s core ethos: uncompromised hand-knotting using Japanese double-spun silk.',
+    story: 'Conceived in Delma’s first Manhattan atelier in late 2003, this necklace embodies the atelier’s core ethos: uncompromised hand-knotting using Japanese double-spun silk, ensuring every pearl rests securely against the next with supple drape.',
     details: [
       'GIA certified AAA grade Japanese Akoya pearls',
       'Hand-knotted on pure Japanese silk cord',
@@ -76,7 +76,7 @@ export const PRODUCTS: Product[] = [
       ASSET_IMAGES.pearlTypes
     ],
     description: 'An architectural union of organic fluidity and precious metal. Two matched South Sea teardrop pearls sway gracefully beneath bezel-set VS1 brilliant pavé diamonds.',
-    story: 'South Sea pearls are cultivated for up to three years in the warm bays of Northwestern Australia.',
+    story: 'South Sea pearls are cultivated for up to three years in the warm, secluded bays of Northwestern Australia. Each pair is chosen from hundreds of harvest lots to achieve identical tone, curvature, and reflection.',
     details: [
       'Hand-selected matched pair of Australian South Sea pearls',
       'Conflict-free round brilliant diamonds: 0.18 ctw (F/G color, VS clarity)',
@@ -86,7 +86,7 @@ export const PRODUCTS: Product[] = [
     materials: [
       'Australian South Sea Cultured Pearls',
       '18k White Gold',
-      'Natural Brilliant Diamonds (0.18ctw)'
+      'Natural Natural Brilliant Diamonds (0.18ctw)'
     ],
     specs: {
       luster: 'High Silk Sheen',
@@ -97,7 +97,8 @@ export const PRODUCTS: Product[] = [
     },
     care: [
       'Gently clean with lukewarm water and a drop of pH-neutral soap if needed.',
-      'Dry immediately with a soft cotton cloth.'
+      'Dry immediately with a soft cotton cloth.',
+      'Never submerge in chemical jewelry dips or steam cleaners.'
     ],
     isFeatured: true,
     isBestseller: true
@@ -125,8 +126,8 @@ export const PRODUCTS: Product[] = [
       ASSET_IMAGES.hero,
       ASSET_IMAGES.workshop
     ],
-    description: 'Designed specifically for the bride seeking timeless dignity. The Aurora suite features three graduated rows of lustrous Japanese Akoya pearls held by a sculpted platinum bar clasp.',
-    story: 'First custom-created for a family wedding in 2004, the Aurora suite became Delma’s most celebrated bridal commission.',
+    description: 'Designed specifically for the bride seeking timeless dignity. The Aurora suite features three graduated rows of lustrous Japanese Akoya pearls held by a sculpted Art Deco platinum bar clasp.',
+    story: 'First custom-created for a family wedding in 2004, the Aurora suite became Delma’s most celebrated bridal commission. Each piece is crafted upon order in our workshop with personal provenance notes.',
     details: [
       'Graduated multi-strand design with platinum stabilizer bars',
       'Custom hidden box clasp with safety latch',
@@ -145,9 +146,53 @@ export const PRODUCTS: Product[] = [
       nacreThickness: 'Very Thick (0.6mm)',
       origin: 'Nagasaki & Mie, Japan'
     },
-    care: ['Store in the provided breathable silk wedding roll.'],
+    care: [
+      'Ensure makeup and setting spray are dry before putting on.',
+      'Store in the provided breathable silk wedding roll.'
+    ],
     isFeatured: true,
     isBestseller: true
+  },
+  {
+    id: 'celeste-solitaire-pearl-ring',
+    name: 'Celeste Solitaire Pearl Ring',
+    tagline: 'Luminous 10mm South Sea pearl cradled in an openwork 18k gold band',
+    price: 980,
+    category: 'rings',
+    pearlType: 'South Sea',
+    pearlColor: 'Pure White with Warm Champagne Hue',
+    pearlSize: '10.0 - 10.5 mm',
+    metal: '18k Yellow Gold',
+    availableMetals: ['18k Yellow Gold', '18k White Gold', '18k Rose Gold'],
+    availableSizes: ['5', '6', '7', '8', '9'],
+    rating: 4.88,
+    reviewCount: 19,
+    inStock: true,
+    stockCount: 6,
+    badge: 'New',
+    images: [
+      ASSET_IMAGES.pearlTypes,
+      ASSET_IMAGES.earrings,
+      ASSET_IMAGES.bridal
+    ],
+    description: 'A contemporary tribute to celestial harmony. An exceptionally spherical South Sea pearl rests upon a gentle scalloped cathedral setting designed to capture sunlight from all angles.',
+    story: 'Handcrafted by master carvers to ensure the pearl sits securely without bulky prongs, celebrating the organic perfection of the gem uninterrupted.',
+    details: [
+      'Peg-and-cup secure mounting with internal locking thread',
+      'Subtle knife-edge tapered shank for comfortable daily wear',
+      'Interior engraving available up to 15 characters'
+    ],
+    materials: ['Australian South Sea Pearl', '18k Yellow Gold (100% Recycled)'],
+    specs: {
+      luster: 'Silky Warm Glow',
+      surface: 'Clean to the Naked Eye',
+      shape: 'Round',
+      nacreThickness: '1.8mm',
+      origin: 'Broome, Australia'
+    },
+    care: ['Remove before hand-washing, exercise, or applying hand sanitizers.'],
+    isFeatured: false,
+    isBestseller: false
   },
   {
     id: 'tahitian-peacock-empress-collar',
@@ -173,7 +218,7 @@ export const PRODUCTS: Product[] = [
       ASSET_IMAGES.workshop
     ],
     description: 'An arresting collar of dark French Polynesian pearls. Each gem reveals shifting iridescent overtones reminiscent of peacock plumes and deep oceanic depths.',
-    story: 'It requires sorting over 3,000 black-lip oysters to match 35 pearls in this color spectrum.',
+    story: 'It requires sorting over 3,000 black-lip oysters (Pinctada margaritifera) to match 35 pearls in this color spectrum and graduated harmony. A true connoisseur heirloom.',
     details: [
       'Graduated layout from 10.0mm at the clasp to 12.0mm center focal pearl',
       '18k white gold satin-finished magnetic orb clasp with mechanical lock',
@@ -187,8 +232,130 @@ export const PRODUCTS: Product[] = [
       nacreThickness: 'Thick (1.2mm+)',
       origin: 'Tuamotu Archipelago, French Polynesia'
     },
-    care: ['Store in original Delma soft leather case.'],
+    care: ['Store in original Delma soft leather case. Avoid prolonged dry heat.'],
     isFeatured: true,
+    isBestseller: false
+  },
+  {
+    id: 'knot-by-knot-akoya-bracelet',
+    name: 'Knot-by-Knot Akoya Pearl Bracelet',
+    tagline: 'Classic single-strand bracelet with Delma’s filigree barrel clasp',
+    price: 680,
+    category: 'bracelets',
+    pearlType: 'Akoya',
+    pearlColor: 'Crisp White with Silver Overtones',
+    pearlSize: '7.0 - 7.5 mm',
+    metal: '18k Yellow Gold',
+    availableMetals: ['18k Yellow Gold', '18k White Gold', 'Sterling Silver 925'],
+    availableLengths: ['6.5 inch (Small)', '7.0 inch (Medium)', '7.5 inch (Large)'],
+    rating: 4.9,
+    reviewCount: 41,
+    inStock: true,
+    stockCount: 9,
+    badge: 'Bestseller',
+    images: [
+      ASSET_IMAGES.workshop,
+      ASSET_IMAGES.pearlTypes,
+      ASSET_IMAGES.hero
+    ],
+    description: 'An everyday luxury essential. Designed to drape fluidly around the wrist, catching ambient light with every hand gesture.',
+    story: 'Knotting bracelets requires the tightest tension control in pearl stringing, preventing rubbing while maintaining tactile softness. Our workshop standard has remained unchanged since 2003.',
+    details: [
+      'Double hand-knotted between every individual pearl',
+      'Vintage-inspired hand-engraved 18k barrel clasp with safety catch',
+      'Perfect for stacking with fine gold bangles'
+    ],
+    materials: ['Akoya Pearls', '18k Yellow Gold Clasp', 'Pure Silk Thread'],
+    specs: {
+      luster: 'High Gloss',
+      surface: 'Clean',
+      shape: 'Round',
+      nacreThickness: 'Thick (0.45mm)',
+      origin: 'Ago Bay, Japan'
+    },
+    care: ['Clean gently with soft cloth after social events and wear.'],
+    isFeatured: false,
+    isBestseller: true
+  },
+  {
+    id: 'baroque-freshwater-lariat',
+    name: 'Baroque Freshwater Ripple Lariat',
+    tagline: 'Organic freeform freshwater pearls on an adjustable golden slide chain',
+    price: 540,
+    category: 'necklaces',
+    pearlType: 'Freshwater',
+    pearlColor: 'Natural Pastel Peach & Lavender',
+    pearlSize: '12 - 14 mm',
+    metal: '18k Yellow Gold',
+    availableMetals: ['18k Yellow Gold', '18k White Gold'],
+    availableLengths: ['28 inch (Adjustable Slide)'],
+    rating: 4.87,
+    reviewCount: 22,
+    inStock: true,
+    stockCount: 5,
+    badge: 'New',
+    images: [
+      ASSET_IMAGES.pearlTypes,
+      ASSET_IMAGES.hero,
+      ASSET_IMAGES.bridal
+    ],
+    description: 'Celebrates the unfiltered poetry of nature. No two baroque ripple pearls are identical; their rippled nacre planes refract mesmerizing pastel halos.',
+    story: 'Freshwater pearls formed without a solid bead nucleus develop extraordinary solid-nacre baroque silhouettes. Delma hand-selects these for their flame-like fire.',
+    details: [
+      'Silicone-grip 18k slide bead allows endless styling lengths',
+      'Solid 18k diamond-cut wheat chain for high sparkle',
+      'Each baroque pearl is one-of-a-kind in shape'
+    ],
+    materials: ['Cultured Freshwater Pearls', '18k Yellow Gold Chain'],
+    specs: {
+      luster: 'Deep Satin Fire',
+      surface: 'Textured Rippled Baroque',
+      shape: 'Baroque Freeform',
+      nacreThickness: '100% Solid Nacre',
+      origin: 'Lake Taihu, China'
+    },
+    care: ['Lay flat to store. Do not suspend continuously on hanging hooks.'],
+    isFeatured: false,
+    isBestseller: false
+  },
+  {
+    id: 'monolith-tahitian-pearl-cufflinks',
+    name: 'Monolith Tahitian Pearl Cufflinks',
+    tagline: 'Twin obsidian-toned Tahitian pearls framed in brushed sterling & slate',
+    price: 620,
+    category: 'mens',
+    pearlType: 'Tahitian',
+    pearlColor: 'Graphite Charcoal & Gunmetal',
+    pearlSize: '10.5 - 11.0 mm',
+    metal: 'Sterling Silver 925',
+    availableMetals: ['Sterling Silver 925', '18k White Gold'],
+    rating: 4.96,
+    reviewCount: 18,
+    inStock: true,
+    stockCount: 4,
+    badge: 'Heritage Selection',
+    images: [
+      ASSET_IMAGES.pearlTypes,
+      ASSET_IMAGES.workshop,
+      ASSET_IMAGES.earrings
+    ],
+    description: 'Sartorial refinement for the discerning gentleman. Two button-shaped Tahitian pearls embedded within substantial brushed sterling silver swivel mounts.',
+    story: 'Created by Delma as a tribute to mid-century bespoke menswear tailoring, where pearls were a dignified symbol of power, sea heritage, and understated sophistication.',
+    details: [
+      'Engine-turned swivel toggle mechanism with crisp click',
+      'Anti-tarnish rhodium plating over solid 925 sterling silver',
+      'Delivered in embossed Delma calfskin gift box'
+    ],
+    materials: ['Tahitian Saltwater Cultured Pearls', 'Rhodium Plated Sterling Silver 925'],
+    specs: {
+      luster: 'High Metallic Sheen',
+      surface: 'Clean (<2% natural dimple)',
+      shape: 'Button / Symmetrical Oval',
+      nacreThickness: '1.4mm',
+      origin: 'Rikitea, Gambier Islands'
+    },
+    care: ['Store cufflinks separated in velvet slots to prevent metal contact with pearls.'],
+    isFeatured: false,
     isBestseller: false
   },
   {
@@ -213,7 +380,7 @@ export const PRODUCTS: Product[] = [
       ASSET_IMAGES.hero
     ],
     description: 'The foundation of every fine jewelry wardrobe. Sourced from the winter harvests of Ago Bay when cooler ocean currents concentrate nacre density for ultimate luster.',
-    story: 'Delma has inspected every pair of studs by hand under north-facing studio daylight since 2003.',
+    story: 'Since our opening in 2003, Delma has inspected every pair of studs by hand under north-facing studio daylight, rejecting over 80% to ensure identical brilliance across left and right ears.',
     details: [
       'Matched for diameter, tone, reflection sharpness, and pin positioning',
       'Heavy gauge 18k posts with oversized comfort butterfly friction backs',
@@ -230,6 +397,250 @@ export const PRODUCTS: Product[] = [
     care: ['Wipe clean after daily wear before returning to jewelry box.'],
     isFeatured: true,
     isBestseller: true
+  },
+  {
+    id: 'golden-south-sea-station-bangle',
+    name: 'Golden South Sea Station Bangle',
+    tagline: 'Natural golden South Sea pearl set along a hand-hammered 18k torque',
+    price: 1480,
+    category: 'bracelets',
+    pearlType: 'South Sea',
+    pearlColor: 'Deep Champagne Gold (24k Rich)',
+    pearlSize: '11.0 mm',
+    metal: '18k Yellow Gold',
+    availableMetals: ['18k Yellow Gold', '18k Rose Gold'],
+    availableSizes: ['Small (6.0 in)', 'Medium (6.5 in)', 'Large (7.0 in)'],
+    rating: 4.91,
+    reviewCount: 16,
+    inStock: true,
+    stockCount: 3,
+    badge: 'Limited Stock',
+    images: [
+      ASSET_IMAGES.pearlTypes,
+      ASSET_IMAGES.workshop,
+      ASSET_IMAGES.earrings
+    ],
+    description: 'Breathtaking 100% natural champagne-gold color produced only by the gold-lip Pinctada maxima oyster. Mounted atop a flexible forged gold wire cuff.',
+    story: 'No dye or radiation is ever used. The golden hue is pure mother nature, harvested from crystal warm lagoons in Palawan and the Sulu Sea.',
+    details: [
+      'Natural untreated color guarantee with provenance certificate',
+      'Comfort spring-temper cuff slides easily over the wrist',
+      'Two flush-set side accent diamonds (0.05 ctw)'
+    ],
+    materials: ['Natural Golden South Sea Pearl', '18k Yellow Gold', 'Diamonds'],
+    specs: {
+      luster: 'Rich Velvet Satin',
+      surface: 'Clean',
+      shape: 'Round',
+      nacreThickness: '2.2mm',
+      origin: 'Palawan Archipelago, Philippines'
+    },
+    care: ['Keep separate from harder gemstones such as diamonds and sapphires.'],
+    isFeatured: true,
+    isBestseller: false
+  },
+  {
+    id: 'something-blue-pearl-locket-pendant',
+    name: 'Something Blue Pearl Locket & Pendant',
+    tagline: 'Akoya pearl pendant with an underside bezel holding a Ceylon sapphire',
+    price: 890,
+    category: 'gifts',
+    pearlType: 'Akoya',
+    pearlColor: 'Silvery White with Rose Undertone',
+    pearlSize: '9.0 mm',
+    metal: '18k White Gold',
+    availableMetals: ['18k White Gold', 'Platinum 950'],
+    availableLengths: ['16-18 inch adjustable'],
+    rating: 5.0,
+    reviewCount: 25,
+    inStock: true,
+    stockCount: 5,
+    badge: 'Bestseller',
+    images: [
+      ASSET_IMAGES.bridal,
+      ASSET_IMAGES.hero,
+      ASSET_IMAGES.earrings
+    ],
+    description: 'A sentimental treasure for life’s milestone moments. Beneath the pearl cap, a hidden natural royal blue Ceylon sapphire is nestled against the wearer’s skin.',
+    story: 'Created by Delma as a celebratory gift for graduates and brides alike, symbolizing fidelity, serenity, and enduring strength through beauty.',
+    details: [
+      'Concealed genuine round faceted Ceylon sapphire (0.06 ct)',
+      'Adjustable 16 to 18 inch cable chain included',
+      'Complimentary custom monogram engraving on clasp tag'
+    ],
+    materials: ['Akoya Pearl', '18k White Gold', 'Natural Ceylon Blue Sapphire'],
+    specs: {
+      luster: 'AAA Mirror Reflection',
+      surface: 'Flawless',
+      shape: 'Round',
+      nacreThickness: '0.50mm',
+      origin: 'Mie, Japan'
+    },
+    care: ['Clean with delicate polishing cloth provided.'],
+    isFeatured: false,
+    isBestseller: true
+  },
+  {
+    id: 'toi-et-moi-tahitian-akoya-ring',
+    name: 'Toi et Moi Twin Pearl Ring',
+    tagline: 'Harmonious meeting of dark Tahitian pearl and luminous Akoya pearl',
+    price: 1150,
+    category: 'rings',
+    pearlType: 'Tahitian',
+    pearlColor: 'Tahitian Charcoal & Akoya White Rose',
+    pearlSize: '8.5 mm & 8.5 mm',
+    metal: 'Platinum 950',
+    availableMetals: ['Platinum 950', '18k Yellow Gold', '18k White Gold'],
+    availableSizes: ['5', '6', '7', '8', '9'],
+    rating: 4.93,
+    reviewCount: 21,
+    inStock: true,
+    stockCount: 4,
+    badge: 'New',
+    images: [
+      ASSET_IMAGES.pearlTypes,
+      ASSET_IMAGES.earrings,
+      ASSET_IMAGES.workshop
+    ],
+    description: 'The historic "You and Me" motif re-imagined. Light and shadow intertwined on a fluid crossover bypass band.',
+    story: 'Popularized in the 18th century, Delma breathed new life into this romantic silhouette by pairing the two greatest saltwater pearls of the Pacific.',
+    details: [
+      'Seamlessly matched for size and proportional balance',
+      'Solid platinum shank designed for structural longevity',
+      'Comfort-fit rounded inner profile'
+    ],
+    materials: ['Tahitian Pearl', 'Akoya Pearl', 'Solid Platinum 950'],
+    specs: {
+      luster: 'High Metallic & Mirror',
+      surface: 'Clean',
+      shape: 'Near Round',
+      nacreThickness: 'Thick',
+      origin: 'French Polynesia & Japan'
+    },
+    care: ['Store in its bespoke Delma presentation case.'],
+    isFeatured: false,
+    isBestseller: false
+  },
+  {
+    id: 'cascading-keshi-pearl-drops',
+    name: 'Cascading Keshi Pearl Drops',
+    tagline: 'Shimmering petals of seedless Keshi pearls suspended on fine wire',
+    price: 720,
+    category: 'earrings',
+    pearlType: 'Keshi',
+    pearlColor: 'Opalescent Silver with Rainbow Sheen',
+    pearlSize: '6 - 9 mm Assorted',
+    metal: '18k Yellow Gold',
+    availableMetals: ['18k Yellow Gold', '18k White Gold'],
+    rating: 4.89,
+    reviewCount: 17,
+    inStock: true,
+    stockCount: 7,
+    badge: 'New',
+    images: [
+      ASSET_IMAGES.earrings,
+      ASSET_IMAGES.bridal,
+      ASSET_IMAGES.pearlTypes
+    ],
+    description: 'Feather-light and endlessly kinetic. Keshi pearls form purely of solid nacre when an oyster rejects its nucleus, resulting in unmatched organic iridescence.',
+    story: 'Because Keshi pearls have no nucleus, their surface glows with intense crystalline reflections that catch light from across the room.',
+    details: [
+      'Extremely lightweight for all-day comfort',
+      'Delicate hand-wrapped 18k wire links',
+      'Total earring drop length: 1.75 inches'
+    ],
+    materials: ['Natural Non-Nucleated Keshi Pearls', '18k Yellow Gold'],
+    specs: {
+      luster: 'Superior Intense Sparkle',
+      surface: 'Organic Crinkled Flakes',
+      shape: 'Freeform Petal / Cornflake',
+      nacreThickness: '100% Solid Nacre',
+      origin: 'Japan & Australia'
+    },
+    care: ['Handle gently by the metal wire when putting on.'],
+    isFeatured: false,
+    isBestseller: false
+  },
+  {
+    id: 'nocturne-pearl-bead-mens-bracelet',
+    name: 'Nocturne Tahitian Bead Men’s Bracelet',
+    tagline: 'Tahitian baroque pearls strung with matte black onyx & silver spacers',
+    price: 495,
+    category: 'mens',
+    pearlType: 'Tahitian',
+    pearlColor: 'Dark Peacock & Anthracite',
+    pearlSize: '9.0 - 10.0 mm',
+    metal: 'Sterling Silver 925',
+    availableMetals: ['Sterling Silver 925'],
+    availableSizes: ['7.5 inch', '8.0 inch', '8.5 inch'],
+    rating: 4.85,
+    reviewCount: 15,
+    inStock: true,
+    stockCount: 8,
+    badge: 'Heritage Selection',
+    images: [
+      ASSET_IMAGES.pearlTypes,
+      ASSET_IMAGES.workshop,
+      ASSET_IMAGES.hero
+    ],
+    description: 'A modern masculine cadence. Baroque dark pearls contrasted against velvety matte onyx beads and textured silver rondelles.',
+    story: 'Crafted for daily resilience using high-strength steel-core aircraft cable and a precision bayonet locking clasp.',
+    details: [
+      'Multi-strand stainless steel cable prevents accidental breakage',
+      'Custom Delma guilloche silver clasp with push-and-twist lock',
+      'Natural matte black onyx stones (8mm)'
+    ],
+    materials: ['Tahitian Baroque Pearls', 'Matte Onyx', '925 Oxidized Silver'],
+    specs: {
+      luster: 'Subtle Sheen',
+      surface: 'Circlé Baroque Rings',
+      shape: 'Circled Drop',
+      nacreThickness: '1.2mm',
+      origin: 'Raiatea, French Polynesia'
+    },
+    care: ['Avoid wearing while swimming in chlorinated pools.'],
+    isFeatured: false,
+    isBestseller: false
+  },
+  {
+    id: 'duchess-bridal-pearl-tiara-comb',
+    name: 'Duchess Pearl Hair Comb & Tiara Pin',
+    tagline: 'Hand-wired freshwater pearls and Austrian crystals for ceremonial hair styling',
+    price: 450,
+    category: 'bridal',
+    pearlType: 'Freshwater',
+    pearlColor: 'Ivory White',
+    pearlSize: '4 - 8 mm Graduated',
+    metal: '18k White Gold',
+    availableMetals: ['18k White Gold', '18k Yellow Gold'],
+    rating: 4.94,
+    reviewCount: 31,
+    inStock: true,
+    stockCount: 5,
+    badge: 'Bestseller',
+    images: [
+      ASSET_IMAGES.bridal,
+      ASSET_IMAGES.earrings,
+      ASSET_IMAGES.workshop
+    ],
+    description: 'An ethereal heirloom headpiece. Clusters of pearlescent gems branching out like springtime blossoms, gripping bridal updos with serene grace.',
+    story: 'Delma collaborated with premier bridal stylists to create a comb that distributes weight effortlessly without snagging delicate veils.',
+    details: [
+      'Flexible wire branches can be molded to hair contour',
+      'Smooth comb teeth ensure zero pull on wedding hairstyles',
+      'Comes in a presentation keepsake box with bridal veil ribbon'
+    ],
+    materials: ['Cultured Freshwater Pearls', 'Rhodium-Plated Silver Wire', 'Cubic Zirconia'],
+    specs: {
+      luster: 'Bright Soft Glow',
+      surface: 'Smooth',
+      shape: 'Near Round to Rice',
+      nacreThickness: 'Solid Nacre',
+      origin: 'Freshwater Aquaculture'
+    },
+    care: ['Store flat in presentation box.'],
+    isFeatured: false,
+    isBestseller: false
   },
   {
     id: 'heirloom-pearl-care-concierge-kit',
@@ -253,7 +664,7 @@ export const PRODUCTS: Product[] = [
       ASSET_IMAGES.hero
     ],
     description: 'Formulated exclusively for Delma’s clients. Free from harsh chemicals, alcohol, and ammonia, preserving delicate organic conchiolin protein.',
-    story: 'Pearls are alive with organic luster that degrades under standard jewelry cleaners.',
+    story: 'Pearls are alive with organic luster that degrades under standard jewelry cleaners. Delma developed this proprietary botanical formula in 2005.',
     details: [
       '200ml pH-balanced organic pearl cleansing emulsion',
       'Hand-cut ultra-dense Italian silk polishing shammy',
