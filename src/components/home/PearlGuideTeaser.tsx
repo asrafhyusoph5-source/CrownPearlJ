@@ -4,23 +4,7 @@ import { ArrowRight, Sparkles, Check } from 'lucide-react';
 import { ASSET_IMAGES } from '../../assets/images';
 
 export const PearlGuideTeaser: React.FC = () => {
-  const pearlTypes = [
-    {
-      name: 'South Sea Pearl',
-      origin: 'Philippines & Australia',
-    },
-    {
-      name: 'Akoya Pearl',
-      origin: 'Japan · Saltwater',
-    },
-    {
-      name: 'Tahitian Black Pearls',
-      origin: 'French Polynesia',
-    },
-    {
-      name: 'Freshwater Pearls',
-      origin: 'Lake Aquaculture',
-    }
+
   ];
 
   return (
@@ -63,46 +47,6 @@ export const PearlGuideTeaser: React.FC = () => {
         </div>
 
         {/* 4 Pearl Variety Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {pearlTypes.map((type, idx) => (
-            <div
-              key={idx}
-              className="bg-white p-5 rounded-xl border border-[#E5E7EB] shadow-xs flex flex-col justify-between space-y-4 hover:border-[#7FC8C0] transition-colors"
-            >
-              <div>
-                <span className="text-[10px] font-heading uppercase tracking-widest text-[#7FC8C0] font-semibold block mb-1">
-                  {type.origin}
-                </span>
-                <h4 className="font-serif text-lg font-semibold text-[#111111]">
-                  {type.name}
-                </h4>
-              </div>
-
-              <div className="space-y-2 text-xs text-[#3B4A50] border-t border-gray-100 pt-3">
-                <div>
-                  <span className="text-gray-400 block text-[10px] uppercase font-heading">Signature Luster:</span>
-                  <span className="font-medium text-[#111]">{type.sheen}</span>
-                </div>
-                <div>
-                  <span className="text-gray-400 block text-[10px] uppercase font-heading">Color Palette:</span>
-                  <span className="font-medium text-[#111]">{type.tones}</span>
-                </div>
-                <div>
-                  <span className="text-gray-400 block text-[10px] uppercase font-heading">Typical Scale:</span>
-                  <span className="font-medium text-[#111] tabular-nums">{type.size}</span>
-                </div>
-              </div>
-
-              <Link
-                to={`/shop?pearlType=${type.name.split(' ')[0]}`}
-                className="inline-flex items-center gap-1.5 text-xs font-heading uppercase tracking-wider text-[#3B4A50] hover:text-[#7FC8C0] font-semibold pt-1"
-              >
-                <span>View {type.name}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-          ))}
-        </div>
 
         {/* How to Choose CTA */}
         <div className="mt-12 text-center">
