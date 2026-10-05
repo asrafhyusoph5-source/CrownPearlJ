@@ -335,7 +335,7 @@ Hello Crown Atelier, please confirm my order and send the payment details!`;
             Order via Facebook Messenger
           </h1>
           <p className="text-xs text-[#3B4A50] mt-1">
-            Review your items and delivery address below. You can adjust item quantities or remove items before transmitting your order to Messenger.
+            Review your items and delivery address below. make sure all your information is correct before transmitting your order to Messenger.
           </p>
         </div>
 
