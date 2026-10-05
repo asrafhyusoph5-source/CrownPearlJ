@@ -1,8 +1,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Filter, SlidersHorizontal, Grid, List, X, RotateCcw } from 'lucide-react';
+import { Filter, SlidersHorizontal, Grid, List, X, RotateCcw, Heart } from 'lucide-react';
 import { PRODUCTS } from '../data/products';
-import { ProductCategory, PearlType, MetalType } from '../types';
+import { Product, ProductCategory, PearlType, MetalType } from '../types';
 import { ProductCard } from '../components/product/ProductCard';
 import { useShop } from '../context/ShopContext';
 
@@ -13,6 +13,7 @@ export const ShopPage: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
+  // Filter states
   const categoryParam = searchParams.get('category') as ProductCategory | null;
   const pearlTypeParam = searchParams.get('pearlType') as PearlType | null;
   const searchParam = searchParams.get('search') || '';
@@ -25,6 +26,7 @@ export const ShopPage: React.FC = () => {
   const [onlyInStock, setOnlyInStock] = useState<boolean>(false);
   const [sortBy, setSortBy] = useState<string>('popular');
 
+  // Sync with searchParams
   useEffect(() => {
     if (categoryParam) setSelectedCategory(categoryParam);
     if (pearlTypeParam) setSelectedPearlType(pearlTypeParam);
@@ -35,7 +37,7 @@ export const ShopPage: React.FC = () => {
     document.title = 'Shop All Fine Pearl Jewelry – Crown Pearl Atelier';
   }, []);
 
-  const categories = [
+  const categories: { label: string; value: string }[] = [
     { label: 'All Collections', value: 'all' },
     { label: 'Pearl Necklaces', value: 'necklaces' },
     { label: 'Earrings & Drops', value: 'earrings' },
@@ -46,9 +48,9 @@ export const ShopPage: React.FC = () => {
     { label: 'Gifts & Care', value: 'gifts' },
   ];
 
-  const pearlTypes = ['all', 'Akoya', 'South Sea', 'Tahitian', 'Freshwater', 'Keshi'];
+  const pearlTypes: string[] = ['all', 'Akoya', 'South Sea', 'Tahitian', 'Freshwater', 'Keshi'];
 
-  const metalTypes = [
+  const metalTypes: string[] = [
     'all',
     '18k White Gold',
     '18k Yellow Gold',
@@ -57,10 +59,15 @@ export const ShopPage: React.FC = () => {
     'Sterling Silver 925'
   ];
 
+  // Filtering and sorting computation
   const filteredProducts = useMemo(() => {
     return PRODUCTS.filter((product) => {
-      if (filterParam === 'wishlist' && !isInWishlist(product.id)) return false;
+      // Wishlist view
+      if (filterParam === 'wishlist' && !isInWishlist(product.id)) {
+        return false;
+      }
 
+      // Keyword Search
       if (searchParam) {
         const query = searchParam.toLowerCase();
         const matchesName = product.name.toLowerCase().includes(query);
@@ -70,11 +77,30 @@ export const ShopPage: React.FC = () => {
         if (!matchesName && !matchesType && !matchesCat && !matchesDesc) return false;
       }
 
-      if (selectedCategory !== 'all' && product.category !== selectedCategory) return false;
-      if (selectedPearlType !== 'all' && product.pearlType !== selectedPearlType) return false;
-      if (selectedMetal !== 'all' && !product.availableMetals.includes(selectedMetal as MetalType)) return false;
-      if (product.price > maxPrice) return false;
-      if (onlyInStock && !product.inStock) return false;
+      // Category
+      if (selectedCategory !== 'all' && product.category !== selectedCategory) {
+        return false;
+      }
+
+      // Pearl Type
+      if (selectedPearlType !== 'all' && product.pearlType !== selectedPearlType) {
+        return false;
+      }
+
+      // Metal
+      if (selectedMetal !== 'all' && !product.availableMetals.includes(selectedMetal as MetalType)) {
+        return false;
+      }
+
+      // Max price
+      if (product.price > maxPrice) {
+        return false;
+      }
+
+      // In stock
+      if (onlyInStock && !product.inStock) {
+        return false;
+      }
 
       return true;
     }).sort((a, b) => {
@@ -82,6 +108,7 @@ export const ShopPage: React.FC = () => {
       if (sortBy === 'price-high') return b.price - a.price;
       if (sortBy === 'rating') return b.rating - a.rating;
       if (sortBy === 'newest') return (b.badge === 'New' ? 1 : 0) - (a.badge === 'New' ? 1 : 0);
+      // default: popular/bestseller
       return (b.isBestseller ? 1 : 0) - (a.isBestseller ? 1 : 0);
     });
   }, [
@@ -117,6 +144,7 @@ export const ShopPage: React.FC = () => {
   return (
     <div className="bg-[#FAFAF8] min-h-screen py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Breadcrumb & Header */}
         <div className="mb-8">
           <nav className="text-xs font-heading uppercase tracking-widest text-[#3B4A50]/70 flex items-center gap-2 mb-2">
             <Link to="/" className="hover:text-[#111]">Home</Link>
@@ -141,6 +169,7 @@ export const ShopPage: React.FC = () => {
               </p>
             </div>
 
+            {/* View Mode & Sorting Control */}
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1.5 text-xs text-[#3B4A50]">
                 <span className="hidden sm:inline font-heading uppercase text-[11px]">Sort:</span>
@@ -157,6 +186,7 @@ export const ShopPage: React.FC = () => {
                 </select>
               </div>
 
+              {/* Grid / List view toggle */}
               <div className="hidden sm:flex items-center border border-[#C9D1D3] rounded bg-white p-0.5">
                 <button
                   type="button"
@@ -180,9 +210,10 @@ export const ShopPage: React.FC = () => {
                 </button>
               </div>
 
+              {/* Mobile Filter Drawer Trigger */}
               <button
                 type="button"
-                onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
+                onClick={() => setMobileFilterOpen(true)}
                 className="lg:hidden flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#C9D1D3] rounded text-xs font-heading uppercase tracking-wider text-[#3B4A50]"
               >
                 <Filter className="w-3.5 h-3.5" />
@@ -192,6 +223,7 @@ export const ShopPage: React.FC = () => {
           </div>
         </div>
 
+        {/* Active Filter Chips */}
         {hasActiveFilters && (
           <div className="flex flex-wrap items-center gap-2 mb-6 p-3 bg-white rounded-xl border border-[#E5E7EB]">
             <span className="text-[11px] font-heading uppercase tracking-wider text-[#3B4A50]/70 font-semibold mr-1">
@@ -234,6 +266,24 @@ export const ShopPage: React.FC = () => {
               </span>
             )}
 
+            {maxPrice < 3500 && (
+              <span className="inline-flex items-center gap-1 text-xs bg-[#FAFAF8] border border-[#C9D1D3] px-2.5 py-1 rounded text-[#111]">
+                Up to ${maxPrice}
+                <button onClick={() => setMaxPrice(3500)} className="hover:text-red-500">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            )}
+
+            {onlyInStock && (
+              <span className="inline-flex items-center gap-1 text-xs bg-[#FAFAF8] border border-[#C9D1D3] px-2.5 py-1 rounded text-[#111]">
+                In Stock Only
+                <button onClick={() => setOnlyInStock(false)} className="hover:text-red-500">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            )}
+
             <button
               type="button"
               onClick={resetFilters}
@@ -245,20 +295,26 @@ export const ShopPage: React.FC = () => {
           </div>
         )}
 
+        {/* Main Content Layout: Sidebar + Catalog */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          <aside className={`lg:block ${mobileFilterOpen ? 'block' : 'hidden'} space-y-6`}>
+          {/* Desktop Filter Sidebar */}
+          <aside className="hidden lg:block space-y-6">
             <div className="bg-white p-5 rounded-2xl border border-[#E5E7EB] space-y-6 shadow-xs">
               <div className="flex items-center justify-between pb-3 border-b border-gray-100">
                 <span className="font-heading font-semibold uppercase text-xs tracking-wider text-[#111]">
                   Filter Catalog
                 </span>
                 {hasActiveFilters && (
-                  <button onClick={resetFilters} className="text-[11px] text-[#7FC8C0] font-heading uppercase hover:underline">
+                  <button
+                    onClick={resetFilters}
+                    className="text-[11px] text-[#7FC8C0] font-heading uppercase hover:underline"
+                  >
                     Reset
                   </button>
                 )}
               </div>
 
+              {/* Category Filter */}
               <div>
                 <h4 className="text-xs font-heading uppercase tracking-wider text-[#3B4A50] font-semibold mb-2">
                   Category
@@ -286,6 +342,7 @@ export const ShopPage: React.FC = () => {
                 </div>
               </div>
 
+              {/* Pearl Type Filter */}
               <div className="pt-4 border-t border-gray-100">
                 <h4 className="text-xs font-heading uppercase tracking-wider text-[#3B4A50] font-semibold mb-2">
                   Pearl Variety
@@ -303,11 +360,17 @@ export const ShopPage: React.FC = () => {
                       }`}
                     >
                       <span>{pt === 'all' ? 'All Pearl Types' : `${pt} Pearls`}</span>
+                      <span className="text-[10px] text-gray-400">
+                        {pt === 'all'
+                          ? PRODUCTS.length
+                          : PRODUCTS.filter((p) => p.pearlType === pt).length}
+                      </span>
                     </button>
                   ))}
                 </div>
               </div>
 
+              {/* Metal Selection */}
               <div className="pt-4 border-t border-gray-100">
                 <h4 className="text-xs font-heading uppercase tracking-wider text-[#3B4A50] font-semibold mb-2">
                   Precious Metal
@@ -330,6 +393,7 @@ export const ShopPage: React.FC = () => {
                 </div>
               </div>
 
+              {/* Price Slider */}
               <div className="pt-4 border-t border-gray-100">
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="text-xs font-heading uppercase tracking-wider text-[#3B4A50] font-semibold">
@@ -348,11 +412,16 @@ export const ShopPage: React.FC = () => {
                   onChange={(e) => setMaxPrice(Number(e.target.value))}
                   className="w-full accent-[#3B4A50] cursor-pointer"
                 />
+                <div className="flex justify-between text-[10px] text-gray-400 mt-1">
+                  <span>$100</span>
+                  <span>$3,500+</span>
+                </div>
               </div>
 
+              {/* In Stock toggle */}
               <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
                 <span className="text-xs font-heading uppercase tracking-wider text-[#3B4A50] font-semibold">
-                  In Stock Only
+                  In Atelier Stock Only
                 </span>
                 <input
                   type="checkbox"
@@ -364,17 +433,23 @@ export const ShopPage: React.FC = () => {
             </div>
           </aside>
 
+          {/* Product Grid Area */}
           <main className="lg:col-span-3">
             {filteredProducts.length === 0 ? (
               <div className="bg-white rounded-2xl border border-[#E5E7EB] p-12 text-center space-y-4">
                 <div className="w-16 h-16 rounded-full bg-[#FAFAF8] border border-[#C9D1D3] flex items-center justify-center mx-auto text-[#3B4A50]">
                   <SlidersHorizontal className="w-8 h-8 opacity-40" />
                 </div>
-                <h3 className="font-serif text-2xl text-[#111]">No creations match your filters</h3>
+                <div className="space-y-1">
+                  <h3 className="font-serif text-2xl text-[#111]">No creations match your filters</h3>
+                  <p className="text-xs sm:text-sm text-[#3B4A50] max-w-sm mx-auto">
+                    Try adjusting the price range or resetting selected pearl types to view the wider collection.
+                  </p>
+                </div>
                 <button
                   type="button"
                   onClick={resetFilters}
-                  className="px-6 py-2.5 bg-[#3B4A50] text-white font-heading uppercase text-xs tracking-wider rounded font-semibold"
+                  className="px-6 py-2.5 bg-[#3B4A50] text-white hover:bg-[#111] font-heading uppercase text-xs tracking-wider font-semibold rounded transition-colors"
                 >
                   Reset All Filters
                 </button>
@@ -386,31 +461,49 @@ export const ShopPage: React.FC = () => {
                 ))}
               </div>
             ) : (
+              /* List View */
               <div className="space-y-4">
                 {filteredProducts.map((product) => (
                   <div
                     key={product.id}
-                    className="bg-white rounded-xl border border-[#E5E7EB] p-4 flex flex-col sm:flex-row gap-5 items-center shadow-xs"
+                    className="bg-white rounded-xl border border-[#E5E7EB] p-4 flex flex-col sm:flex-row gap-5 items-center hover:border-[#7FC8C0] transition-colors shadow-xs"
                   >
-                    <Link to={`/product/${product.id}`} className="w-full sm:w-44 aspect-square rounded-lg overflow-hidden bg-[#FAFAF8] shrink-0">
-                      <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" />
+                    <Link
+                      to={`/product/${product.id}`}
+                      className="w-full sm:w-44 aspect-square sm:aspect-auto rounded-lg overflow-hidden bg-[#FAFAF8] shrink-0"
+                    >
+                      <img
+                        src={product.images[0]}
+                        alt={product.name}
+                        className="w-full h-full object-cover object-center"
+                        referrerPolicy="no-referrer"
+                      />
                     </Link>
                     <div className="flex-1 min-w-0 space-y-2">
-                      <div className="text-[11px] font-heading uppercase tracking-widest text-[#7FC8C0] font-semibold">
-                        {product.pearlType} Pearl · {product.pearlSize}
+                      <div className="flex items-center gap-2 text-[11px] font-heading uppercase tracking-widest text-[#7FC8C0] font-semibold">
+                        <span>{product.pearlType} Pearl</span>
+                        <span>·</span>
+                        <span>{product.pearlSize}</span>
                       </div>
                       <Link to={`/product/${product.id}`} className="block">
-                        <h3 className="font-serif text-xl font-semibold text-[#111]">{product.name}</h3>
+                        <h3 className="font-serif text-xl font-semibold text-[#111] hover:text-[#7FC8C0] transition-colors">
+                          {product.name}
+                        </h3>
                       </Link>
-                      <p className="text-xs text-[#3B4A50] line-clamp-2">{product.description}</p>
+                      <p className="text-xs text-[#3B4A50] line-clamp-2 leading-relaxed">
+                        {product.description}
+                      </p>
+                      <div className="text-xs text-[#3B4A50]/70">
+                        Default Metal: <strong className="text-[#111]">{product.metal}</strong> · Luster: {product.specs.luster}
+                      </div>
                     </div>
-                    <div className="sm:border-l sm:border-gray-100 sm:pl-5 flex flex-col items-center sm:items-end gap-3 shrink-0">
+                    <div className="sm:border-l sm:border-gray-100 sm:pl-5 flex flex-col items-center sm:items-end justify-between w-full sm:w-auto shrink-0 gap-3">
                       <div className="font-heading font-bold text-xl text-[#111] tabular-nums">
                         ${product.price.toLocaleString()}
                       </div>
                       <Link
                         to={`/product/${product.id}`}
-                        className="px-5 py-2 bg-[#3B4A50] text-white font-heading uppercase text-xs tracking-wider rounded font-semibold"
+                        className="px-5 py-2 bg-[#3B4A50] hover:bg-[#111] text-white font-heading uppercase text-xs tracking-wider rounded font-semibold transition-colors"
                       >
                         Inspect Piece
                       </Link>
