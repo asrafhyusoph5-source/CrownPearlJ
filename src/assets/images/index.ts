@@ -10,7 +10,7 @@ import TahitianPearlGuide from './TahitianPearlGuide.jpg';
 import BaroquePearlGuide from './BaroquePearlGuide.jpg';
 import KeshiPearlGuide from './KeshiPearlGuide.jpg';
 import PearlGuide from './PearlGuide.png';
-import cleanPearl from './how-to-clean-pearls.jpg';
+import CleanPearl from './how-to-clean-pearls.jpg';
 
 export const ASSET_IMAGES = {
   hero: heroImage,
