@@ -1,15 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShieldCheck, CheckCircle2, ArrowRight, Truck, ChevronRight, Sparkles, MessageCircle, Send } from 'lucide-react';
+import {
+  ShieldCheck,
+  CheckCircle2,
+  ArrowRight,
+  Truck,
+  ChevronRight,
+  Sparkles,
+  MessageCircle,
+  Plus,
+  Minus,
+  Trash2,
+  ShoppingBag
+} from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useShop } from '../context/ShopContext';
 import { ShippingAddress, OrderConfirmation } from '../types';
 
-// 👇 1. REPLACE THIS WITH YOUR FACEBOOK PAGE USERNAME OR ID
-const FB_PAGE_USERNAME = 'shoponlineph'; // e.g. from facebook.com/yourpage
+// 👇 REPLACE THIS WITH YOUR FACEBOOK PAGE USERNAME OR ID
+const FB_PAGE_USERNAME = 'CrownPearlShop';
 
 export const CheckoutPage: React.FC = () => {
-  const { cart, subtotal, shippingFee, discountAmount, clearCart, setLastOrder, lastOrder } = useShop();
+  const {
+    cart,
+    subtotal,
+    shippingFee,
+    discountAmount,
+    clearCart,
+    setLastOrder,
+    lastOrder,
+    updateQuantity,
+    removeFromCart
+  } = useShop();
+
   const navigate = useNavigate();
 
   const [address, setAddress] = useState<ShippingAddress>({
@@ -22,7 +45,7 @@ export const CheckoutPage: React.FC = () => {
     city: '',
     state: '',
     postalCode: '',
-    country: 'Philippines' // Or 'United States'
+    country: 'United States'
   });
 
   const [shippingMethod, setShippingMethod] = useState<'standard' | 'priority' | 'white-glove'>('standard');
@@ -40,20 +63,27 @@ export const CheckoutPage: React.FC = () => {
 
   const handlePlaceOrder = (e: React.FormEvent) => {
     e.preventDefault();
+    if (cart.length === 0) return;
+
     setIsProcessing(true);
 
     const orderNum = `CP-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
-    
-    // Format item list for Messenger
-    const itemsList = cart.map(item => 
-      `• ${item.quantity}x ${item.product.name} (${item.selectedMetal}${item.selectedLength ? `, ${item.selectedLength}` : ''}) - $${(item.product.price * item.quantity).toLocaleString()}`
-    ).join('\n');
+
+    // Format item list for Messenger with quantities and prices
+    const itemsList = cart
+      .map(
+        (item) =>
+          `• ${item.quantity}x ${item.product.name} (${item.selectedMetal}${
+            item.selectedLength ? `, ${item.selectedLength}` : ''
+          }) - $${(item.product.price * item.quantity).toLocaleString()}`
+      )
+      .join('\n');
 
     const paymentLabel = {
-      bank_transfer: 'Bank Transfer (BDO / BPI / Wire)',
-      gcash: 'GCash / Maya',
-      paypal_invoice: 'PayPal / Credit Card Invoice',
-      cod: 'Cash on Delivery / In-Person Sizing'
+      bank_transfer: 'Bank Transfer / Wire Deposit',
+      gcash: 'E-Wallet (GCash / Maya)',
+      paypal_invoice: 'Credit Card / PayPal Invoice Link',
+      cod: 'Cash on Delivery (COD)'
     }[preferredPayment];
 
     // Build the Messenger Message
@@ -65,7 +95,7 @@ Email: ${address.email}
 Phone: ${address.phone}
 
 DELIVERY ADDRESS:
-${address.addressLine1}
+${address.addressLine1}${address.addressLine2 ? `, ${address.addressLine2}` : ''}
 ${address.city}, ${address.state} ${address.postalCode}
 ${address.country}
 
@@ -105,7 +135,7 @@ Hello Delma Atelier, please confirm my order and send the payment details!`;
       setIsProcessing(false);
       setOrderConfirmed(true);
 
-      // Open Facebook Messenger with pre-filled order!
+      // Open Facebook Messenger with pre-filled order
       window.open(`https://m.me/${FB_PAGE_USERNAME}?text=${encodedMessage}`, '_blank', 'noopener,noreferrer');
 
       // Confetti celebration
@@ -119,7 +149,7 @@ Hello Delma Atelier, please confirm my order and send the payment details!`;
       } catch {
         // ignore
       }
-    }, 1200);
+    }, 1000);
   };
 
   // If order is confirmed, display the receipt view
@@ -139,7 +169,7 @@ Hello Delma Atelier, please confirm my order and send the payment details!`;
               Thank You for Your Order!
             </h1>
             <p className="text-xs sm:text-sm text-[#3B4A50] max-w-md mx-auto">
-              Your order <strong>{lastOrder.orderNumber}</strong> has been transmitted. If your Messenger window did not open, click the button below.
+              Your acquisition <strong>{lastOrder.orderNumber}</strong> has been transmitted. If your Messenger window did not open, click the button below.
             </p>
           </div>
 
@@ -248,13 +278,19 @@ Hello Delma Atelier, please confirm my order and send the payment details!`;
   if (cart.length === 0) {
     return (
       <div className="bg-[#FAFAF8] min-h-[60vh] flex items-center justify-center py-20 px-4">
-        <div className="text-center space-y-4">
+        <div className="text-center space-y-4 max-w-md mx-auto">
+          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto text-[#3B4A50]">
+            <ShoppingBag className="w-8 h-8" />
+          </div>
           <h2 className="font-serif text-2xl text-[#111]">Your bag is currently empty</h2>
+          <p className="text-xs text-[#3B4A50]">
+            You have no items in your order. Explore our certified pearl jewelry collections to begin.
+          </p>
           <Link
             to="/shop"
-            className="px-6 py-2.5 bg-[#3B4A50] text-white font-heading uppercase text-xs tracking-wider rounded"
+            className="inline-block px-6 py-3 bg-[#3B4A50] hover:bg-[#111] text-white font-heading uppercase text-xs tracking-widest font-semibold rounded transition-colors"
           >
-            Explore Jewelry
+            Explore Jewelry Collection
           </Link>
         </div>
       </div>
@@ -268,13 +304,13 @@ Hello Delma Atelier, please confirm my order and send the payment details!`;
           <div className="flex items-center gap-2 text-xs font-heading uppercase tracking-widest text-[#3B4A50]/70 mb-2">
             <Link to="/cart" className="hover:text-[#111]">Bag</Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <span className="text-[#111] font-semibold">Complete Order</span>
+            <span className="text-[#111] font-semibold">Review & Messenger Order</span>
           </div>
           <h1 className="font-serif text-3xl sm:text-4xl text-[#111111] font-semibold">
             Order via Facebook Messenger
           </h1>
           <p className="text-xs text-[#3B4A50] mt-1">
-            Fill in your delivery details below. Clicking "Submit Order" will transmit your acquisition directly to Delma's atelier on Messenger.
+            Review your items and delivery address below. You can adjust item quantities or remove items before transmitting your order to Messenger.
           </p>
         </div>
 
@@ -297,7 +333,8 @@ Hello Delma Atelier, please confirm my order and send the payment details!`;
                     required
                     value={address.firstName}
                     onChange={(e) => setAddress({ ...address, firstName: e.target.value })}
-                    className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs focus:outline-none focus:border-[#7FC8C0]"
+                    placeholder="e.g. Maria"
+                    className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs focus:outline-none focus:border-[#0084FF]"
                   />
                 </div>
                 <div>
@@ -309,7 +346,8 @@ Hello Delma Atelier, please confirm my order and send the payment details!`;
                     required
                     value={address.lastName}
                     onChange={(e) => setAddress({ ...address, lastName: e.target.value })}
-                    className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs focus:outline-none focus:border-[#7FC8C0]"
+                    placeholder="e.g. Santos"
+                    className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs focus:outline-none focus:border-[#0084FF]"
                   />
                 </div>
               </div>
@@ -324,7 +362,8 @@ Hello Delma Atelier, please confirm my order and send the payment details!`;
                     required
                     value={address.email}
                     onChange={(e) => setAddress({ ...address, email: e.target.value })}
-                    className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs focus:outline-none focus:border-[#7FC8C0]"
+                    placeholder="maria.santos@example.com"
+                    className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs focus:outline-none focus:border-[#0084FF]"
                   />
                 </div>
                 <div>
@@ -336,7 +375,8 @@ Hello Delma Atelier, please confirm my order and send the payment details!`;
                     required
                     value={address.phone}
                     onChange={(e) => setAddress({ ...address, phone: e.target.value })}
-                    className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs focus:outline-none focus:border-[#7FC8C0]"
+                    placeholder="+1 (555) 000-0000"
+                    className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs focus:outline-none focus:border-[#0084FF]"
                   />
                 </div>
               </div>
@@ -350,7 +390,8 @@ Hello Delma Atelier, please confirm my order and send the payment details!`;
                   required
                   value={address.addressLine1}
                   onChange={(e) => setAddress({ ...address, addressLine1: e.target.value })}
-                  className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs focus:outline-none focus:border-[#7FC8C0]"
+                  placeholder="Street address, house or apartment number"
+                  className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs focus:outline-none focus:border-[#0084FF]"
                 />
               </div>
 
@@ -364,7 +405,8 @@ Hello Delma Atelier, please confirm my order and send the payment details!`;
                     required
                     value={address.city}
                     onChange={(e) => setAddress({ ...address, city: e.target.value })}
-                    className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs focus:outline-none focus:border-[#7FC8C0]"
+                    placeholder="City"
+                    className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs focus:outline-none focus:border-[#0084FF]"
                   />
                 </div>
                 <div>
@@ -376,7 +418,8 @@ Hello Delma Atelier, please confirm my order and send the payment details!`;
                     required
                     value={address.state}
                     onChange={(e) => setAddress({ ...address, state: e.target.value })}
-                    className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs focus:outline-none focus:border-[#7FC8C0]"
+                    placeholder="State or Province"
+                    className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs focus:outline-none focus:border-[#0084FF]"
                   />
                 </div>
                 <div>
@@ -388,7 +431,8 @@ Hello Delma Atelier, please confirm my order and send the payment details!`;
                     required
                     value={address.postalCode}
                     onChange={(e) => setAddress({ ...address, postalCode: e.target.value })}
-                    className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs focus:outline-none focus:border-[#7FC8C0]"
+                    placeholder="Postal Code"
+                    className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs focus:outline-none focus:border-[#0084FF]"
                   />
                 </div>
               </div>
@@ -397,24 +441,40 @@ Hello Delma Atelier, please confirm my order and send the payment details!`;
             {/* Preferred Payment Method */}
             <div className="bg-white p-6 sm:p-8 rounded-2xl border border-[#E5E7EB] shadow-xs space-y-4">
               <h3 className="font-serif text-lg font-semibold text-[#111] pb-2 border-b border-gray-100">
-                2. How Would You Prefer to Pay?
+                2. Preferred Payment Mode
               </h3>
               <p className="text-xs text-[#3B4A50]">
-                We will send payment account details / link to your Messenger chat upon confirmation.
+                Choose how you'd like to pay. We will send the account or payment invoice directly to your Messenger chat.
               </p>
 
               <div className="space-y-2 pt-2">
                 {[
-                  { id: 'bank_transfer', title: 'Bank Transfer / Wire', desc: 'Direct deposit (BDO, BPI, UnionBank, or International Wire)' },
-                  { id: 'gcash', title: 'E-Wallet (GCash / Maya)', desc: 'Fast QR code transfer or mobile number payment' },
-                  { id: 'paypal_invoice', title: 'Credit Card / PayPal Invoice', desc: 'Secure online card payment link sent via Messenger' },
-                  { id: 'cod', title: 'Cash on Delivery (COD)', desc: 'Available for selected locations upon verification' }
+                  {
+                    id: 'bank_transfer',
+                    title: 'Bank Transfer / Wire',
+                    desc: 'Direct deposit via online banking (Account number sent in chat)'
+                  },
+                  {
+                    id: 'gcash',
+                    title: 'E-Wallet (GCash / Maya)',
+                    desc: 'Quick scan-to-pay QR code or mobile number'
+                  },
+                  {
+                    id: 'paypal_invoice',
+                    title: 'Credit Card / PayPal Invoice Link',
+                    desc: 'Secure credit card checkout link sent via Messenger'
+                  },
+                  {
+                    id: 'cod',
+                    title: 'Cash on Delivery (COD)',
+                    desc: 'Pay cash upon handover (verified locations only)'
+                  }
                 ].map((m) => (
                   <label
                     key={m.id}
                     className={`flex items-start gap-3 p-3.5 rounded-xl border cursor-pointer transition-all ${
                       preferredPayment === m.id
-                        ? 'border-[#0084FF] bg-blue-50/30 ring-1 ring-[#0084FF]'
+                        ? 'border-[#0084FF] bg-blue-50/40 ring-1 ring-[#0084FF]'
                         : 'border-[#E5E7EB] hover:border-gray-300'
                     }`}
                   >
@@ -439,34 +499,99 @@ Hello Delma Atelier, please confirm my order and send the payment details!`;
             </div>
           </div>
 
-          {/* Right Column: Order Summary */}
+          {/* Right Column: Interactive Order Summary (5 Cols) */}
           <div className="lg:col-span-5 bg-white p-6 sm:p-8 rounded-2xl border border-[#E5E7EB] shadow-xs space-y-6 lg:sticky lg:top-24">
-            <h3 className="font-serif text-xl font-semibold text-[#111] pb-3 border-b border-gray-100">
-              Order Summary ({cart.length} items)
-            </h3>
+            <div className="flex items-center justify-between pb-3 border-b border-gray-100">
+              <h3 className="font-serif text-xl font-semibold text-[#111]">
+                Order Summary
+              </h3>
+              <span className="text-xs font-heading uppercase tracking-wider text-[#3B4A50] font-semibold bg-gray-100 px-2 py-0.5 rounded">
+                {cart.length} {cart.length === 1 ? 'item' : 'items'}
+              </span>
+            </div>
 
-            {/* Item Rows */}
-            <div className="space-y-3 max-h-60 overflow-y-auto pr-1">
+            {/* Editable Item Rows with Qty Controls & Delete */}
+            <div className="space-y-4 max-h-80 overflow-y-auto pr-1 divide-y divide-gray-100">
               {cart.map((item) => (
-                <div key={item.id} className="flex items-center justify-between gap-3 text-xs">
-                  <div className="flex items-center gap-3 min-w-0">
-                    <img
-                      src={item.product.images[0]}
-                      alt={item.product.name}
-                      className="w-12 h-12 object-cover rounded-lg bg-[#FAFAF8] shrink-0"
-                      referrerPolicy="no-referrer"
-                    />
-                    <div className="truncate">
-                      <div className="font-serif font-semibold text-[#111] truncate">
-                        {item.product.name}
-                      </div>
-                      <div className="text-[11px] text-[#3B4A50]/70">
-                        {item.selectedMetal} {item.selectedLength ? `· ${item.selectedLength}` : ''}
+                <div key={item.id} className="pt-3 first:pt-0 space-y-2">
+                  <div className="flex items-start justify-between gap-3 text-xs">
+                    {/* Item Thumbnail & Name */}
+                    <div className="flex items-start gap-3 min-w-0">
+                      <img
+                        src={item.product.images[0]}
+                        alt={item.product.name}
+                        className="w-14 h-14 object-cover rounded-lg bg-[#FAFAF8] border border-gray-100 shrink-0"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="min-w-0">
+                        <Link
+                          to={`/product/${item.product.id}`}
+                          className="font-serif font-semibold text-[#111] hover:text-[#0084FF] transition-colors line-clamp-1 text-sm"
+                        >
+                          {item.product.name}
+                        </Link>
+                        <div className="text-[11px] text-[#3B4A50]/70 mt-0.5">
+                          {item.selectedMetal} {item.selectedLength ? `· ${item.selectedLength}` : ''}
+                        </div>
+                        <div className="text-xs font-heading font-semibold text-[#111] mt-1 tabular-nums">
+                          ${item.product.price.toLocaleString()} each
+                        </div>
                       </div>
                     </div>
+
+                    {/* Delete Item Button */}
+                    <button
+                      type="button"
+                      onClick={() => removeFromCart(item.id)}
+                      className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors shrink-0"
+                      title="Remove item from order"
+                      aria-label={`Remove ${item.product.name}`}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
                   </div>
-                  <div className="font-heading font-bold text-[#111] tabular-nums shrink-0">
-                    ${(item.product.price * item.quantity).toLocaleString()}
+
+                  {/* Quantity Stepper & Line Item Total */}
+                  <div className="flex items-center justify-between bg-[#FAFAF8] p-2 rounded-lg border border-gray-200">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] font-heading uppercase tracking-wider text-[#3B4A50] font-semibold">
+                        Qty:
+                      </span>
+                      <div className="flex items-center border border-gray-300 rounded bg-white overflow-hidden shadow-xs">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (item.quantity > 1) {
+                              updateQuantity(item.id, item.quantity - 1);
+                            } else {
+                              removeFromCart(item.id);
+                            }
+                          }}
+                          className="p-1.5 hover:bg-gray-100 text-[#3B4A50] transition-colors"
+                          aria-label="Decrease quantity"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="px-3 text-xs font-heading font-bold text-[#111] tabular-nums select-none min-w-[28px] text-center">
+                          {item.quantity}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          className="p-1.5 hover:bg-gray-100 text-[#3B4A50] transition-colors"
+                          aria-label="Increase quantity"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="text-right">
+                      <span className="text-[10px] uppercase font-heading text-gray-400 block leading-tight">Total</span>
+                      <span className="font-heading font-bold text-sm text-[#111] tabular-nums">
+                        ${(item.product.price * item.quantity).toLocaleString()}
+                      </span>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -482,7 +607,7 @@ Hello Delma Atelier, please confirm my order and send the payment details!`;
               </div>
               {discountAmount > 0 && (
                 <div className="flex justify-between text-emerald-700 font-medium">
-                  <span>Discount</span>
+                  <span>Heirloom Savings</span>
                   <span className="tabular-nums">-${discountAmount.toLocaleString()}</span>
                 </div>
               )}
@@ -500,18 +625,22 @@ Hello Delma Atelier, please confirm my order and send the payment details!`;
               </div>
             </div>
 
-            {/* Place Order Button */}
+            {/* Send Order to Facebook Messenger Button */}
             <button
               type="submit"
-              disabled={isProcessing}
-              className="w-full py-4 bg-[#0084FF] hover:bg-[#0073e6] disabled:bg-gray-400 text-white font-heading uppercase text-xs tracking-widest font-semibold rounded-lg shadow-md transition-all flex items-center justify-center gap-2"
+              disabled={isProcessing || cart.length === 0}
+              className="w-full py-4 bg-[#0084FF] hover:bg-[#0073e6] disabled:bg-gray-400 text-white font-heading uppercase text-xs tracking-widest font-semibold rounded-lg shadow-md transition-all flex items-center justify-center gap-2 group"
             >
               {isProcessing ? (
-                <span>Transmitting Order...</span>
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <span>Transmitting Order to Messenger...</span>
+                </div>
               ) : (
                 <>
-                  <MessageCircle className="w-4 h-4" />
+                  <MessageCircle className="w-4 h-4 transition-transform group-hover:scale-110" />
                   <span>Send Order to Facebook Messenger</span>
+                  <ArrowRight className="w-4 h-4 text-white/80" />
                 </>
               )}
             </button>
@@ -524,7 +653,7 @@ Hello Delma Atelier, please confirm my order and send the payment details!`;
               </div>
               <div className="flex items-center gap-2">
                 <Truck className="w-4 h-4 text-[#7FC8C0] shrink-0" />
-                <span>Insured courier dispatch with tracking number</span>
+                <span>Insured courier dispatch with tracking certificate</span>
               </div>
             </div>
           </div>
