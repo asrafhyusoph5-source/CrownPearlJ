@@ -1,35 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShieldCheck, Lock, CheckCircle2, ArrowRight, Truck, CreditCard, ChevronRight, Sparkles, MessageCircle } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, ArrowRight, Truck, ChevronRight, Sparkles, MessageCircle, Send } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useShop } from '../context/ShopContext';
 import { ShippingAddress, OrderConfirmation } from '../types';
 
+// 👇 1. REPLACE THIS WITH YOUR FACEBOOK PAGE USERNAME OR ID
+const FB_PAGE_USERNAME = 'shoponlineph'; // e.g. from facebook.com/yourpage
+
 export const CheckoutPage: React.FC = () => {
-  const { cart, subtotal, shippingFee, discountAmount, orderTotal, clearCart, setLastOrder, lastOrder } = useShop();
+  const { cart, subtotal, shippingFee, discountAmount, clearCart, setLastOrder, lastOrder } = useShop();
   const navigate = useNavigate();
 
   const [address, setAddress] = useState<ShippingAddress>({
-    firstName: 'Eleanor',
-    lastName: 'Vance',
-    email: 'eleanor.vance@example.com',
-    phone: '+1 (555) 234-8901',
-    addressLine1: '740 Park Avenue, Apt 14B',
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    addressLine1: '',
     addressLine2: '',
-    city: 'New York',
-    state: 'NY',
-    postalCode: '10021',
-    country: 'United States'
+    city: '',
+    state: '',
+    postalCode: '',
+    country: 'Philippines' // Or 'United States'
   });
 
   const [shippingMethod, setShippingMethod] = useState<'standard' | 'priority' | 'white-glove'>('standard');
-  const [paymentMethod, setPaymentMethod] = useState<'card' | 'apple' | 'google' | 'paypal'>('card');
+  const [preferredPayment, setPreferredPayment] = useState<'bank_transfer' | 'gcash' | 'paypal_invoice' | 'cod'>('bank_transfer');
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderConfirmed, setOrderConfirmed] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'Insured Checkout – Crown Pearl Atelier';
+    document.title = 'Order via Messenger – Crown Pearl Atelier';
   }, []);
 
   const shippingCost = shippingMethod === 'standard' ? shippingFee : shippingMethod === 'priority' ? 45 : 120;
@@ -39,8 +42,46 @@ export const CheckoutPage: React.FC = () => {
     e.preventDefault();
     setIsProcessing(true);
 
+    const orderNum = `CP-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+    
+    // Format item list for Messenger
+    const itemsList = cart.map(item => 
+      `• ${item.quantity}x ${item.product.name} (${item.selectedMetal}${item.selectedLength ? `, ${item.selectedLength}` : ''}) - $${(item.product.price * item.quantity).toLocaleString()}`
+    ).join('\n');
+
+    const paymentLabel = {
+      bank_transfer: 'Bank Transfer (BDO / BPI / Wire)',
+      gcash: 'GCash / Maya',
+      paypal_invoice: 'PayPal / Credit Card Invoice',
+      cod: 'Cash on Delivery / In-Person Sizing'
+    }[preferredPayment];
+
+    // Build the Messenger Message
+    const orderMessage = `👑 NEW ORDER: ${orderNum}
+-----------------------------
+PATRON DETAILS:
+Name: ${address.firstName} ${address.lastName}
+Email: ${address.email}
+Phone: ${address.phone}
+
+DELIVERY ADDRESS:
+${address.addressLine1}
+${address.city}, ${address.state} ${address.postalCode}
+${address.country}
+
+ORDER ITEMS:
+${itemsList}
+
+SUBTOTAL: $${subtotal.toLocaleString()}
+SHIPPING: ${shippingCost === 0 ? 'Complimentary' : `$${shippingCost}`}
+TOTAL DUE: $${finalTotal.toLocaleString()}
+PREFERRED PAYMENT: ${paymentLabel}
+-----------------------------
+Hello Delma Atelier, please confirm my order and send the payment details!`;
+
+    const encodedMessage = encodeURIComponent(orderMessage);
+
     setTimeout(() => {
-      const orderNum = `CP-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
       const confirmation: OrderConfirmation = {
         orderNumber: orderNum,
         date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
@@ -64,18 +105,21 @@ export const CheckoutPage: React.FC = () => {
       setIsProcessing(false);
       setOrderConfirmed(true);
 
+      // Open Facebook Messenger with pre-filled order!
+      window.open(`https://m.me/${FB_PAGE_USERNAME}?text=${encodedMessage}`, '_blank', 'noopener,noreferrer');
+
       // Confetti celebration
       try {
         confetti({
           particleCount: 80,
           spread: 70,
           origin: { y: 0.6 },
-          colors: ['#7FC8C0', '#3B4A50', '#C9D1D3', '#F59E0B']
+          colors: ['#7FC8C0', '#3B4A50', '#C9D1D3', '#0084FF']
         });
       } catch {
         // ignore
       }
-    }, 1800);
+    }, 1200);
   };
 
   // If order is confirmed, display the receipt view
@@ -85,18 +129,31 @@ export const CheckoutPage: React.FC = () => {
         <div className="max-w-3xl mx-auto bg-white rounded-2xl border border-[#E5E7EB] p-8 sm:p-12 shadow-sm space-y-8 animate-fade-in">
           {/* Header */}
           <div className="text-center space-y-3 pb-6 border-b border-gray-100">
-            <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
-              <CheckCircle2 className="w-10 h-10 text-[#7FC8C0]" />
+            <div className="w-16 h-16 bg-blue-50 text-[#0084FF] rounded-full flex items-center justify-center mx-auto">
+              <CheckCircle2 className="w-10 h-10 text-[#0084FF]" />
             </div>
-            <span className="text-xs font-heading font-semibold uppercase tracking-[0.25em] text-[#7FC8C0]">
-              Acquisition Confirmed
+            <span className="text-xs font-heading font-semibold uppercase tracking-[0.25em] text-[#0084FF]">
+              Order Transmitted to Messenger
             </span>
             <h1 className="font-serif text-3xl sm:text-4xl text-[#111111] font-semibold">
-              Thank You for Your Patronage
+              Thank You for Your Order!
             </h1>
             <p className="text-xs sm:text-sm text-[#3B4A50] max-w-md mx-auto">
-              Your heirloom order <strong>{lastOrder.orderNumber}</strong> has been transmitted to Delma’s master stringers in our Manhattan workshop.
+              Your order <strong>{lastOrder.orderNumber}</strong> has been transmitted. If your Messenger window did not open, click the button below.
             </p>
+          </div>
+
+          {/* Messenger Re-open button */}
+          <div className="text-center">
+            <a
+              href={`https://m.me/${FB_PAGE_USERNAME}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[#0084FF] hover:bg-[#0073e6] text-white font-heading uppercase text-xs tracking-widest font-semibold rounded-lg shadow-sm transition-colors"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span>Chat on Messenger with Atelier</span>
+            </a>
           </div>
 
           {/* Delivery & Certificate notice */}
@@ -164,41 +221,30 @@ export const CheckoutPage: React.FC = () => {
             </div>
             <div>
               <h4 className="font-heading uppercase text-[11px] tracking-wider text-[#3B4A50] font-semibold mb-1">
-                Payment & Total
+                Total Amount Due
               </h4>
               <p className="text-[#111] leading-relaxed">
-                Total Paid: <strong>${lastOrder.total.toLocaleString()}</strong><br />
-                Method: Insured Payment Verified<br />
-                Confirmation dispatched to: <strong>{lastOrder.address.email}</strong>
+                Total: <strong>${lastOrder.total.toLocaleString()}</strong><br />
+                Method: Direct Atelier Invoice / Wire<br />
+                Confirmation Email: <strong>{lastOrder.address.email}</strong>
               </p>
             </div>
           </div>
 
-          {/* Actions */}
-          <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="pt-6 border-t border-gray-100 flex items-center justify-between">
             <Link
               to="/shop"
               className="px-6 py-3 bg-[#3B4A50] hover:bg-[#111] text-white font-heading uppercase text-xs tracking-widest font-semibold rounded-lg transition-colors"
             >
               Continue Exploring
             </Link>
-
-            <a
-              href="https://wa.me/18002769675?text=Hello%20Delma%20Atelier%2C%20I%20just%20placed%20order%20"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-xs font-heading uppercase tracking-wider text-[#7FC8C0] hover:text-[#3B4A50] font-semibold"
-            >
-              <MessageCircle className="w-4 h-4" />
-              <span>Contact Atelier Concierge via WhatsApp</span>
-            </a>
           </div>
         </div>
       </div>
     );
   }
 
-  // Redirect if cart is empty and no confirmed order
+  // Redirect if cart is empty
   if (cart.length === 0) {
     return (
       <div className="bg-[#FAFAF8] min-h-[60vh] flex items-center justify-center py-20 px-4">
@@ -222,73 +268,23 @@ export const CheckoutPage: React.FC = () => {
           <div className="flex items-center gap-2 text-xs font-heading uppercase tracking-widest text-[#3B4A50]/70 mb-2">
             <Link to="/cart" className="hover:text-[#111]">Bag</Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <span className="text-[#111] font-semibold">Insured Checkout</span>
+            <span className="text-[#111] font-semibold">Complete Order</span>
           </div>
           <h1 className="font-serif text-3xl sm:text-4xl text-[#111111] font-semibold">
-            Express Insured Checkout
+            Order via Facebook Messenger
           </h1>
           <p className="text-xs text-[#3B4A50] mt-1">
-            256-bit bank-grade encryption · Discreet high-value packaging with signature guarantee
+            Fill in your delivery details below. Clicking "Submit Order" will transmit your acquisition directly to Delma's atelier on Messenger.
           </p>
         </div>
 
         <form onSubmit={handlePlaceOrder} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Form Side (7 Cols) */}
           <div className="lg:col-span-7 space-y-6">
-            {/* Express Checkout Options (Mock) */}
-            <div className="bg-white p-5 rounded-2xl border border-[#E5E7EB] space-y-3 shadow-xs">
-              <span className="block text-[11px] font-heading uppercase tracking-wider text-[#3B4A50] font-semibold text-center">
-                Express Digital Wallets
-              </span>
-              <div className="grid grid-cols-3 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setPaymentMethod('apple')}
-                  className={`py-2.5 px-3 rounded-lg border text-xs font-heading font-semibold uppercase tracking-wider transition-colors ${
-                    paymentMethod === 'apple'
-                      ? 'border-[#7FC8C0] bg-black text-white'
-                      : 'border-[#C9D1D3] bg-[#FAFAF8] hover:bg-black hover:text-white'
-                  }`}
-                >
-                   Pay
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPaymentMethod('google')}
-                  className={`py-2.5 px-3 rounded-lg border text-xs font-heading font-semibold uppercase tracking-wider transition-colors ${
-                    paymentMethod === 'google'
-                      ? 'border-[#7FC8C0] bg-white text-[#111] shadow-xs'
-                      : 'border-[#C9D1D3] bg-[#FAFAF8] hover:bg-white'
-                  }`}
-                >
-                  G Pay
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPaymentMethod('paypal')}
-                  className={`py-2.5 px-3 rounded-lg border text-xs font-heading font-semibold uppercase tracking-wider transition-colors ${
-                    paymentMethod === 'paypal'
-                      ? 'border-[#7FC8C0] bg-[#003087] text-white'
-                      : 'border-[#C9D1D3] bg-[#FAFAF8] hover:bg-[#003087] hover:text-white'
-                  }`}
-                >
-                  PayPal
-                </button>
-              </div>
-              <div className="relative text-center pt-2">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-200" />
-                </div>
-                <span className="relative bg-white px-3 text-[10px] uppercase font-heading text-gray-400">
-                  Or Guest Checkout with Credit Card
-                </span>
-              </div>
-            </div>
-
             {/* Client & Address Form */}
             <div className="bg-white p-6 sm:p-8 rounded-2xl border border-[#E5E7EB] shadow-xs space-y-4">
               <h3 className="font-serif text-lg font-semibold text-[#111] pb-2 border-b border-gray-100">
-                1. Client Contact & Insured Destination
+                1. Delivery & Contact Details
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -321,7 +317,7 @@ export const CheckoutPage: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-[11px] uppercase font-heading tracking-wider text-[#3B4A50] mb-1">
-                    Email Address (For Certificate & Tracking) *
+                    Email Address *
                   </label>
                   <input
                     type="email"
@@ -333,7 +329,7 @@ export const CheckoutPage: React.FC = () => {
                 </div>
                 <div>
                   <label className="block text-[11px] uppercase font-heading tracking-wider text-[#3B4A50] mb-1">
-                    Phone (Required for Courier Signature) *
+                    Phone / Contact Number *
                   </label>
                   <input
                     type="tel"
@@ -347,14 +343,13 @@ export const CheckoutPage: React.FC = () => {
 
               <div>
                 <label className="block text-[11px] uppercase font-heading tracking-wider text-[#3B4A50] mb-1">
-                  Street Address *
+                  Street Address & House / Unit # *
                 </label>
                 <input
                   type="text"
                   required
                   value={address.addressLine1}
                   onChange={(e) => setAddress({ ...address, addressLine1: e.target.value })}
-                  placeholder="Street address or suite"
                   className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs focus:outline-none focus:border-[#7FC8C0]"
                 />
               </div>
@@ -374,7 +369,7 @@ export const CheckoutPage: React.FC = () => {
                 </div>
                 <div>
                   <label className="block text-[11px] uppercase font-heading tracking-wider text-[#3B4A50] mb-1">
-                    State / Region *
+                    Province / State *
                   </label>
                   <input
                     type="text"
@@ -399,158 +394,58 @@ export const CheckoutPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Shipping Method */}
+            {/* Preferred Payment Method */}
             <div className="bg-white p-6 sm:p-8 rounded-2xl border border-[#E5E7EB] shadow-xs space-y-4">
               <h3 className="font-serif text-lg font-semibold text-[#111] pb-2 border-b border-gray-100">
-                2. Select Insured Courier Service
+                2. How Would You Prefer to Pay?
               </h3>
-              <div className="space-y-3">
-                <label
-                  className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${
-                    shippingMethod === 'standard'
-                      ? 'border-[#7FC8C0] bg-[#FAFAF8] ring-1 ring-[#7FC8C0]'
-                      : 'border-[#E5E7EB] hover:border-[#C9D1D3]'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
+              <p className="text-xs text-[#3B4A50]">
+                We will send payment account details / link to your Messenger chat upon confirmation.
+              </p>
+
+              <div className="space-y-2 pt-2">
+                {[
+                  { id: 'bank_transfer', title: 'Bank Transfer / Wire', desc: 'Direct deposit (BDO, BPI, UnionBank, or International Wire)' },
+                  { id: 'gcash', title: 'E-Wallet (GCash / Maya)', desc: 'Fast QR code transfer or mobile number payment' },
+                  { id: 'paypal_invoice', title: 'Credit Card / PayPal Invoice', desc: 'Secure online card payment link sent via Messenger' },
+                  { id: 'cod', title: 'Cash on Delivery (COD)', desc: 'Available for selected locations upon verification' }
+                ].map((m) => (
+                  <label
+                    key={m.id}
+                    className={`flex items-start gap-3 p-3.5 rounded-xl border cursor-pointer transition-all ${
+                      preferredPayment === m.id
+                        ? 'border-[#0084FF] bg-blue-50/30 ring-1 ring-[#0084FF]'
+                        : 'border-[#E5E7EB] hover:border-gray-300'
+                    }`}
+                  >
                     <input
                       type="radio"
-                      name="shipping"
-                      checked={shippingMethod === 'standard'}
-                      onChange={() => setShippingMethod('standard')}
-                      className="accent-[#3B4A50]"
+                      name="paymentMethod"
+                      checked={preferredPayment === m.id}
+                      onChange={() => setPreferredPayment(m.id as any)}
+                      className="accent-[#0084FF] mt-1"
                     />
                     <div>
                       <div className="text-xs font-heading font-semibold uppercase tracking-wider text-[#111]">
-                        Complimentary Insured Courier (2-3 Business Days)
+                        {m.title}
                       </div>
-                      <div className="text-[11px] text-[#3B4A50]/70">
-                        Discreet packaging, adult signature required upon handover
-                      </div>
-                    </div>
-                  </div>
-                  <span className="font-heading font-semibold text-xs text-[#111]">
-                    {shippingFee === 0 ? 'Complimentary' : `$${shippingFee}`}
-                  </span>
-                </label>
-
-                <label
-                  className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${
-                    shippingMethod === 'priority'
-                      ? 'border-[#7FC8C0] bg-[#FAFAF8] ring-1 ring-[#7FC8C0]'
-                      : 'border-[#E5E7EB] hover:border-[#C9D1D3]'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="radio"
-                      name="shipping"
-                      checked={shippingMethod === 'priority'}
-                      onChange={() => setShippingMethod('priority')}
-                      className="accent-[#3B4A50]"
-                    />
-                    <div>
-                      <div className="text-xs font-heading font-semibold uppercase tracking-wider text-[#111]">
-                        Overnight Priority Vault Dispatch (Next Day by 10:30 AM)
-                      </div>
-                      <div className="text-[11px] text-[#3B4A50]/70">
-                        Armored transit, priority workshop calibration
+                      <div className="text-[11px] text-[#3B4A50]/80">
+                        {m.desc}
                       </div>
                     </div>
-                  </div>
-                  <span className="font-heading font-semibold text-xs text-[#111]">$45</span>
-                </label>
-
-                <label
-                  className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${
-                    shippingMethod === 'white-glove'
-                      ? 'border-[#7FC8C0] bg-[#FAFAF8] ring-1 ring-[#7FC8C0]'
-                      : 'border-[#E5E7EB] hover:border-[#C9D1D3]'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="radio"
-                      name="shipping"
-                      checked={shippingMethod === 'white-glove'}
-                      onChange={() => setShippingMethod('white-glove')}
-                      className="accent-[#3B4A50]"
-                    />
-                    <div>
-                      <div className="text-xs font-heading font-semibold uppercase tracking-wider text-[#111]">
-                        White-Glove Hand Courier & In-Home Sizing
-                      </div>
-                      <div className="text-[11px] text-[#3B4A50]/70">
-                        Personal atelier courier delivers piece directly to your door
-                      </div>
-                    </div>
-                  </div>
-                  <span className="font-heading font-semibold text-xs text-[#111]">$120</span>
-                </label>
-              </div>
-            </div>
-
-            {/* Payment Details */}
-            <div className="bg-white p-6 sm:p-8 rounded-2xl border border-[#E5E7EB] shadow-xs space-y-4">
-              <div className="flex items-center justify-between pb-2 border-b border-gray-100">
-                <h3 className="font-serif text-lg font-semibold text-[#111]">
-                  3. Payment Authorization
-                </h3>
-                <div className="flex items-center gap-1.5 text-xs text-emerald-700">
-                  <Lock className="w-3.5 h-3.5" />
-                  <span>256-Bit SSL Encrypted</span>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <div>
-                  <label className="block text-[11px] uppercase font-heading tracking-wider text-[#3B4A50] mb-1">
-                    Card Number
                   </label>
-                  <div className="relative">
-                    <CreditCard className="w-4 h-4 text-[#3B4A50] absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="text"
-                      defaultValue="•••• •••• •••• 4242"
-                      className="w-full pl-10 pr-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs font-mono focus:outline-none focus:border-[#7FC8C0]"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-[11px] uppercase font-heading tracking-wider text-[#3B4A50] mb-1">
-                      Expiration (MM/YY)
-                    </label>
-                    <input
-                      type="text"
-                      defaultValue="12/28"
-                      className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs font-mono focus:outline-none focus:border-[#7FC8C0]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] uppercase font-heading tracking-wider text-[#3B4A50] mb-1">
-                      CVV Security Code
-                    </label>
-                    <input
-                      type="password"
-                      defaultValue="•••"
-                      maxLength={4}
-                      className="w-full px-3 py-2 bg-[#FAFAF8] border border-[#C9D1D3] rounded text-xs font-mono focus:outline-none focus:border-[#7FC8C0]"
-                    />
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Right Column: Order Summary (5 Cols) */}
+          {/* Right Column: Order Summary */}
           <div className="lg:col-span-5 bg-white p-6 sm:p-8 rounded-2xl border border-[#E5E7EB] shadow-xs space-y-6 lg:sticky lg:top-24">
             <h3 className="font-serif text-xl font-semibold text-[#111] pb-3 border-b border-gray-100">
-              Order Review ({cart.length} creations)
+              Order Summary ({cart.length} items)
             </h3>
 
-            {/* Miniature Item Rows */}
+            {/* Item Rows */}
             <div className="space-y-3 max-h-60 overflow-y-auto pr-1">
               {cart.map((item) => (
                 <div key={item.id} className="flex items-center justify-between gap-3 text-xs">
@@ -587,23 +482,19 @@ export const CheckoutPage: React.FC = () => {
               </div>
               {discountAmount > 0 && (
                 <div className="flex justify-between text-emerald-700 font-medium">
-                  <span>Heirloom Savings</span>
+                  <span>Discount</span>
                   <span className="tabular-nums">-${discountAmount.toLocaleString()}</span>
                 </div>
               )}
               <div className="flex justify-between">
-                <span>Insured Courier Transit</span>
+                <span>Insured Courier Delivery</span>
                 <span className="tabular-nums font-semibold text-[#111]">
                   {shippingCost === 0 ? 'Complimentary' : `$${shippingCost}`}
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span>Certificate & Archival Storage</span>
-                <span className="text-emerald-700 font-medium">Included</span>
-              </div>
               <div className="flex justify-between text-base font-serif font-bold text-[#111] pt-3 border-t border-gray-100">
                 <span>Total Payment</span>
-                <span className="font-heading text-xl tabular-nums">
+                <span className="font-heading text-xl tabular-nums text-[#0084FF]">
                   ${finalTotal.toLocaleString()}
                 </span>
               </div>
@@ -613,17 +504,14 @@ export const CheckoutPage: React.FC = () => {
             <button
               type="submit"
               disabled={isProcessing}
-              className="w-full py-4 bg-[#3B4A50] hover:bg-[#111] disabled:bg-gray-400 text-white font-heading uppercase text-xs tracking-widest font-semibold rounded-lg shadow-md transition-all flex items-center justify-center gap-2"
+              className="w-full py-4 bg-[#0084FF] hover:bg-[#0073e6] disabled:bg-gray-400 text-white font-heading uppercase text-xs tracking-widest font-semibold rounded-lg shadow-md transition-all flex items-center justify-center gap-2"
             >
               {isProcessing ? (
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  <span>Authorizing Vault Order...</span>
-                </div>
+                <span>Transmitting Order...</span>
               ) : (
                 <>
-                  <span>Complete Insured Acquisition</span>
-                  <ArrowRight className="w-4 h-4 text-[#7FC8C0]" />
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Send Order to Facebook Messenger</span>
                 </>
               )}
             </button>
@@ -632,11 +520,11 @@ export const CheckoutPage: React.FC = () => {
             <div className="space-y-2 text-[11px] text-[#3B4A50] pt-2">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-[#7FC8C0] shrink-0" />
-                <span>Delma Estd. 2003 Authenticity Guarantee</span>
+                <span>Direct consultation & verified stock before payment</span>
               </div>
               <div className="flex items-center gap-2">
                 <Truck className="w-4 h-4 text-[#7FC8C0] shrink-0" />
-                <span>30-Day in-home natural daylight examination</span>
+                <span>Insured courier dispatch with tracking number</span>
               </div>
             </div>
           </div>
