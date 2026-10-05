@@ -66,33 +66,26 @@ export const CheckoutPage: React.FC = () => {
     if (cart.length === 0) return;
 
     setIsProcessing(true);
+    
 // Order Number Pattern
 const now = new Date();
-
 // Customer first-name initial
 const customerInitial = address.firstName.trim().charAt(0).toUpperCase();
-
 // Last digit of today's date
 const lastDigitOfDay = String(now.getDate()).slice(-1);
-
 // Last 2 digits of the year
 const lastTwoDigitsOfYear = String(now.getFullYear()).slice(-2);
-
 // First letter of the month
 const monthName = now.toLocaleString('en-US', { month: 'long' });
 const firstLetterOfMonth = monthName.charAt(0).toUpperCase();
-
 // Last digit of the month number
 const monthNumber = String(now.getMonth() + 1);
 const lastDigitOfMonth = monthNumber.slice(-1);
-
 // Current hour in 24-hour format
 const hour = String(now.getHours()).padStart(2, '0');
-
 // Random 2 characters: A-Z and 0-9
 const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 let randomCode = '';
-
 for (let i = 0; i < 2; i++) {
   randomCode += characters.charAt(
     Math.floor(Math.random() * characters.length)
