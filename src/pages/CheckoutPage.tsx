@@ -45,7 +45,7 @@ export const CheckoutPage: React.FC = () => {
     city: '',
     state: '',
     postalCode: '',
-    country: 'United States'
+    country: ''
   });
 
   const [shippingMethod, setShippingMethod] = useState<'standard' | 'priority' | 'white-glove'>('standard');
@@ -91,10 +91,10 @@ for (let i = 0; i < 2; i++) {
     Math.floor(Math.random() * characters.length)
   );
 }
-
 // Final Crown Pearl order number
 const orderNum = `C${customerInitial}${lastDigitOfDay}-${lastTwoDigitsOfYear}${firstLetterOfMonth}${lastDigitOfMonth}-${hour}${randomCode}`;
 
+    
     // Format item list for Messenger with quantities and prices
     const itemsList = cart
       .map(
@@ -123,7 +123,6 @@ Phone: ${address.phone}
 DELIVERY ADDRESS:
 ${address.addressLine1}${address.addressLine2 ? `, ${address.addressLine2}` : ''}
 ${address.city}, ${address.state} ${address.postalCode}
-${address.country}
 
 ORDER ITEMS:
 ${itemsList}
