@@ -68,11 +68,19 @@ export const CheckoutPage: React.FC = () => {
     setIsProcessing(true);
 
 const now = new Date();
+
 const day = String(now.getDate()).padStart(2, '0');
-const month = String(now.getMonth() + 1).padStart(2, '0');
+const year = String(now.getFullYear()).slice(-2);
+
+const monthName = now.toLocaleString('en-US', { month: 'long' });
+const firstLetterOfMonth = monthName.charAt(0).toUpperCase();
+
+const monthNumber = String(now.getMonth() + 1);
+const lastDigitOfMonth = monthNumber.slice(-1);
+
 const randomNumber = Math.floor(1000 + Math.random() * 9000);
-    
-    const orderNum = `CP-${day}${month}-${randomNumber}`;
+
+    const orderNum = `C${day}-${year}${firstLetterOfMonth}${lastDigitOfMonth}-${randomNumber}`;
 
     // Format item list for Messenger with quantities and prices
     const itemsList = cart
