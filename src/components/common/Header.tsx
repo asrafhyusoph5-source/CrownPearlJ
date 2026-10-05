@@ -32,13 +32,20 @@ export const Header: React.FC = () => {
     { label: 'Reviews', path: '/reviews' },
   ];
 
+  const isActive = (path: string) => {
+    if (path === '/shop' && location.pathname === '/shop' && !location.search) return true;
+    return location.pathname === path;
+  };
+
   return (
     <header className="sticky top-0 z-40 bg-[#FAFAF8]/95 backdrop-blur-md border-b border-[#E5E7EB] transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Brand Wordmark */}
-        <Logo size="md" />
+        {/* Zone 1: Brand Wordmark / Logo */}
+        <div className="flex items-center">
+          <Logo size="md" />
+        </div>
 
-        {/* Desktop Navigation */}
+        {/* Zone 2: Navigation Links (Desktop) */}
         <nav className="hidden lg:flex items-center gap-7 text-sm font-heading font-medium tracking-widest uppercase text-[#3B4A50]">
           {navLinks.map((link) => {
             if (link.isDropdown) {
@@ -49,11 +56,15 @@ export const Header: React.FC = () => {
                   onMouseEnter={() => setCollectionsDropdownOpen(true)}
                   onMouseLeave={() => setCollectionsDropdownOpen(false)}
                 >
-                  <Link to={link.path} className="flex items-center gap-1 hover:text-[#111] transition-colors py-2">
+                  <Link
+                    to={link.path}
+                    className="flex items-center gap-1 hover:text-[#111] transition-colors py-2"
+                  >
                     <span>{link.label}</span>
                     <ChevronDown className="w-3.5 h-3.5 opacity-60 group-hover:rotate-180 transition-transform duration-200" />
                   </Link>
 
+                  {/* Dropdown Menu */}
                   {collectionsDropdownOpen && (
                     <div className="absolute top-full left-1/2 -translate-x-1/2 w-72 bg-white border border-[#C9D1D3]/50 rounded-lg shadow-xl py-3 px-2 z-50 animate-fade-in">
                       <div className="text-[10px] tracking-[0.2em] font-heading font-semibold text-[#7FC8C0] px-3 py-1.5 uppercase border-b border-gray-100">
@@ -69,6 +80,16 @@ export const Header: React.FC = () => {
                           {sub.label}
                         </Link>
                       ))}
+                      <div className="mt-2 pt-2 border-t border-gray-100 px-3">
+                        <Link
+                          to="/pearl-guide"
+                          onClick={() => setCollectionsDropdownOpen(false)}
+                          className="flex items-center gap-1.5 text-[11px] font-heading text-[#7FC8C0] hover:text-[#3B4A50] uppercase tracking-wide"
+                        >
+                          <Sparkles className="w-3 h-3" />
+                          <span>The 5 Pearl Grading Factors</span>
+                        </Link>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -79,7 +100,11 @@ export const Header: React.FC = () => {
               <Link
                 key={link.label}
                 to={link.path}
-                className="relative py-2 transition-colors hover:text-[#111]"
+                className={`relative py-2 transition-colors hover:text-[#111] ${
+                  isActive(link.path)
+                    ? 'text-[#111] font-semibold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#7FC8C0]'
+                    : ''
+                }`}
               >
                 {link.label}
               </Link>
@@ -87,7 +112,7 @@ export const Header: React.FC = () => {
           })}
         </nav>
 
-        {/* Action Controls */}
+        {/* Zone 3: Actions (Search, Wishlist, Cart Drawer, Consultation CTA) */}
         <div className="flex items-center gap-2 sm:gap-4">
           <button
             type="button"
@@ -111,11 +136,12 @@ export const Header: React.FC = () => {
             )}
           </Link>
 
+          {/* Shopping Bag trigger */}
           <button
             type="button"
             onClick={() => setIsCartDrawerOpen(true)}
-            aria-label={`View shopping bag with ${cartCount} items`}
-            className="relative p-2 text-[#3B4A50] hover:text-[#111] rounded-full hover:bg-black/5 transition-colors"
+            aria-label="Open shopping bag"
+            className="p-2 text-[#3B4A50] hover:text-[#111111] rounded-full hover:bg-gray-100 transition-colors relative"
           >
             <ShoppingBag className="w-5 h-5" />
             {cartCount > 0 && (
@@ -125,14 +151,7 @@ export const Header: React.FC = () => {
             )}
           </button>
 
-          <button
-            type="button"
-            onClick={() => setIsConsultationModalOpen(true)}
-            className="hidden md:inline-flex items-center text-xs font-heading font-semibold uppercase tracking-widest px-3.5 py-2 border border-[#3B4A50] text-[#3B4A50] hover:bg-[#3B4A50] hover:text-white rounded transition-colors"
-          >
-            Book Atelier
-          </button>
-
+          {/* Mobile hamburger menu toggle */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -143,6 +162,98 @@ export const Header: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {/* Mobile Drawer */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden bg-[#FAFAF8] border-b border-[#E5E7EB] px-6 py-6 space-y-4 animate-fade-in shadow-xl">
+          <nav className="flex flex-col space-y-3 font-heading uppercase text-sm tracking-wider text-[#3B4A50]">
+            <Link
+              to="/shop"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-1 border-b border-gray-100 hover:text-[#111]"
+            >
+              Shop All Jewelry
+            </Link>
+            <div className="pt-1 pb-1">
+              <span className="text-[11px] font-semibold text-[#7FC8C0] tracking-widest">
+                Collections
+              </span>
+              <div className="pl-3 mt-2 space-y-2 text-xs">
+                <Link
+                  to="/shop?category=necklaces"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block hover:text-[#111]"
+                >
+                  Pearl Necklaces
+                </Link>
+                <Link
+                  to="/shop?category=earrings"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block hover:text-[#111]"
+                >
+                  Earrings & Drops
+                </Link>
+                <Link
+                  to="/shop?category=rings"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block hover:text-[#111]"
+                >
+                  Solitaire Rings
+                </Link>
+                <Link
+                  to="/shop?category=bracelets"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block hover:text-[#111]"
+                >
+                  Bracelets
+                </Link>
+                <Link
+                  to="/shop?category=bridal"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block hover:text-[#111]"
+                >
+                  Bridal Suites
+                </Link>
+                <Link
+                  to="/shop?category=mens"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block hover:text-[#111]"
+                >
+                  Men's Pearl Accents
+                </Link>
+              </div>
+            </div>
+            <Link
+              to="/our-story"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-1 border-b border-gray-100 hover:text-[#111]"
+            >
+              Our Story (Since 2003)
+            </Link>
+            <Link
+              to="/pearl-guide"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-1 border-b border-gray-100 hover:text-[#111]"
+            >
+              Pearl Education & Care
+            </Link>
+            <Link
+              to="/reviews"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-1 border-b border-gray-100 hover:text-[#111]"
+            >
+              Client Reviews
+            </Link>
+            <Link
+              to="/contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-1 border-b border-gray-100 hover:text-[#111]"
+            >
+              Visit Atelier & Contact
+            </Link>
+          </nav>
+        </div>
+      )}
     </header>
   );
 };
