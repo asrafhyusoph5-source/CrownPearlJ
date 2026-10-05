@@ -66,11 +66,15 @@ export const CheckoutPage: React.FC = () => {
     if (cart.length === 0) return;
 
     setIsProcessing(true);
-
+  // Order Number Pattern
 const now = new Date();
 
-const day = String(now.getDate()).padStart(2, '0');
-const year = String(now.getFullYear()).slice(-2);
+const weekday = now.toLocaleString('en-US', { weekday: 'long' });
+const weekdayLetter = weekday.charAt(0).toUpperCase();
+
+const lastDigitOfDay = String(now.getDate()).slice(-1);
+
+const lastTwoDigitsOfYear = String(now.getFullYear()).slice(-2);
 
 const monthName = now.toLocaleString('en-US', { month: 'long' });
 const firstLetterOfMonth = monthName.charAt(0).toUpperCase();
@@ -78,9 +82,19 @@ const firstLetterOfMonth = monthName.charAt(0).toUpperCase();
 const monthNumber = String(now.getMonth() + 1);
 const lastDigitOfMonth = monthNumber.slice(-1);
 
-const randomNumber = Math.floor(1000 + Math.random() * 9000);
+const hour = String(now.getHours()).padStart(2, '0');
 
-    const orderNum = `C${day}-${year}${firstLetterOfMonth}${lastDigitOfMonth}-${randomNumber}`;
+// Random 2 characters: A-Z and 0-9
+const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+let randomCode = '';
+
+for (let i = 0; i < 2; i++) {
+  randomCode += characters.charAt(
+    Math.floor(Math.random() * characters.length)
+  );
+}
+
+const orderNum = `C${weekdayLetter}${lastDigitOfDay}-${lastTwoDigitsOfYear}${firstLetterOfMonth}${lastDigitOfMonth}-${hour}${randomCode}`;
 
     // Format item list for Messenger with quantities and prices
     const itemsList = cart
