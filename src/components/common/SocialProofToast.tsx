@@ -11,9 +11,30 @@ interface PurchaseEvent {
 }
 
 const RECENT_PURCHASES: PurchaseEvent[] = [
-  { city: 'Seattle', state: 'WA', product: PRODUCTS[0], timeAgo: '4 minutes ago' },
-  { city: 'Manhattan', state: 'NY', product: PRODUCTS[1], timeAgo: '12 minutes ago' },
-  { city: 'Palm Beach', state: 'FL', product: PRODUCTS[2], timeAgo: '28 minutes ago' }
+  {
+    city: 'Seattle',
+    state: 'WA',
+    product: PRODUCTS[0], // Delma Signature Akoya Choker
+    timeAgo: '4 minutes ago'
+  },
+  {
+    city: 'Manhattan',
+    state: 'NY',
+    product: PRODUCTS[1], // Lustre Drop South Sea Earrings
+    timeAgo: '12 minutes ago'
+  },
+  {
+    city: 'Palm Beach',
+    state: 'FL',
+    product: PRODUCTS[2], // Aurora Bridal Suite
+    timeAgo: '28 minutes ago'
+  },
+  {
+    city: 'Austin',
+    state: 'TX',
+    product: PRODUCTS[8], // Minima Akoya Studs
+    timeAgo: '41 minutes ago'
+  }
 ];
 
 export const SocialProofToast: React.FC = () => {
@@ -24,7 +45,12 @@ export const SocialProofToast: React.FC = () => {
   useEffect(() => {
     if (isDismissed) return;
 
-    const initialTimer = setTimeout(() => setIsVisible(true), 7000);
+    // Wait 7 seconds before showing the first toast
+    const initialTimer = setTimeout(() => {
+      setIsVisible(true);
+    }, 7000);
+
+    // Rotate toast every 18 seconds
     const intervalTimer = setInterval(() => {
       setIsVisible(false);
       setTimeout(() => {
@@ -40,11 +66,13 @@ export const SocialProofToast: React.FC = () => {
   }, [isDismissed]);
 
   if (isDismissed || !isVisible) return null;
+
   const current = RECENT_PURCHASES[currentIndex];
 
   return (
     <div
       role="status"
+      aria-live="polite"
       className="fixed bottom-6 left-6 z-40 max-w-sm bg-white/95 backdrop-blur-md rounded-lg p-3.5 shadow-xl border border-[#C9D1D3]/70 transition-all duration-500 animate-slide-up"
     >
       <div className="flex items-start gap-3">
@@ -53,6 +81,7 @@ export const SocialProofToast: React.FC = () => {
             src={current.product.images[0]}
             alt={current.product.name}
             className="w-12 h-12 object-cover rounded bg-[#FAFAF8] border border-gray-100"
+            referrerPolicy="no-referrer"
           />
         </Link>
         <div className="flex-1 min-w-0 pr-4">
@@ -74,6 +103,7 @@ export const SocialProofToast: React.FC = () => {
           type="button"
           onClick={() => setIsDismissed(true)}
           className="text-gray-400 hover:text-gray-600 p-0.5 -mt-1 -mr-1"
+          aria-label="Dismiss notification"
         >
           <X className="w-3.5 h-3.5" />
         </button>
