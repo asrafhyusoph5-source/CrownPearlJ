@@ -66,22 +66,27 @@ export const CheckoutPage: React.FC = () => {
     if (cart.length === 0) return;
 
     setIsProcessing(true);
-  // Order Number Pattern
+// Order Number Pattern
 const now = new Date();
 
-const weekday = now.toLocaleString('en-US', { weekday: 'long' });
-const weekdayLetter = weekday.charAt(0).toUpperCase();
+// Customer first-name initial
+const customerInitial = address.firstName.trim().charAt(0).toUpperCase();
 
+// Last digit of today's date
 const lastDigitOfDay = String(now.getDate()).slice(-1);
 
+// Last 2 digits of the year
 const lastTwoDigitsOfYear = String(now.getFullYear()).slice(-2);
 
+// First letter of the month
 const monthName = now.toLocaleString('en-US', { month: 'long' });
 const firstLetterOfMonth = monthName.charAt(0).toUpperCase();
 
+// Last digit of the month number
 const monthNumber = String(now.getMonth() + 1);
 const lastDigitOfMonth = monthNumber.slice(-1);
 
+// Current hour in 24-hour format
 const hour = String(now.getHours()).padStart(2, '0');
 
 // Random 2 characters: A-Z and 0-9
@@ -94,7 +99,8 @@ for (let i = 0; i < 2; i++) {
   );
 }
 
-const orderNum = `C${weekdayLetter}${lastDigitOfDay}-${lastTwoDigitsOfYear}${firstLetterOfMonth}${lastDigitOfMonth}-${hour}${randomCode}`;
+// Final Crown Pearl order number
+const orderNum = `C${customerInitial}${lastDigitOfDay}-${lastTwoDigitsOfYear}${firstLetterOfMonth}${lastDigitOfMonth}-${hour}${randomCode}`;
 
     // Format item list for Messenger with quantities and prices
     const itemsList = cart
