@@ -28,7 +28,6 @@ import { ShippingReturnsPage } from './pages/ShippingReturnsPage';
 import { LegalPage } from './pages/LegalPage';
 import { LiveSellingPage } from './pages/LiveSellingPage';
 import { NotFoundPage } from './pages/NotFoundPage';
-
 import { CertificateVerificationPage } from './pages/CertificateVerificationPage';
 
 function ScrollToTop() {
