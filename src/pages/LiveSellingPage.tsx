@@ -21,7 +21,7 @@ import { useShop } from '../context/ShopContext';
 
 const FB_PAGE_URL = 'https://www.facebook.com/delmapearlonline';
 const FB_LIVE_URL = 'https://www.facebook.com/delmapearlonline/live_videos';
-const FB_MESSENGER_URL = 'https://m.me/delmapearlonline';
+const FB_MESSENGER_URL = 'https://m.me/shoponlineph';
 
 export const LiveSellingPage: React.FC = () => {
   const { addToCart } = useShop();
@@ -29,7 +29,7 @@ export const LiveSellingPage: React.FC = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'Facebook Live Selling & Stream – Delma Pearl Online';
+    document.title = 'Facebook Live Selling & Stream – Crown Pearl Palawan';
   }, []);
 
   // Handpicked live specials from existing products
