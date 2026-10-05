@@ -6,32 +6,20 @@ import { ASSET_IMAGES } from '../../assets/images';
 export const PearlGuideTeaser: React.FC = () => {
   const pearlTypes = [
     {
-      name: 'Japanese Akoya',
-      origin: 'Japan · Saltwater',
-      sheen: 'Sharp mirror reflection',
-      tones: 'White Rose, Silver, Cream',
-      size: '6.0 – 9.5 mm'
+      name: 'South Sea Pearl',
+      origin: 'Philippines & Australia',
     },
     {
-      name: 'South Sea Pearls',
-      origin: 'Australia & Philippines',
-      sheen: 'Deep velvety satin glow',
-      tones: 'Champagne Gold, Platinum White',
-      size: '9.0 – 16.0 mm+'
+      name: 'Akoya Pearl',
+      origin: 'Japan · Saltwater',
     },
     {
       name: 'Tahitian Black Pearls',
       origin: 'French Polynesia',
-      sheen: 'Iridescent metallic shimmer',
-      tones: 'Peacock Green, Aubergine, Graphite',
-      size: '8.5 – 14.0 mm'
     },
     {
       name: 'Freshwater Pearls',
       origin: 'Lake Aquaculture',
-      sheen: 'Soft radiant glow',
-      tones: 'Natural Peach, Lavender, Ivory',
-      size: '4.0 – 14.0 mm'
     }
   ];
 
@@ -65,17 +53,45 @@ export const PearlGuideTeaser: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/80 via-transparent to-transparent flex items-end p-6 sm:p-10">
             <div className="text-white space-y-1">
               <span className="text-[10px] font-heading uppercase tracking-widest text-[#7FC8C0] font-semibold">
-                Nature's Four Masters
+                Pearl Essentials
               </span>
               <h3 className="font-serif text-xl sm:text-2xl font-semibold">
-                From Pristine Japanese Bays to the Coral Lagoons of Tahiti
+                Discover what makes every pearl unique.
               </h3>
             </div>
           </div>
         </div>
 
         {/* 4 Pearl Variety Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {pearlTypes.map((type, idx) => (
+            <div
+              key={idx}
+              className="bg-white p-5 rounded-xl border border-[#E5E7EB] shadow-xs flex flex-col justify-between space-y-4 hover:border-[#7FC8C0] transition-colors"
+            >
+              <div>
+                <span className="text-[10px] font-heading uppercase tracking-widest text-[#7FC8C0] font-semibold block mb-1">
+                  {type.origin}
+                </span>
+                <h4 className="font-serif text-lg font-semibold text-[#111111]">
+                  {type.name}
+                </h4>
+              </div>
 
+              <div className="space-y-2 text-xs text-[#3B4A50] border-t border-gray-100 pt-3">
+                <div>
+                  <span className="text-gray-400 block text-[10px] uppercase font-heading">Signature Luster:</span>
+                  <span className="font-medium text-[#111]">{type.sheen}</span>
+                </div>
+                <div>
+                  <span className="text-gray-400 block text-[10px] uppercase font-heading">Color Palette:</span>
+                  <span className="font-medium text-[#111]">{type.tones}</span>
+                </div>
+                <div>
+                  <span className="text-gray-400 block text-[10px] uppercase font-heading">Typical Scale:</span>
+                  <span className="font-medium text-[#111] tabular-nums">{type.size}</span>
+                </div>
+              </div>
 
               <Link
                 to={`/shop?pearlType=${type.name.split(' ')[0]}`}
