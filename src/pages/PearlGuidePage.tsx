@@ -269,6 +269,7 @@ export const PearlGuidePage: React.FC = () => {
               </p>
             </div>
           </div>
+          <img src={ASSET_IMAGES.pearlGuide} alt="Pearl Guide" className="w-full h-full object-cover" />
         </div>
 
         {/* CTA */}
