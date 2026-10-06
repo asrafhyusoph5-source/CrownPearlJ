@@ -58,12 +58,7 @@ export const FeaturedCollectionBanner: React.FC = () => {
                 <span>Explore Bridal Creations</span>
                 <ArrowRight className="w-4 h-4 text-[#7FC8C0]" />
               </Link>
-              <Link
-                to="/contact"
-                className="text-xs font-heading font-semibold uppercase tracking-widest text-[#3B4A50] hover:text-[#7FC8C0] py-2 transition-colors"
-              >
-                Book Bridal Consultation →
-              </Link>
+              
             </div>
           </div>
         </div>
