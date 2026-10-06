@@ -96,10 +96,6 @@ export const Header: React.FC = () => {
                 </div>
               );
             }
-
-            return (
-              
-            );
           })}
         </nav>
 
