@@ -542,7 +542,7 @@ export const ProductDetailPage: React.FC = () => {
                   ))}
                 </ul>
                 <div className="pt-2 text-[11px] text-[#7FC8C0] font-heading uppercase font-semibold">
-                  Every Crown Pearl piece is entitled to complimentary ultrasonic clasp check & biennial restringing at our New York atelier.
+                  Every Crown Pearl piece is entitled to complimentary ultrasonic clasp check & biennial restringing at our Palawan workshop in Puerto Princesa.
                 </div>
               </div>
             )}
