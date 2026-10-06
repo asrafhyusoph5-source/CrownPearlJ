@@ -47,7 +47,7 @@ const FB_MESSENGER_URL = 'https://m.me/shoponlineph';
  * Leave this empty when there is no current Live.
  */
 
-const FACEBOOK_CURRENT_LIVE_URL = 'https://www.facebook.com/share/v/1HvMYJnrkU/';
+const FACEBOOK_CURRENT_LIVE_URL = 'https://www.facebook.com/share/v/1BQjE2tRi4';
 
 export const LiveSellingPage: React.FC = () => {
   const { addToCart } = useShop();
