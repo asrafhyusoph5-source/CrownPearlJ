@@ -42,7 +42,7 @@ export const FAQS: FAQItem[] = [
   },
   {
     category: 'Bespoke & Sizing',
-    question: 'How can I book a private consultation with Delma?',
-    answer: 'You may book a private 1-on-1 consultation either at our Madison Avenue Atelier in New York or via private high-definition video link. Delma and our senior pearl gemologists will present curated selections based on your preferences.'
+    question: 'How can I inquire or connect with Delma?',
+    answer: 'You may connect with Delma directly via Facebook Messenger (@delmapearlonline), WhatsApp (+63 999 991 0270), email (delmapearl17@gmail.com), or visit our store at National Highway, Brgy. San Manuel, Puerto Princesa, Palawan. Delma and our team are delighted to assist with custom pieces, sizing, and pearl selections.'
   }
 ];
