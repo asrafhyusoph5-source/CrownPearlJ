@@ -5,7 +5,7 @@ import { PRODUCTS } from '../../data/products';
 import { ProductCard } from '../product/ProductCard';
 
 export const BestSellers: React.FC = () => {
-  const bestSellers = PRODUCTS.filter((p) => p.isBestseller || p.badge === 'Bestseller').slice(0, 8);
+  const bestSellers = PRODUCTS.filter((p) => p.isBestseller || p.badge === 'Bestseller').slice(0, 6);
   const [filterType, setFilterType] = useState<'all' | 'akoya' | 'south-sea' | 'tahitian'>('all');
 
   const filteredProducts = bestSellers.filter((p) => {
