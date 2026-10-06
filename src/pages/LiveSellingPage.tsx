@@ -20,7 +20,7 @@ import { PRODUCTS } from '../data/products';
 import { useShop } from '../context/ShopContext';
 
 const FB_PAGE_URL = 'https://www.facebook.com/delmapearlonline';
-const FB_LIVE_URL = 'https://www.facebook.com/delmapearlonline/live_videos';
+const FB_LIVE_URL = 'https://www.facebook.com/share/v/1HvMYJnrkU/';
 const FB_MESSENGER_URL = 'https://m.me/shoponlineph';
 
 export const LiveSellingPage: React.FC = () => {
