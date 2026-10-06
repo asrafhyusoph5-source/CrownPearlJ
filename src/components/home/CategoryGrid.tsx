@@ -10,7 +10,7 @@ const CATEGORIES = [
     path: '/shop?category=necklaces',
     image: ASSET_IMAGES.hero,
     aspect: 'col-span-1 md:col-span-2 lg:col-span-2',
-    desc: 'Classic Japanese Akoya strands, graduated Tahitian collars, and ripple lariats.'
+    desc: 'Classic South Sea Pearls.'
   },
   {
     title: 'Earrings & Drops',
@@ -24,7 +24,7 @@ const CATEGORIES = [
     title: 'Solitaire & Toi et Moi Rings',
     count: '4 Designs',
     path: '/shop?category=rings',
-    image: ASSET_IMAGES.pearlTypes,
+    image: ASSET_IMAGES.GoldRing,
     aspect: 'col-span-1',
     desc: 'High-jewelry cathedral mounts in 18k recycled gold and platinum.'
   },
@@ -40,15 +40,15 @@ const CATEGORIES = [
     title: 'Bracelets & Cuffs',
     count: '5 Designs',
     path: '/shop?category=bracelets',
-    image: ASSET_IMAGES.workshop,
+    image: ASSET_IMAGES.BraceletGold,
     aspect: 'col-span-1',
-    desc: 'Hand-knotted silk bracelets and forged 18k golden station bangles.'
+    desc: 'Hand-knotted silk bracelets.'
   },
   {
     title: 'Men’s Pearl Accents',
     count: '3 Designs',
     path: '/shop?category=mens',
-    image: ASSET_IMAGES.pearlTypes,
+    image: ASSET_IMAGES.MensBracelet,
     aspect: 'col-span-1',
     desc: 'Engine-turned sterling silver cufflinks and matte onyx bead bracelets.'
   }
