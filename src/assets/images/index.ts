@@ -3,6 +3,13 @@ import bridalImage from './bridal_collection_pearl_1790915120489.jpeg';
 import workshopImage from './artisan_workshop_delma_1790915133626.jpeg';
 import pearlTypesImage from './pearl_types_showcase_1790915144501.jpeg';
 import earringsImage from './category_pearl_earrings_1790915155653.jpeg';
+import braceletGold from './braceletGold.jpg';
+import mensBracelet from './mensBracelet.jpg';
+import blackRing from './blackRing.jpg';
+import dangleEarring from './dangleEarring.jpg';
+import goldRing from './goldRing.jpg';
+import goldRingW from './goldRingW.jpg';
+
 import SouthSeaPearlGuide from './SouthSeaPearlGuide.jpg';
 import AkoyaPearlGuide from './AkoyaPearlGuide.jpg';
 import FreshwaterPearlGuide from './FreshwaterPearlGuide.jpg';
@@ -18,6 +25,13 @@ export const ASSET_IMAGES = {
   workshop: workshopImage,
   pearlTypes: pearlTypesImage,
   earrings: earringsImage,
+  BraceletGold: braceletGold,
+  MensBracelet: mensBracelet,
+  BlackRing: blackRing,
+  DangleEarring: dangleEarring,
+  GoldRing: goldRing,
+  GoldRingW: goldRingW,
+  
   pearlSouthSea: SouthSeaPearlGuide,
   pearlAkoya: AkoyaPearlGuide,
   pearlFreshwater: FreshwaterPearlGuide,
