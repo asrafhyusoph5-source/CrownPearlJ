@@ -5,13 +5,14 @@ import { ASSET_IMAGES } from '../../assets/images';
 
 export const HeroSection: React.FC = () => {
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center bg-[#1A2327] overflow-hidden">
+    <section className="relative min-h-[85vh] lg:min-h-[88vh] flex items-center justify-center bg-[#1A2327] overflow-hidden">
+      {/* Background Photography with Luxury Scrim */}
       <div className="absolute inset-0 z-0">
         <img
           src={ASSET_IMAGES.hero}
           alt="Crown Pearl High Jewelry Collection"
-          className="w-full h-full object-cover object-center opacity-85"
-        referrerPolicy="no-referrer"
+          className="w-full h-full object-cover object-center opacity-85 transform scale-102 transition-transform duration-10000"
+          referrerPolicy="no-referrer"
         />
         {/* Measured Scrim for contrast per Section 1.F */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#1A2327]/90 via-[#1A2327]/60 to-[#1A2327]/30" />
@@ -27,30 +28,33 @@ export const HeroSection: React.FC = () => {
           {/* Eyebrow / Heritage Kicker: Zero-Pill text */}
           <div className="flex items-center gap-2.5 text-xs sm:text-sm font-heading uppercase tracking-[0.3em] text-[#7FC8C0] font-semibold">
             <Sparkles className="w-4 h-4 text-[#7FC8C0]" />
-            <span>Jewelry Shop by Delma · Estd. 2003</span>
+            <span>Palawan, Philippines · Estd. 2003</span>
           </div>
 
           {/* Headline with text-wrap: balance */}
           <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-white font-medium tracking-tight leading-[1.1] [text-wrap:balance]">
             Timeless Pearls. <br />
-            <span className="italic font-normal text-[#FAFAF8]">Crafted Since 2003.</span>
+            <span className="italic font-normal text-[#FAFAF8]">Crafted in Palawan.</span>
           </h1>
 
-          <p className="text-base sm:text-lg text-[#C9D1D3] leading-relaxed max-w-xl font-light">
-            Individually hand-knotted on pure silk in our Palawan atelier, each piece is thoughtfully crafted to preserve the natural beauty of every pearl for generations to come.
+          {/* Editorial Subtitle */}
+          <p className="text-base sm:text-lg text-[#C9D1D3] leading-relaxed max-w-xl font-sans font-light">
+            Individually hand-knotted on pure silk in our Palawan workshop in Puerto Princesa. Discover certified South Sea pearls, golden pearls, and fine jewelry designed to become generational family heirlooms.
           </p>
 
-          <div className="pt-2 flex flex-col sm:flex-row gap-4">
+          {/* Action CTAs */}
+          <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
             <Link
               to="/shop"
-              className="px-8 py-3.5 bg-[#7FC8C0] hover:bg-[#6ab8b0] text-[#111] font-heading font-semibold uppercase text-xs tracking-widest rounded-lg flex items-center justify-center gap-2"
+              className="px-8 py-3.5 bg-[#7FC8C0] hover:bg-[#6ab8b0] text-[#111111] font-heading font-semibold uppercase text-xs sm:text-sm tracking-widest rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group"
             >
               <span>Shop Pearls</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
             </Link>
+
             <Link
               to="/shop?category=bridal"
-              className="px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 font-heading font-semibold uppercase text-xs tracking-widest rounded-lg flex items-center justify-center"
+              className="px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-sm font-heading font-semibold uppercase text-xs sm:text-sm tracking-widest rounded-lg transition-all duration-300 flex items-center justify-center"
             >
               Explore Bridal
             </Link>
@@ -65,7 +69,7 @@ export const HeroSection: React.FC = () => {
             <span className="text-white/30">·</span>
             <div className="flex items-center gap-2">
               <span className="text-[#7FC8C0] font-heading font-bold">20+</span>
-              <span>Years of Atelier Craft</span>
+              <span>Years of Palawan Craft</span>
             </div>
             <span className="text-white/30">·</span>
             <div>
