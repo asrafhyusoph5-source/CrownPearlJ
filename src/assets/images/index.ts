@@ -7,8 +7,10 @@ import braceletGold from './braceletGold.jpg';
 import mensBracelet from './mensBracelet.jpg';
 import blackRing from './blackRing.jpg';
 import dangleEarring from './dangleEarring.jpg';
+import dangleEarring1 from './dangleEarring1.jpg';
 import goldRing from './goldRing.jpg';
 import goldRingW from './goldRingW.jpg';
+import mariNecklace from './mariNecklace.jpg';
 
 import SouthSeaPearlGuide from './SouthSeaPearlGuide.jpg';
 import AkoyaPearlGuide from './AkoyaPearlGuide.jpg';
@@ -29,8 +31,10 @@ export const ASSET_IMAGES = {
   MensBracelet: mensBracelet,
   BlackRing: blackRing,
   DangleEarring: dangleEarring,
+  DangleEarring1: dangleEarring1,
   GoldRing: goldRing,
   GoldRingW: goldRingW,
+  MariNecklace: mariNecklace,
   
   pearlSouthSea: SouthSeaPearlGuide,
   pearlAkoya: AkoyaPearlGuide,
