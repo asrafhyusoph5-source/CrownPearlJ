@@ -8,7 +8,7 @@ const CATEGORIES = [
     title: 'Pearl Necklaces & Chokers',
     count: '8 Designs',
     path: '/shop?category=necklaces',
-    image: ASSET_IMAGES.hero,
+    image: ASSET_IMAGES.MariNecklace,
     aspect: 'col-span-1 md:col-span-2 lg:col-span-2',
     desc: 'Classic South Sea Pearls.'
   },
@@ -16,7 +16,7 @@ const CATEGORIES = [
     title: 'Earrings & Drops',
     count: '6 Designs',
     path: '/shop?category=earrings',
-    image: ASSET_IMAGES.earrings,
+    image: ASSET_IMAGES.DangleEarring1,
     aspect: 'col-span-1',
     desc: 'Luminous teardrop South Sea earrings and everyday Akoya studs.'
   },
