@@ -12,26 +12,26 @@ interface PurchaseEvent {
 
 const RECENT_PURCHASES: PurchaseEvent[] = [
   {
-    city: 'Seattle',
-    state: 'WA',
+    city: 'Puerto Princesa',
+    state: 'Palawan',
     product: PRODUCTS[0], // Delma Signature Akoya Choker
     timeAgo: '4 minutes ago'
   },
   {
-    city: 'Manhattan',
-    state: 'NY',
+    city: 'Quezon City',
+    state: 'Metro Manila',
     product: PRODUCTS[1], // Lustre Drop South Sea Earrings
     timeAgo: '12 minutes ago'
   },
   {
-    city: 'Palm Beach',
-    state: 'FL',
+    city: 'Cebu City',
+    state: 'Cebu',
     product: PRODUCTS[2], // Aurora Bridal Suite
     timeAgo: '28 minutes ago'
   },
   {
-    city: 'Austin',
-    state: 'TX',
+    city: 'Davao City',
+    state: 'Davao',
     product: PRODUCTS[8], // Minima Akoya Studs
     timeAgo: '41 minutes ago'
   }
