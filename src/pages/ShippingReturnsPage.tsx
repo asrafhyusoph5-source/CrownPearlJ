@@ -68,7 +68,7 @@ export const ShippingReturnsPage: React.FC = () => {
             <ul className="list-disc pl-5 space-y-1">
               <li><strong>Complimentary Insured Courier:</strong> 2 to 3 business days in transit (FedEx Priority / UPS Secure Vault).</li>
               <li><strong>Overnight Vault Dispatch ($45):</strong> Dispatched with priority tracking for next-business-day delivery by 10:30 AM.</li>
-              <li><strong>White-Glove Hand Delivery ($120):</strong> Available for Manhattan, Brooklyn, Greenwich, and Hamptons private residences.</li>
+              <li><strong>Store Pickup & Inspection:</strong> Complimentary in-person pickup available at our store in San Manuel, Puerto Princesa, Palawan.</li>
             </ul>
           </div>
 
@@ -80,10 +80,10 @@ export const ShippingReturnsPage: React.FC = () => {
               To initiate a return or exchange:
             </p>
             <ol className="list-decimal pl-5 space-y-1.5">
-              <li>Contact our concierge team at <a href="mailto:concierge@crownpearl.com" className="text-[#7FC8C0] underline">concierge@crownpearl.com</a> or via WhatsApp with your order number.</li>
-              <li>We will email a pre-paid, fully insured return courier label.</li>
-              <li>Place the creation in its original teal presentation box along with the Delma Certificate of Authenticity.</li>
-              <li>Hand the parcel to your local courier station. Upon arrival and gemological inspection at our Manhattan workshop, your refund is credited within 48 hours.</li>
+              <li>Contact our team at <a href="mailto:delmapearl17@gmail.com" className="text-[#7FC8C0] underline">delmapearl17@gmail.com</a>, via WhatsApp (<a href="https://wa.me/639999910270" className="text-[#7FC8C0] underline">+63 999 991 0270</a>), or on Messenger (<a href="https://m.me/delmapearlonline" className="text-[#7FC8C0] underline">@delmapearlonline</a>) with your order number.</li>
+              <li>We will guide you through the insured return courier process.</li>
+              <li>Place the creation in its original presentation box along with the Certificate of Authenticity.</li>
+              <li>Upon arrival and verification at our Palawan atelier, your exchange or refund is processed promptly within 48 hours.</li>
             </ol>
           </div>
         </div>
