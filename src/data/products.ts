@@ -71,9 +71,9 @@ export const PRODUCTS: Product[] = [
     stockCount: 3,
     badge: 'Limited Stock',
     images: [
-      ASSET_IMAGES.earrings,
-      ASSET_IMAGES.hero,
-      ASSET_IMAGES.pearlTypes
+      ASSET_IMAGES.DangleEarring,
+      ASSET_IMAGES.DangleEarring1,
+      ASSET_IMAGES.DangleEarring2
     ],
     description: 'An architectural union of organic fluidity and precious metal. Two matched South Sea teardrop pearls sway gracefully beneath bezel-set VS1 brilliant pavé diamonds.',
     story: 'South Sea pearls are cultivated for up to three years in the warm, secluded bays of Northwestern Australia. Each pair is chosen from hundreds of harvest lots to achieve identical tone, curvature, and reflection.',
@@ -171,9 +171,9 @@ export const PRODUCTS: Product[] = [
     stockCount: 6,
     badge: 'New',
     images: [
-      ASSET_IMAGES.pearlTypes,
-      ASSET_IMAGES.earrings,
-      ASSET_IMAGES.bridal
+      ASSET_IMAGES.GoldRingW,
+      ASSET_IMAGES.GoldRing,
+      ASSET_IMAGES.GoldRingM
     ],
     description: 'A contemporary tribute to celestial harmony. An exceptionally spherical South Sea pearl rests upon a gentle scalloped cathedral setting designed to capture sunlight from all angles.',
     story: 'Handcrafted by master carvers to ensure the pearl sits securely without bulky prongs, celebrating the organic perfection of the gem uninterrupted.',
@@ -254,9 +254,9 @@ export const PRODUCTS: Product[] = [
     stockCount: 9,
     badge: 'Bestseller',
     images: [
-      ASSET_IMAGES.workshop,
-      ASSET_IMAGES.pearlTypes,
-      ASSET_IMAGES.hero
+      ASSET_IMAGES.BraceletGold1,
+      ASSET_IMAGES.BraceletGold,
+      ASSET_IMAGES.BraceletGold2
     ],
     description: 'An everyday luxury essential. Designed to drape fluidly around the wrist, catching ambient light with every hand gesture.',
     story: 'Knotting bracelets requires the tightest tension control in pearl stringing, preventing rubbing while maintaining tactile softness. Our workshop standard has remained unchanged since 2003.',
@@ -335,9 +335,9 @@ export const PRODUCTS: Product[] = [
     stockCount: 4,
     badge: 'Heritage Selection',
     images: [
-      ASSET_IMAGES.pearlTypes,
-      ASSET_IMAGES.workshop,
-      ASSET_IMAGES.earrings
+      ASSET_IMAGES.MensBracelet,
+      ASSET_IMAGES.MensBracelet1,
+      ASSET_IMAGES.MensBracelet2
     ],
     description: 'Sartorial refinement for the discerning gentleman. Two button-shaped Tahitian pearls embedded within substantial brushed sterling silver swivel mounts.',
     story: 'Created by Delma as a tribute to mid-century bespoke menswear tailoring, where pearls were a dignified symbol of power, sea heritage, and understated sophistication.',
