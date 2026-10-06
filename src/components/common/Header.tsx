@@ -27,7 +27,7 @@ export const Header: React.FC = () => {
       ],
     },
     { label: 'Bridal', path: '/shop?category=bridal' },
-    { label: 'Live Stream', path: '/live', isLive: true },
+    
     { label: 'Our Story', path: '/our-story' },
     { label: 'Pearl Guide', path: '/pearl-guide' },
     { label: 'Reviews', path: '/reviews' },
@@ -98,23 +98,7 @@ export const Header: React.FC = () => {
             }
 
             return (
-              <Link
-                key={link.label}
-                to={link.path}
-                className={`relative py-2 transition-colors hover:text-[#111] flex items-center gap-1.5 ${
-                  isActive(link.path)
-                    ? 'text-[#111] font-semibold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#7FC8C0]'
-                    : ''
-                }`}
-              >
-                {link.isLive && (
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
-                  </span>
-                )}
-                <span className={link.isLive ? 'text-red-600 font-semibold' : ''}>{link.label}</span>
-              </Link>
+              
             );
           })}
         </nav>
@@ -271,13 +255,7 @@ export const Header: React.FC = () => {
           </nav>
 
           <div className="pt-4 border-t border-gray-200 flex flex-col gap-2">
-            <Link
-              to="/live"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2.5 bg-red-600 text-white font-heading uppercase text-xs tracking-widest rounded hover:bg-red-700 transition-colors flex items-center justify-center gap-2"
-            >
-              <span>Watch Facebook Live Stream</span>
-            </Link>
+            
             <a
               href="https://m.me/delmapearlonline"
               target="_blank"
