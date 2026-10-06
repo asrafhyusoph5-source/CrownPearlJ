@@ -72,7 +72,7 @@ export const LegalPage: React.FC = () => {
                 Included Lifetime Services:
               </h3>
               <ul className="list-disc pl-5 space-y-1">
-                <li>Complimentary annual knotting and silk cord tension inspections at our Manhattan Atelier.</li>
+                <li>Complimentary annual knotting and silk cord tension inspections at our Palawan workshop in Puerto Princesa.</li>
                 <li>One complimentary full restringing on Japanese silk thread every 24 months.</li>
                 <li>Ultrasonic examination of diamond pavé mounts and safety clasps.</li>
                 <li>Replacement of clasps or safety tongues due to manufacturing flaws.</li>
