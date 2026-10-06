@@ -57,50 +57,6 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Collections Column */}
-          <div className="space-y-3">
-            <h4 className="font-heading font-semibold text-xs uppercase tracking-[0.25em] text-[#7FC8C0]">
-              Collections
-            </h4>
-            <ul className="space-y-2 text-xs font-heading tracking-wider uppercase text-[#C9D1D3]">
-              <li>
-                <Link to="/shop?category=necklaces" className="hover:text-white transition-colors">
-                  Pearl Necklaces & Strands
-                </Link>
-              </li>
-              <li>
-                <Link to="/shop?category=earrings" className="hover:text-white transition-colors">
-                  Earrings & Teardrops
-                </Link>
-              </li>
-              <li>
-                <Link to="/shop?category=rings" className="hover:text-white transition-colors">
-                  Solitaire & Toi et Moi Rings
-                </Link>
-              </li>
-              <li>
-                <Link to="/shop?category=bracelets" className="hover:text-white transition-colors">
-                  Bracelets & Cuffs
-                </Link>
-              </li>
-              <li>
-                <Link to="/shop?category=bridal" className="hover:text-white transition-colors">
-                  Bridal High Jewelry
-                </Link>
-              </li>
-              <li>
-                <Link to="/shop?category=mens" className="hover:text-white transition-colors">
-                  Men’s Cufflinks & Accents
-                </Link>
-              </li>
-              <li>
-                <Link to="/shop?category=gifts" className="hover:text-white transition-colors">
-                  Heirloom Care & Gifts
-                </Link>
-              </li>
-            </ul>
-          </div>
-
           {/* Client Atelier & Care Column */}
           <div className="space-y-3">
             <h4 className="font-heading font-semibold text-xs uppercase tracking-[0.25em] text-[#7FC8C0]">
