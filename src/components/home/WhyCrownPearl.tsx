@@ -42,7 +42,7 @@ export const WhyCrownPearl: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/70 via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 text-white">
                 <span className="text-[10px] font-heading font-semibold uppercase tracking-[0.25em] text-[#7FC8C0]">
-                  Atelier Archive · Philippines
+                  Workshop Archive · Puerto Princesa, Palawan
                 </span>
                 <p className="font-serif text-lg font-semibold mt-1">
                   "A genuine pearl is not merely polished; it is nurtured over years of ocean tide and careful human hands."
