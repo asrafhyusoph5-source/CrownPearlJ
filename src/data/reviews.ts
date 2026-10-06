@@ -58,7 +58,7 @@ export const REVIEWS: CustomerReview[] = [
     productId: 'minima-akoya-pearl-studs',
     productName: 'Minima Akoya Pearl Studs',
     author: 'Sophia Chen-Davies',
-    location: 'New York, NY',
+    location: 'Puerto Princesa, Palawan',
     rating: 5,
     date: 'March 02, 2026',
     verified: true,
