@@ -42,7 +42,7 @@ const CATEGORIES = [
     path: '/shop?category=bracelets',
     image: ASSET_IMAGES.BraceletGold,
     aspect: 'col-span-1',
-    desc: 'Hand-knotted silk bracelets.'
+    desc: 'Hand-knotted silk bracelets and forged 18k golden station bangles.'
   },
   {
     title: 'Men’s Pearl Accents',
