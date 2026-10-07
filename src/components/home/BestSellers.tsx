@@ -31,7 +31,7 @@ export const BestSellers: React.FC = () => {
   // Pearl type tabs = show ALL matching products
   const displayedProducts =
     filterType === 'best-sellers'
-      ? filteredProducts.slice(0, 4)
+      ? filteredProducts.slice(0, 10)
       : filteredProducts;
 
   return (
