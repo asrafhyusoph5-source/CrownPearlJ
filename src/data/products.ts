@@ -123,8 +123,8 @@ export const PRODUCTS: Product[] = [
     badge: 'Heritage Selection',
     images: [
       ASSET_IMAGES.bridal,
-      ASSET_IMAGES.hero,
-      ASSET_IMAGES.workshop
+      ASSET_IMAGES.bridal1,
+      ASSET_IMAGES.bridal2
     ],
     description: 'Designed specifically for the bride seeking timeless dignity. The Aurora suite features three graduated rows of lustrous Japanese Akoya pearls held by a sculpted Art Deco platinum bar clasp.',
     story: 'First custom-created for a family wedding in 2004, the Aurora suite became Delma’s most celebrated bridal commission. Each piece is crafted upon order in our workshop with personal provenance notes.',
@@ -254,9 +254,9 @@ export const PRODUCTS: Product[] = [
     stockCount: 9,
     badge: 'Bestseller',
     images: [
-      ASSET_IMAGES.BraceletGold1,
-      ASSET_IMAGES.BraceletGold,
-      ASSET_IMAGES.BraceletGold2
+      ASSET_IMAGES.BaroqueBracelet1,
+      ASSET_IMAGES.BaroqueBracelet,
+      ASSET_IMAGES.BaroqueBracelet2
     ],
     description: 'An everyday luxury essential. Designed to drape fluidly around the wrist, catching ambient light with every hand gesture.',
     story: 'Knotting bracelets requires the tightest tension control in pearl stringing, preventing rubbing while maintaining tactile softness. Our workshop standard has remained unchanged since 2003.',
@@ -416,9 +416,9 @@ export const PRODUCTS: Product[] = [
     stockCount: 3,
     badge: 'Limited Stock',
     images: [
-      ASSET_IMAGES.BaroqueBracelet,
-      ASSET_IMAGES.BaroqueBracelet1,
-      ASSET_IMAGES.BaroqueBracelet2
+      ASSET_IMAGES.BraceletGold1,
+      ASSET_IMAGES.BraceletGold,
+      ASSET_IMAGES.BraceletGold2
     ],
     description: 'Breathtaking 100% natural champagne-gold color produced only by the gold-lip Pinctada maxima oyster. Mounted atop a flexible forged gold wire cuff.',
     story: 'No dye or radiation is ever used. The golden hue is pure mother nature, harvested from crystal warm lagoons in Palawan and the Sulu Sea.',
@@ -607,7 +607,7 @@ export const PRODUCTS: Product[] = [
     name: 'Duchess Pearl Hair Comb & Tiara Pin',
     tagline: 'Hand-wired freshwater pearls and Austrian crystals for ceremonial hair styling',
     price: 450,
-    category: 'bridal',
+    category: 'rings',
     pearlType: 'Freshwater',
     pearlColor: 'Ivory White',
     pearlSize: '4 - 8 mm Graduated',
@@ -619,9 +619,9 @@ export const PRODUCTS: Product[] = [
     stockCount: 5,
     badge: 'Bestseller',
     images: [
-      ASSET_IMAGES.bridal,
-      ASSET_IMAGES.earrings,
-      ASSET_IMAGES.workshop
+      ASSET_IMAGES.BlackRing2,
+      ASSET_IMAGES.BlackRing1,
+      ASSET_IMAGES.BlackRing
     ],
     description: 'An ethereal heirloom headpiece. Clusters of pearlescent gems branching out like springtime blossoms, gripping bridal updos with serene grace.',
     story: 'Delma collaborated with premier bridal stylists to create a comb that distributes weight effortlessly without snagging delicate veils.',
