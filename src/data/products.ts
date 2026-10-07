@@ -660,8 +660,8 @@ export const PRODUCTS: Product[] = [
     badge: 'Heritage Selection',
     images: [
       ASSET_IMAGES.workshop,
-      ASSET_IMAGES.pearlTypes,
-      ASSET_IMAGES.hero
+      ASSET_IMAGES.cleanPearl,
+      ASSET_IMAGES.pearlTypes
     ],
     description: 'Formulated exclusively for Delma’s clients. Free from harsh chemicals, alcohol, and ammonia, preserving delicate organic conchiolin protein.',
     story: 'Pearls are alive with organic luster that degrades under standard jewelry cleaners. Delma developed this proprietary botanical formula in 2005.',
