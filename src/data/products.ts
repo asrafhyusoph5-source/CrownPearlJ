@@ -648,7 +648,7 @@ export const PRODUCTS: Product[] = [
     tagline: 'Professional botanical cleaning solution, silk chamois, and storage wrap',
     price: 85,
     category: 'gifts',
-    pearlType: 'N/A',
+    pearlType: '',
     pearlColor: 'N/A',
     pearlSize: 'N/A',
     metal: 'Sterling Silver 925',
