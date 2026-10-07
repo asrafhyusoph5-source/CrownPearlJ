@@ -6,7 +6,7 @@ export const PRODUCTS: Product[] = [
     id: 'delma-signature-akoya-choker',
     name: 'The Delma Signature South Sea Necklace',
     tagline: 'Delma’s flagship creation hand-knotted with AAA South Sea pearls',
-    price: 3550,
+    price: 3500,
     originalPrice: 3800,
     category: 'necklaces',
     pearlType: 'South Sea',
