@@ -101,7 +101,7 @@ export const PRODUCTS: Product[] = [
       'Never submerge in chemical jewelry dips or steam cleaners.'
     ],
     isFeatured: true,
-    isBestseller: true
+    isBestseller: false
   },
   {
     id: 'aurora-bridal-pearl-choker',
@@ -234,7 +234,7 @@ export const PRODUCTS: Product[] = [
     },
     care: ['Store in original Delma soft leather case. Avoid prolonged dry heat.'],
     isFeatured: true,
-    isBestseller: false
+    isBestseller: true
   },
   {
     id: 'knot-by-knot-akoya-bracelet',
@@ -275,7 +275,7 @@ export const PRODUCTS: Product[] = [
     },
     care: ['Clean gently with soft cloth after social events and wear.'],
     isFeatured: false,
-    isBestseller: true
+    isBestseller: false
   },
   {
     id: 'baroque-freshwater-lariat',
@@ -396,7 +396,7 @@ export const PRODUCTS: Product[] = [
     },
     care: ['Wipe clean after daily wear before returning to jewelry box.'],
     isFeatured: true,
-    isBestseller: true
+    isBestseller: false
   },
   {
     id: 'golden-south-sea-station-bangle',
@@ -478,7 +478,7 @@ export const PRODUCTS: Product[] = [
     },
     care: ['Clean with delicate polishing cloth provided.'],
     isFeatured: false,
-    isBestseller: true
+    isBestseller: false
   },
   {
     id: 'toi-et-moi-tahitian-akoya-ring',
@@ -681,6 +681,6 @@ export const PRODUCTS: Product[] = [
     },
     care: ['Store solution in a cool, dry cabinet away from direct sunlight.'],
     isFeatured: false,
-    isBestseller: true
+    isBestseller: false
   }
 ];
