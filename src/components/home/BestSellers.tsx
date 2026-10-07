@@ -6,13 +6,16 @@ import { ProductCard } from '../product/ProductCard';
 
 export const BestSellers: React.FC = () => {
   const bestSellers = PRODUCTS.filter((p) => p.isBestseller || p.badge === 'Bestseller').slice(0, 4);
-  const [filterType, setFilterType] = useState<'all' | 'akoya' | 'south-sea' | 'tahitian'>('all');
+  const [filterType, setFilterType] = useState<'south-sea' | 'akoya' | 'south-sea' | 'tahitian' | 'freshwater' | 'baroque' | 'keshi' | 'all'>('all');
 
   const filteredProducts = bestSellers.filter((p) => {
-    if (filterType === 'all') return true;
-    if (filterType === 'akoya') return p.pearlType === 'Akoya';
     if (filterType === 'south-sea') return p.pearlType === 'South Sea';
+    if (filterType === 'akoya') return p.pearlType === 'Akoya';
     if (filterType === 'tahitian') return p.pearlType === 'Tahitian';
+    if (filterType === 'freshwater') return p.pearlType === 'Freshwater';
+    if (filterType === 'baroque') return p.pearlType === 'Baroque';
+    if (filterType === 'keshi') return p.pearlType === 'Keshi';
+    if (filterType === 'all') return true;
     return true;
   });
 
@@ -34,14 +37,14 @@ export const BestSellers: React.FC = () => {
           <div className="flex items-center gap-1 mt-4 md:mt-0 p-1 bg-[#FAFAF8] rounded-lg border border-[#E5E7EB]">
             <button
               type="button"
-              onClick={() => setFilterType('all')}
+              onClick={() => setFilterType('south-sea')}
               className={`px-3 py-1.5 text-xs font-heading uppercase tracking-wider rounded transition-colors ${
-                filterType === 'all'
+                filterType === 'south-sea'
                   ? 'bg-white text-[#111] shadow-xs font-semibold'
                   : 'text-[#3B4A50] hover:text-[#111]'
               }`}
             >
-              All Varieties
+              South Sea
             </button>
             <button
               type="button"
@@ -56,17 +59,6 @@ export const BestSellers: React.FC = () => {
             </button>
             <button
               type="button"
-              onClick={() => setFilterType('south-sea')}
-              className={`px-3 py-1.5 text-xs font-heading uppercase tracking-wider rounded transition-colors ${
-                filterType === 'south-sea'
-                  ? 'bg-white text-[#111] shadow-xs font-semibold'
-                  : 'text-[#3B4A50] hover:text-[#111]'
-              }`}
-            >
-              South Sea
-            </button>
-            <button
-              type="button"
               onClick={() => setFilterType('tahitian')}
               className={`px-3 py-1.5 text-xs font-heading uppercase tracking-wider rounded transition-colors ${
                 filterType === 'tahitian'
@@ -75,6 +67,50 @@ export const BestSellers: React.FC = () => {
               }`}
             >
               Tahitian
+            </button>
+            <button
+              type="button"
+              onClick={() => setFilterType('freshwater')}
+              className={`px-3 py-1.5 text-xs font-heading uppercase tracking-wider rounded transition-colors ${
+                filterType === 'all'
+                  ? 'bg-white text-[#111] shadow-xs font-semibold'
+                  : 'text-[#3B4A50] hover:text-[#111]'
+              }`}
+            >
+              Freshwater
+            </button>
+            <button
+              type="button"
+              onClick={() => setFilterType('baroque')}
+              className={`px-3 py-1.5 text-xs font-heading uppercase tracking-wider rounded transition-colors ${
+                filterType === 'all'
+                  ? 'bg-white text-[#111] shadow-xs font-semibold'
+                  : 'text-[#3B4A50] hover:text-[#111]'
+              }`}
+            >
+              Baroque
+            </button>
+            <button
+              type="button"
+              onClick={() => setFilterType('keshi')}
+              className={`px-3 py-1.5 text-xs font-heading uppercase tracking-wider rounded transition-colors ${
+                filterType === 'all'
+                  ? 'bg-white text-[#111] shadow-xs font-semibold'
+                  : 'text-[#3B4A50] hover:text-[#111]'
+              }`}
+            >
+              Keshi
+            </button>
+            <button
+              type="button"
+              onClick={() => setFilterType('all')}
+              className={`px-3 py-1.5 text-xs font-heading uppercase tracking-wider rounded transition-colors ${
+                filterType === 'all'
+                  ? 'bg-white text-[#111] shadow-xs font-semibold'
+                  : 'text-[#3B4A50] hover:text-[#111]'
+              }`}
+            >
+              All Varieties
             </button>
           </div>
         </div>
