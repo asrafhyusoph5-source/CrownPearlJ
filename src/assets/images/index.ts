@@ -1,6 +1,6 @@
 import heroImage from './hero_crown_pearl_1790915106561.jpeg';
 import heroImage1 from './hero_crown_pearl1.jpg';
-import heroImage2 from './hero_crown_pear2.jpg';
+import heroImage2 from './hero_crown_pearl2.jpg';
 import bridalImage from './bridal_collection_pearl_1790915120489.jpeg';
 import bridalImage1 from './bridal_collection_pearl1.jpg';
 import bridalImage2 from './bridal_collection_pearl2.jpg';
