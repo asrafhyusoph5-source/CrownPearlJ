@@ -477,7 +477,7 @@ export const PRODUCTS: Product[] = [
       origin: 'Mie, Japan'
     },
     care: ['Clean with delicate polishing cloth provided.'],
-    isFeatured: true,
+    isFeatured: false,
     isBestseller: false
   },
   {
