@@ -1,6 +1,5 @@
 import heroImage from './hero_crown_pearl_1790915106561.jpeg';
-import heroImage1 from './hero_crown_pearl1.jpeg';
-import heroImage2 from './hero_crown_pearl2.jpeg';
+
 import bridalImage from './bridal_collection_pearl_1790915120489.jpeg';
 import bridalImage1 from './bridal_collection_pearl1.jpeg';
 import bridalImage2 from './bridal_collection_pearl2.jpeg';
@@ -54,8 +53,7 @@ import CleanPearl from './how-to-clean-pearls.jpg';
 
 export const ASSET_IMAGES = {
   hero: heroImage,
-  hero1: heroImage1,
-  hero2: heroImage2,
+  
   bridal: bridalImage,
   bridal1: bridalImage1,
   bridal2: bridalImage2,
