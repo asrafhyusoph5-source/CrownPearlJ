@@ -22,8 +22,8 @@ export const PRODUCTS: Product[] = [
     badge: 'Bestseller',
     images: [
       ASSET_IMAGES.hero,
-      ASSET_IMAGES.pearlTypes,
-      ASSET_IMAGES.workshop
+      ASSET_IMAGES.hero1,
+      ASSET_IMAGES.hero2
     ],
     description: 'A benchmark in high-jewelry pearl strands, hand-selected by Delma since 2003. Each Akoya pearl is meticulously graded for deep mirror-like metallic luster, velvety rose blush overtones, and pristine spherical symmetry.',
     story: 'Conceived in Delma’s first Manhattan atelier in late 2003, this necklace embodies the atelier’s core ethos: uncompromised hand-knotting using Japanese double-spun silk, ensuring every pearl rests securely against the next with supple drape.',
@@ -213,9 +213,9 @@ export const PRODUCTS: Product[] = [
     stockCount: 2,
     badge: 'Limited Stock',
     images: [
-      ASSET_IMAGES.pearlTypes,
-      ASSET_IMAGES.hero,
-      ASSET_IMAGES.workshop
+      ASSET_IMAGES.KeshiNecklace,
+      ASSET_IMAGES.KeshiNecklace1,
+      ASSET_IMAGES.KeshiNecklace2
     ],
     description: 'An arresting collar of dark French Polynesian pearls. Each gem reveals shifting iridescent overtones reminiscent of peacock plumes and deep oceanic depths.',
     story: 'It requires sorting over 3,000 black-lip oysters (Pinctada margaritifera) to match 35 pearls in this color spectrum and graduated harmony. A true connoisseur heirloom.',
@@ -295,9 +295,9 @@ export const PRODUCTS: Product[] = [
     stockCount: 5,
     badge: 'New',
     images: [
-      ASSET_IMAGES.pearlTypes,
-      ASSET_IMAGES.hero,
-      ASSET_IMAGES.bridal
+      ASSET_IMAGES.MariNecklace,
+      ASSET_IMAGES.MariNecklace1,
+      ASSET_IMAGES.MariNecklace2
     ],
     description: 'Celebrates the unfiltered poetry of nature. No two baroque ripple pearls are identical; their rippled nacre planes refract mesmerizing pastel halos.',
     story: 'Freshwater pearls formed without a solid bead nucleus develop extraordinary solid-nacre baroque silhouettes. Delma hand-selects these for their flame-like fire.',
@@ -375,9 +375,9 @@ export const PRODUCTS: Product[] = [
     stockCount: 14,
     badge: 'Bestseller',
     images: [
-      ASSET_IMAGES.earrings,
-      ASSET_IMAGES.pearlTypes,
-      ASSET_IMAGES.hero
+      ASSET_IMAGES.StudEarringswhite,
+      ASSET_IMAGES.StudEarringswhite1,
+      ASSET_IMAGES.StudEarringswhite2
     ],
     description: 'The foundation of every fine jewelry wardrobe. Sourced from the winter harvests of Ago Bay when cooler ocean currents concentrate nacre density for ultimate luster.',
     story: 'Since our opening in 2003, Delma has inspected every pair of studs by hand under north-facing studio daylight, rejecting over 80% to ensure identical brilliance across left and right ears.',
@@ -416,9 +416,9 @@ export const PRODUCTS: Product[] = [
     stockCount: 3,
     badge: 'Limited Stock',
     images: [
-      ASSET_IMAGES.pearlTypes,
-      ASSET_IMAGES.workshop,
-      ASSET_IMAGES.earrings
+      ASSET_IMAGES.BaroqueBracelet,
+      ASSET_IMAGES.BaroqueBracelet1,
+      ASSET_IMAGES.BaroqueBracelet2
     ],
     description: 'Breathtaking 100% natural champagne-gold color produced only by the gold-lip Pinctada maxima oyster. Mounted atop a flexible forged gold wire cuff.',
     story: 'No dye or radiation is ever used. The golden hue is pure mother nature, harvested from crystal warm lagoons in Palawan and the Sulu Sea.',
@@ -498,9 +498,9 @@ export const PRODUCTS: Product[] = [
     stockCount: 4,
     badge: 'New',
     images: [
-      ASSET_IMAGES.pearlTypes,
-      ASSET_IMAGES.earrings,
-      ASSET_IMAGES.workshop
+      ASSET_IMAGES.TwinRing,
+      ASSET_IMAGES.TwinRing1,
+      ASSET_IMAGES.TwinRing2
     ],
     description: 'The historic "You and Me" motif re-imagined. Light and shadow intertwined on a fluid crossover bypass band.',
     story: 'Popularized in the 18th century, Delma breathed new life into this romantic silhouette by pairing the two greatest saltwater pearls of the Pacific.',
@@ -539,8 +539,8 @@ export const PRODUCTS: Product[] = [
     badge: 'New',
     images: [
       ASSET_IMAGES.earrings,
-      ASSET_IMAGES.bridal,
-      ASSET_IMAGES.pearlTypes
+      ASSET_IMAGES.earrings1,
+      ASSET_IMAGES.earrings2
     ],
     description: 'Feather-light and endlessly kinetic. Keshi pearls form purely of solid nacre when an oyster rejects its nucleus, resulting in unmatched organic iridescence.',
     story: 'Because Keshi pearls have no nucleus, their surface glows with intense crystalline reflections that catch light from across the room.',
@@ -579,9 +579,9 @@ export const PRODUCTS: Product[] = [
     stockCount: 8,
     badge: 'Heritage Selection',
     images: [
-      ASSET_IMAGES.pearlTypes,
-      ASSET_IMAGES.workshop,
-      ASSET_IMAGES.hero
+      ASSET_IMAGES.mgNecklace,
+      ASSET_IMAGES.mgNecklace1,
+      ASSET_IMAGES.mgNecklace2
     ],
     description: 'A modern masculine cadence. Baroque dark pearls contrasted against velvety matte onyx beads and textured silver rondelles.',
     story: 'Crafted for daily resilience using high-strength steel-core aircraft cable and a precision bayonet locking clasp.',
