@@ -1,13 +1,14 @@
 import heroImage from './hero_crown_pearl_1790915106561.jpeg';
-
+import heroImage1 from './hero_crown_pearl1.jpg';
+import heroImage2 from './hero_crown_pear2.jpg';
 import bridalImage from './bridal_collection_pearl_1790915120489.jpeg';
-import bridalImage1 from './bridal_collection_pearl1.jpeg';
-import bridalImage2 from './bridal_collection_pearl2.jpeg';
+import bridalImage1 from './bridal_collection_pearl1.jpg';
+import bridalImage2 from './bridal_collection_pearl2.jpg';
 import workshopImage from './artisan_workshop_delma_1790915133626.jpeg';
 import pearlTypesImage from './pearl_types_showcase_1790915144501.jpeg';
 import earringsImage from './category_pearl_earrings_1790915155653.jpeg';
-import earringsImage1 from './category_pearl_earrings1.jpeg';
-import earringsImage2 from './category_pearl_earrings2.jpeg';
+import earringsImage1 from './category_pearl_earrings1.jpg';
+import earringsImage2 from './category_pearl_earrings2.jpg';
 import braceletGold from './braceletGold.jpg';
 import braceletGold1 from './braceletGold1.jpg';
 import braceletGold2 from './braceletGold2.jpg';
@@ -53,7 +54,8 @@ import CleanPearl from './how-to-clean-pearls.jpg';
 
 export const ASSET_IMAGES = {
   hero: heroImage,
-  
+  hero1: heroImage1,
+  hero2: heroImage2,
   bridal: bridalImage,
   bridal1: bridalImage1,
   bridal2: bridalImage2,
