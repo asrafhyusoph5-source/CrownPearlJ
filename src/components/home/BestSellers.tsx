@@ -1,49 +1,40 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { PRODUCTS } from '../../data/products';
 import { ProductCard } from '../product/ProductCard';
 
 export const BestSellers: React.FC = () => {
-  const bestSellers = PRODUCTS.filter(
-    (p) => p.isBestseller || p.badge === 'Bestseller'
-  );
+  const bestSellers = PRODUCTS.filter((p) => p.isBestseller || p.badge === 'Bestseller').slice(0, 10);
+  const [filterType, setFilterType] = useState<'south-sea' | 'akoya' | 'tahitian' | 'freshwater' | 'baroque' | 'keshi' | 'all'>('all');
 
-  const [filterType, setFilterType] = useState<
-    'south-sea' | 'akoya' | 'tahitian' | 'freshwater' | 'baroque' | 'keshi' | 'all'
-  >('all');
-
-  const filteredProducts = bestSellers
-    .filter((p) => {
-      if (filterType === 'south-sea') return p.pearlType === 'South Sea';
-      if (filterType === 'akoya') return p.pearlType === 'Akoya';
-      if (filterType === 'tahitian') return p.pearlType === 'Tahitian';
-      if (filterType === 'freshwater') return p.pearlType === 'Freshwater';
-      if (filterType === 'baroque') return p.pearlType === 'Baroque';
-      if (filterType === 'keshi') return p.pearlType === 'Keshi';
-      return true;
-    })
-    .slice(0, 6);
+  const filteredProducts = bestSellers.filter((p) => {
+    if (filterType === 'south-sea') return p.pearlType === 'South Sea';
+    if (filterType === 'akoya') return p.pearlType === 'Akoya';
+    if (filterType === 'tahitian') return p.pearlType === 'Tahitian';
+    if (filterType === 'freshwater') return p.pearlType === 'Freshwater';
+    if (filterType === 'baroque') return p.pearlType === 'Baroque';
+    if (filterType === 'keshi') return p.pearlType === 'Keshi';
+    if (filterType === 'all') return true;
+    return true;
+  });
 
   return (
     <section className="py-20 bg-white border-y border-[#E5E7EB]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-[#E5E7EB]">
           <div>
             <div className="text-xs font-heading font-semibold uppercase tracking-[0.25em] text-[#7FC8C0] mb-2">
               Crown Pearl Benchmarks
             </div>
-
             <h2 className="font-serif text-3xl sm:text-4xl text-[#111111] font-semibold">
               Atelier Best Sellers
             </h2>
           </div>
 
           {/* Interactive filter tabs */}
-          <div className="flex items-center gap-1 mt-4 md:mt-0 p-1 bg-[#FAFAF8] rounded-lg border border-[#E5E7EB] overflow-x-auto">
-
+          <div className="flex items-center gap-1 mt-4 md:mt-0 p-1 bg-[#FAFAF8] rounded-lg border border-[#E5E7EB]">
             <button
               type="button"
               onClick={() => setFilterType('south-sea')}
@@ -55,7 +46,6 @@ export const BestSellers: React.FC = () => {
             >
               South Sea
             </button>
-
             <button
               type="button"
               onClick={() => setFilterType('akoya')}
@@ -67,7 +57,6 @@ export const BestSellers: React.FC = () => {
             >
               Akoya
             </button>
-
             <button
               type="button"
               onClick={() => setFilterType('tahitian')}
@@ -79,7 +68,6 @@ export const BestSellers: React.FC = () => {
             >
               Tahitian
             </button>
-
             <button
               type="button"
               onClick={() => setFilterType('freshwater')}
@@ -91,7 +79,6 @@ export const BestSellers: React.FC = () => {
             >
               Freshwater
             </button>
-
             <button
               type="button"
               onClick={() => setFilterType('baroque')}
@@ -103,7 +90,6 @@ export const BestSellers: React.FC = () => {
             >
               Baroque
             </button>
-
             <button
               type="button"
               onClick={() => setFilterType('keshi')}
@@ -115,7 +101,6 @@ export const BestSellers: React.FC = () => {
             >
               Keshi
             </button>
-
             <button
               type="button"
               onClick={() => setFilterType('all')}
@@ -133,11 +118,7 @@ export const BestSellers: React.FC = () => {
         {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredProducts.map((product, idx) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              priority={idx < 2}
-            />
+            <ProductCard key={product.id} product={product} priority={idx < 2} />
           ))}
         </div>
 
@@ -147,14 +128,10 @@ export const BestSellers: React.FC = () => {
             to="/shop"
             className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#3B4A50] hover:bg-[#111111] text-white font-heading uppercase text-xs tracking-widest font-semibold rounded-lg shadow-sm transition-colors"
           >
-            <span>
-              Explore Complete Pearl Catalog ({PRODUCTS.length} Creations)
-            </span>
-
+            <span>Explore Complete Pearl Catalog ({PRODUCTS.length} Creations)</span>
             <ArrowRight className="w-4 h-4 text-[#7FC8C0]" />
           </Link>
         </div>
-
       </div>
     </section>
   );
