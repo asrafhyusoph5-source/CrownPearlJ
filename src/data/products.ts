@@ -252,7 +252,7 @@ export const PRODUCTS: Product[] = [
     reviewCount: 41,
     inStock: true,
     stockCount: 9,
-    badge: 'Bestseller',
+    badge: 'New',
     images: [
       ASSET_IMAGES.BaroqueBracelet1,
       ASSET_IMAGES.BaroqueBracelet,
@@ -373,7 +373,7 @@ export const PRODUCTS: Product[] = [
     reviewCount: 76,
     inStock: true,
     stockCount: 14,
-    badge: 'Bestseller',
+    badge: 'New',
     images: [
       ASSET_IMAGES.StudEarringswhite,
       ASSET_IMAGES.StudEarringswhite1,
@@ -455,7 +455,7 @@ export const PRODUCTS: Product[] = [
     reviewCount: 25,
     inStock: true,
     stockCount: 5,
-    badge: 'Bestseller',
+    badge: 'New',
     images: [
       ASSET_IMAGES.bridal,
       ASSET_IMAGES.hero,
