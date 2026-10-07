@@ -6,7 +6,7 @@ import { ProductCard } from '../product/ProductCard';
 
 export const BestSellers: React.FC = () => {
   const bestSellers = PRODUCTS.filter((p) => p.isBestseller || p.badge === 'Bestseller').slice(0, 4);
-  const [filterType, setFilterType] = useState<'south-sea' | 'akoya' | 'south-sea' | 'tahitian' | 'freshwater' | 'baroque' | 'keshi' | 'all'>('all');
+  const [filterType, setFilterType] = useState<'south-sea' | 'akoya' | 'tahitian' | 'freshwater' | 'baroque' | 'keshi' | 'all'>('all');
 
   const filteredProducts = bestSellers.filter((p) => {
     if (filterType === 'south-sea') return p.pearlType === 'South Sea';
@@ -72,7 +72,7 @@ export const BestSellers: React.FC = () => {
               type="button"
               onClick={() => setFilterType('freshwater')}
               className={`px-3 py-1.5 text-xs font-heading uppercase tracking-wider rounded transition-colors ${
-                filterType === 'all'
+                filterType === 'freshwater'
                   ? 'bg-white text-[#111] shadow-xs font-semibold'
                   : 'text-[#3B4A50] hover:text-[#111]'
               }`}
@@ -83,7 +83,7 @@ export const BestSellers: React.FC = () => {
               type="button"
               onClick={() => setFilterType('baroque')}
               className={`px-3 py-1.5 text-xs font-heading uppercase tracking-wider rounded transition-colors ${
-                filterType === 'all'
+                filterType === 'baroque'
                   ? 'bg-white text-[#111] shadow-xs font-semibold'
                   : 'text-[#3B4A50] hover:text-[#111]'
               }`}
@@ -94,7 +94,7 @@ export const BestSellers: React.FC = () => {
               type="button"
               onClick={() => setFilterType('keshi')}
               className={`px-3 py-1.5 text-xs font-heading uppercase tracking-wider rounded transition-colors ${
-                filterType === 'all'
+                filterType === 'keshi'
                   ? 'bg-white text-[#111] shadow-xs font-semibold'
                   : 'text-[#3B4A50] hover:text-[#111]'
               }`}
