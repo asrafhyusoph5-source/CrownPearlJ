@@ -64,7 +64,7 @@ export const PRODUCTS: Product[] = [
     pearlColor: 'Cream White with Soft Rose Overtones',
     pearlSize: '10.0 - 12.0 mm',
     metal: '18k Yellow Gold',
-    availableMetals: ['18k Gold Vermeil', 'Sterling Silver (Rhodium Plated)', '14k Yellow Gold'],
+    availableMetals: ['18k Yellow Gold', 'Sterling Silver 925', '14k Yellow Gold'],
     rating: 4.92,
     reviewCount: 32,
     inStock: true,
