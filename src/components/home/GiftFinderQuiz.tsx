@@ -66,7 +66,7 @@ export const GiftFinderQuiz: React.FC = () => {
     }
 
     if (answers.recipient === 'bride') {
-      const bridal = pool.filter(p => p.category === 'bridal');
+      const bridal = pool.filter(p => p.category === 'set');
       if (bridal.length) return bridal.slice(0, 3);
     }
 
