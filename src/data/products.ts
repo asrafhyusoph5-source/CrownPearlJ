@@ -55,16 +55,16 @@ export const PRODUCTS: Product[] = [
     isBestseller: true
   },
   {
-    id: 'lustre-drop-south-sea-earrings',
-    name: 'Lustre Drop FW Earrings',
-    tagline: 'Sculptural 18k white gold drops adorned with teardrop freshwater pearls',
+    id: 'the-clover-teardrop-earrings',
+    name: 'The Clover Teardrop Earrings',
+    tagline: 'Gold four-leaf clover studs with pearl-white enamel and a luminous teardrop pearl',
     price: 127,
     category: 'earrings',
     pearlType: 'Freshwater',
-    pearlColor: 'Silvery White with Platinum Overtone',
-    pearlSize: '11.0 - 11.5 mm',
-    metal: '18k White Gold',
-    availableMetals: ['18k White Gold', '18k Yellow Gold', 'Platinum 950'],
+    pearlColor: 'Cream White with Soft Rose Overtones',
+    pearlSize: '10.0 - 12.0 mm',
+    metal: '18k Gold Vermeil',
+    availableMetals: ['18k Gold Vermeil', 'Sterling Silver (Rhodium Plated)', '14k Yellow Gold'],
     rating: 4.92,
     reviewCount: 32,
     inStock: true,
@@ -75,30 +75,41 @@ export const PRODUCTS: Product[] = [
       ASSET_IMAGES.DangleEarring1,
       ASSET_IMAGES.DangleEarring2
     ],
-    description: 'An architectural union of organic fluidity and precious metal. Two matched South Sea teardrop pearls sway gracefully beneath bezel-set VS1 brilliant pavé diamonds.',
-    story: 'South Sea pearls are cultivated for up to three years in the warm, secluded bays of Northwestern Australia. Each pair is chosen from hundreds of harvest lots to achieve identical tone, curvature, and reflection.',
+    description: 'Luck at the ear, light below it. The Clover Earrings pair a gold four-leaf clover stud, filled with soft pearlescent enamel, with a glowing teardrop pearl that swings gently as you move. They are sweet without being too sweet, and polished enough for a wedding, a graduation, or a quiet dinner. Easy to wear every day, and a lovely gift for someone who deserves a little good fortune.',
+    story: 'The four-leaf clover has long been a symbol of luck, hope, and love. We wanted to turn that old charm into something you could wear close to your face, in soft colors and warm gold.\n\nEach clover is outlined in polished gold and filled with a pearl-white enamel that shimmers like the inside of a shell. Hanging beneath it is a teardrop pearl chosen for its smooth surface and soft rose glow, capped in gold and joined by a delicate link so it moves freely and catches the light.\n\nThe pearls are matched pair by pair for shape, size, and luster, so both ears feel balanced. The result is a pair of earrings that feels light, graceful, and a little bit romantic, made for the moments you want to remember.',
     details: [
-      'Hand-selected matched pair of Australian South Sea pearls',
-      'Conflict-free round brilliant diamonds: 0.18 ctw (F/G color, VS clarity)',
-      'Comfort-fit French clip backs for secure and balanced evening wear',
-      'Engraved Delma crest hallmarking'
+      'Matched pair of teardrop cultured pearls, 10.0 - 12.0 mm',
+      'Four-leaf clover stud with pearlescent enamel inlay',
+      'Polished gold frame and cap with a delicate link',
+      'Pearl drop swings gently with movement',
+      'Secure post with butterfly backs',
+      'Lightweight and comfortable for all-day wear',
+      'Suitable for brides, bridesmaids, and everyday wear',
+      'Delivered in a presentation gift box with a care card'
     ],
     materials: [
-      'Australian South Sea Cultured Pearls',
-      '18k White Gold',
-      'Natural Natural Brilliant Diamonds (0.18ctw)'
+      'Genuine Freshwater Cultured Teardrop Pearls',
+      '18k Gold Vermeil over Sterling Silver 925',
+      'Pearlescent Enamel Inlay',
+      'Butterfly Backs'
     ],
     specs: {
-      luster: 'High Silk Sheen',
-      surface: 'Very Light Characteristics (<5%)',
-      shape: 'Symmetrical Teardrop',
-      nacreThickness: 'Extremely Thick (2.0mm+)',
-      origin: 'Kimberley Coast, Australia'
+      luster: 'High (Bright Mirror Glow)',
+      surface: 'Clean (Minimal Visible Blemishes)',
+      shape: 'Teardrop',
+      nacreThickness: 'Thick (0.40mm+)',
+      origin: 'China',
+      motif: 'Four-leaf clover with enamel inlay',
+      closure: 'Post with butterfly back',
+      matching: 'Matched pair for shape, size, and luster'
     },
     care: [
-      'Gently clean with lukewarm water and a drop of pH-neutral soap if needed.',
-      'Dry immediately with a soft cotton cloth.',
-      'Never submerge in chemical jewelry dips or steam cleaners.'
+      'Put your earrings on after perfume, hairspray, and makeup so chemicals never touch the pearls or enamel.',
+      'Wipe gently with a soft, dry cloth after each wear.',
+      'Avoid water, chlorine, and household cleaners. Remove before swimming, showering, or exercising.',
+      'Store each earring separately in the soft pouch or box provided, so the enamel and pearls do not get scratched.',
+      'Never use ultrasonic or steam cleaners, as they can damage both pearls and enamel.',
+      'Polish the gold gently with a soft jewelry cloth.'
     ],
     isFeatured: true,
     isBestseller: false
