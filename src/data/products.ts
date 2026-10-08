@@ -63,7 +63,7 @@ export const PRODUCTS: Product[] = [
     pearlType: 'Freshwater',
     pearlColor: 'Cream White with Soft Rose Overtones',
     pearlSize: '10.0 - 12.0 mm',
-    metal: '18k Gold Vermeil',
+    metal: '18k Yellow Gold',
     availableMetals: ['18k Gold Vermeil', 'Sterling Silver (Rhodium Plated)', '14k Yellow Gold'],
     rating: 4.92,
     reviewCount: 32,
