@@ -41,9 +41,9 @@ export interface Product {
     shape: string;
     nacreThickness: string;
     origin: string;
-    motif: string;
-    closure: string;
-    matching: string;
+    motif?: string;
+    closure?: string;
+    matching?: string;
   };
   care: string[];
   isFeatured?: boolean;
