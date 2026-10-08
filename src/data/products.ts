@@ -3,7 +3,7 @@ import { ASSET_IMAGES } from '../assets/images';
 
 export const PRODUCTS: Product[] = [
   {
-    id: 'delma-signature-akoya-choker',
+    id: 'delma-signature-south-sea-necklace',
     name: 'The Delma Signature South Sea Necklace',
     tagline: 'Delma’s flagship creation hand-knotted with AAA South Sea pearls',
     price: 3500,
