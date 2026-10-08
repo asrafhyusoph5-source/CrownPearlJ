@@ -14,7 +14,7 @@ export const PRODUCTS: Product[] = [
     pearlSize: '10.3 - 17.1 mm',
     metal: '18k White Gold',
     availableMetals: ['18k White Gold', '18k Yellow Gold', 'Platinum 950'],
-    availableLengths: ['16 inch (Choker)', '18 inch (Princess)', '20 inch (Matinee)'],
+    availableLengths: ['18 inch (Princess)', '20 inch (Matinee)'],
     rating: 5,
     reviewCount: 48,
     inStock: true,
@@ -25,8 +25,8 @@ export const PRODUCTS: Product[] = [
       ASSET_IMAGES.hero1,
       ASSET_IMAGES.hero2
     ],
-    description: 'A benchmark in high-jewelry pearl strands, hand-selected by Delma since 2003. Each Akoya pearl is meticulously graded for deep mirror-like metallic luster, velvety rose blush overtones, and pristine spherical symmetry.',
-    story: 'Conceived in Delma’s first Manhattan atelier in late 2003, this necklace embodies the atelier’s core ethos: uncompromised hand-knotting using Japanese double-spun silk, ensuring every pearl rests securely against the next with supple drape.',
+    description: 'Our flagship necklace, strung with AAA-grade South Sea pearls of exceptional size and glow. Each pearl is hand-selected for its mirror-like luster and soft rose overtones, then individually knotted by hand for a graceful drape that moves with you. A timeless heirloom for weddings, milestones, and every moment worth remembering.',
+    story: 'The Signature began with a simple question: what would we wear ourselves, every day, for the rest of our lives? It took seasons to answer. We sourced pearls from the clear, nutrient-rich waters where South Sea oysters grow slowly, building layer upon layer of nacre. Only a small fraction of each harvest meets our standard for size, luster, and color. Those chosen few are matched pearl by pearl, then strung and knotted by hand by our artisans. It is the piece that defines Delma, and the one we are proudest to put our name on.',
     details: [
       'GIA certified AAA grade Japanese Akoya pearls',
       'Hand-knotted on pure Japanese silk cord',
@@ -37,19 +37,19 @@ export const PRODUCTS: Product[] = [
     materials: [
       'Genuine South Sea Pearls',
       'Solid 18k White Gold Clasp (Hallmarked 750)',
-      '100% High-Tensile Japanese Silk Cord'
+      'Natural silk thread, individually knotted'
     ],
     specs: {
       luster: 'Very High (Mirror Reflection)',
-      surface: 'Clean (95%+ blemish free)',
-      shape: 'Perfect Round',
+      surface: 'Clean (Minimal to No Visible Blemishes)',
+      shape: 'Round to Near-Round',
       nacreThickness: 'Thick (0.50mm+)',
-      origin: 'Mie Prefecture, Ago Bay, Japan'
+      origin: 'Philippines'
     },
     care: [
-      'Last on, first off: apply cosmetics, perfume, and hairspray prior to wearing.',
-      'Wipe with the enclosed lint-free microfiber cloth after every wear.',
-      'Store flat in the velvet presentation box away from other faceted gemstones.'
+      'Put your pearls on last, after perfume, hairspray, and makeup, and wipe them with a soft, dry cloth after wearing.',
+      'Store flat in the soft pouch or box provided, away from other jewelry that could scratch the surface.',
+      'Avoid water, chemicals, and heat. Have the silk restrung and inspected every 1-2 years if worn often.'
     ],
     isFeatured: true,
     isBestseller: true
@@ -195,15 +195,15 @@ export const PRODUCTS: Product[] = [
     isBestseller: false
   },
   {
-    id: 'keshi-empress-collar',
-    name: 'Keshi Empress Collar',
-    tagline: 'Rare dark Tahitian pearls showing deep peacock aubergine and blue',
+    id: 'silver-mist-keshi-pearl-necklace',
+    name: 'Silver Mist Keshi Pearl Necklace',
+    tagline: 'Organic forms, luminous character.',
     price: 1540,
     originalPrice: 3600,
     category: 'necklaces',
-    pearlType: 'Keshi',
-    pearlColor: 'Exotic Peacock ( Blue, Eggplant)',
-    pearlSize: '10.0 - 12.0 mm Graduated',
+    pearlType: 'Freshwater',
+    pearlColor: 'Silver, White & Soft Lavender',
+    pearlSize: 'Approx. 8–11 mm',
     metal: '18k White Gold',
     availableMetals: ['18k White Gold', '18k Yellow Gold'],
     availableLengths: ['17 inch', '19 inch'],
@@ -217,22 +217,36 @@ export const PRODUCTS: Product[] = [
       ASSET_IMAGES.KeshiNecklace1,
       ASSET_IMAGES.KeshiNecklace2
     ],
-    description: 'An arresting collar of dark French Polynesian pearls. Each gem reveals shifting iridescent overtones reminiscent of peacock plumes and deep oceanic depths.',
-    story: 'It requires sorting over 3,000 black-lip oysters (Pinctada margaritifera) to match 35 pearls in this color spectrum and graduated harmony. A true connoisseur heirloom.',
+    description: 'A graceful strand of Keshi pearls celebrated for their naturally organic shapes and luminous character. Each pearl carries its own individual form, creating a necklace that feels artistic, distinctive, and effortlessly elegant.',
+    story: 'No two Keshi pearls are exactly alike. Their naturally irregular forms create a sense of movement throughout the strand, while their soft silver, white, and subtle lavender tones bring a quiet sophistication to the design. The Silver Mist Keshi Pearl Necklace is for those who appreciate the beauty of individuality—the charm of a pearl not defined by perfect symmetry, but by its own natural character.',
     details: [
-      'Graduated layout from 10.0mm at the clasp to 12.0mm center focal pearl',
-      '18k white gold satin-finished magnetic orb clasp with mechanical lock',
-      'Individually hand-knotted on charcoal grey reinforced silk thread'
+      'Natural Keshi pearls with organic, irregular shapes',
+      'Soft silver, white, and subtle lavender tones',
+      'Each pearl has its own unique surface character and form',
+      'Designed as an elegant single-strand necklace',
+      'Ideal for refined everyday wear or special occasions',
+      'A distinctive choice for collectors of naturally expressive pearls'
     ],
-    materials: ['Cultured Tahitian Black Pearls', '18k White Gold Clasp', 'Silk Thread'],
+    materials: [
+      'Keshi pearls',
+      'Jewelry-grade clasp and findings'
+               ],
     specs: {
-      luster: 'Exceptional Metallic Iridescence',
-      surface: 'Smooth with natural organic markers (<3%)',
-      shape: 'Near-Round to Symmetrical Drop',
-      nacreThickness: 'Thick (1.2mm+)',
-      origin: 'Tuamotu Archipelago, French Polynesia'
+      luster: 'Soft to high natural luster',
+      surface: 'Natural surface character with organic markings',
+      shape: 'Organic / Baroque',
+      nacreThickness: 'Predominantly nacre',
+      origin: 'Freshwater — cultivated in freshwater lakes, ponds, or rivers'
     },
-    care: ['Store in original Delma soft leather case. Avoid prolonged dry heat.'],
+    care: [
+      'Put your necklace on last, after perfume, cosmetics, and hairspray.',
+      'Remove before bathing, swimming, exercising, or sleeping.',
+      'Gently wipe the pearls with a soft, clean cloth after wearing.',
+      'Store separately in a soft pouch or lined jewelry box.',
+      'Avoid prolonged contact with perfumes, cosmetics, chlorine, and household chemicals.',
+      'Do not use abrasive jewelry cleaners or ultrasonic cleaners.',
+      'Handle the organic-shaped pearls gently to preserve their natural surface and luster.'
+    ],
     isFeatured: true,
     isBestseller: true
   },
