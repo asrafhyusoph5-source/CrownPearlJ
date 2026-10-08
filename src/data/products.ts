@@ -195,7 +195,7 @@ export const PRODUCTS: Product[] = [
     isBestseller: false
   },
   {
-    id: 'tahitian-peacock-empress-collar',
+    id: 'keshi-empress-collar',
     name: 'Keshi Empress Collar',
     tagline: 'Rare dark Tahitian pearls showing deep peacock aubergine and blue',
     price: 1540,
