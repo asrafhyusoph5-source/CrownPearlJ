@@ -120,7 +120,7 @@ export const PRODUCTS: Product[] = [
     tagline: 'Ethereal Akoya pearls woven with delicate diamond dewdrop accents',
     price: 2450,
     originalPrice: 2800,
-    category: 'bridal',
+    category: 'set',
     pearlType: 'Akoya',
     pearlColor: 'Iridescent Ivory & Rose',
     pearlSize: '7.5 - 8.0 mm',
