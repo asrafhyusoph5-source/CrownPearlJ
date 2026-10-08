@@ -84,7 +84,7 @@ export const GiftFinderQuiz: React.FC = () => {
     } else if (answers.style === 'statement') {
       pool = pool.filter(p => p.pearlType === 'Tahitian' || p.pearlType === 'South Sea');
     } else if (answers.style === 'organic') {
-      pool = pool.filter(p => p.pearlType === 'Freshwater' || p.pearlType === 'Keshi');
+  pool = pool.filter(p => p.pearlType === 'Freshwater');
     }
 
     return pool.slice(0, 3);
