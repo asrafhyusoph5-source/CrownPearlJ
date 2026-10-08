@@ -7,7 +7,7 @@ export type ProductCategory =
   | 'earrings' 
   | 'rings' 
   | 'bracelets' 
-  | 'bridal' 
+  | 'set' 
   | 'gifts' 
   | 'mens';
 
