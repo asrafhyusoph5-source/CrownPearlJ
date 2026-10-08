@@ -8,7 +8,7 @@ const CATEGORIES = [
     title: 'Pearl Necklaces & Chokers',
     count: '8 Designs',
     path: '/shop?category=necklaces',
-    image: ASSET_IMAGES.hero,
+    image: ASSET_IMAGES.MariNecklace2,
     aspect: 'col-span-1 md:col-span-2 lg:col-span-2',
     desc: 'Classic South Sea Pearls.'
   },
