@@ -31,7 +31,7 @@ const CATEGORIES = [
   {
     title: 'Bridal High Jewelry',
     count: '5 Designs',
-    path: '/shop?category=bridal',
+    path: '/shop?category=set',
     image: ASSET_IMAGES.bridal,
     aspect: 'col-span-1 md:col-span-2 lg:col-span-2',
     desc: 'Regal tiara combs, multi-strand suites, and heirloom wedding day treasures.'
