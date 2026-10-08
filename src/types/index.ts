@@ -1,4 +1,4 @@
-export type PearlType = 'South Sea' | 'Akoya' | 'Tahitian' | 'Freshwater' | 'Keshi';
+export type PearlType = 'South Sea' | 'Akoya' | 'Tahitian' | 'Freshwater';
 
 export type MetalType = '18k Yellow Gold' | '18k White Gold' | '18k Rose Gold' | 'Platinum 950' | 'Sterling Silver 925';
 
