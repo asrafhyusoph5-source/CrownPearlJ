@@ -6,7 +6,7 @@ import { ProductCard } from '../product/ProductCard';
 
 export const BestSellers: React.FC = () => {
   const [filterType, setFilterType] = useState<
-    'south-sea' | 'akoya' | 'tahitian' | 'freshwater' | 'keshi' | 'best-sellers'
+    'south-sea' | 'akoya' | 'tahitian' | 'freshwater' | 'best-sellers'
   >('best-sellers');
 
   // Filter products based on selected tab
@@ -21,8 +21,6 @@ export const BestSellers: React.FC = () => {
     if (filterType === 'akoya') return p.pearlType === 'Akoya';
     if (filterType === 'tahitian') return p.pearlType === 'Tahitian';
     if (filterType === 'freshwater') return p.pearlType === 'Freshwater';
-    
-    if (filterType === 'keshi') return p.pearlType === 'Keshi';
 
     return false;
   });
@@ -118,22 +116,6 @@ export const BestSellers: React.FC = () => {
             >
               Freshwater
             </button>
-
-            
-
-            {/* Keshi */}
-            <button
-              type="button"
-              onClick={() => setFilterType('keshi')}
-              className={`px-3 py-1.5 text-xs font-heading uppercase tracking-wider rounded transition-colors whitespace-nowrap ${
-                filterType === 'keshi'
-                  ? 'bg-white text-[#111] shadow-xs font-semibold'
-                  : 'text-[#3B4A50] hover:text-[#111]'
-              }`}
-            >
-              Keshi
-            </button>
-
           </div>
         </div>
 
