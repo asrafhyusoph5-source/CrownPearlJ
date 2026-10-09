@@ -869,7 +869,7 @@ export const PRODUCTS: Product[] = [
     pearlColor: 'N/A',
     pearlSize: 'N/A',
     metal: 'Sterling Silver 925',
-    availableMetals: ['Sterling Silver 925'],
+    availableMetals: ['Sterling Silver 925', 'Platinum 950', '18k Yellow Gold', '18k White Gold', '18k Rose Gold'],
     rating: 4.97,
     reviewCount: 88,
     inStock: true,
@@ -894,7 +894,7 @@ export const PRODUCTS: Product[] = [
       surface: 'Non-Abrasive',
       shape: 'Universal',
       nacreThickness: 'Safe on all nacre thicknesses',
-      origin: 'Artisanal Studio, New York'
+      origin: 'Artisanal Studio, Puerto Princesa'
     },
     care: ['Store solution in a cool, dry cabinet away from direct sunlight.'],
     isFeatured: false,
