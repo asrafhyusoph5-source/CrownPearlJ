@@ -786,7 +786,6 @@ export const PRODUCTS: Product[] = [
       shape: 'Round',
       nacreThickness: 'Medium (0.35mm+)',
       origin: 'Japan',
-      color: 'Silver Grey with Lavender Overtones',
       matching: 'Hand-matched for size, color, and luster',
     },
     care: [
@@ -801,16 +800,17 @@ export const PRODUCTS: Product[] = [
     isBestseller: false
   },
   {
-    id: 'duchess-bridal-pearl-tiara-comb',
-    name: 'Black Stud forged with 18K Gold',
-    tagline: 'Stud Black South Sea Pearl and forged with 18 Gold Ring',
+    id: 'the-eclipse-tahitian-pearl-ring',
+    name: 'The Eclipse Tahitian Pearl Ring',
+    tagline: 'A peacock-dark Tahitian pearl framed by diamond-set wings on warm yellow gold',
     price: 290,
     category: 'rings',
     pearlType: 'Tahitian',
-    pearlColor: 'Ivory White',
-    pearlSize: '4 - 8 mm Graduated',
-    metal: '18k White Gold',
-    availableMetals: ['18k White Gold', '18k Yellow Gold'],
+    pearlColor: 'Dark Peacock Green with Blue and Silver Overtones',
+    pearlSize: '12.4 mm',
+    metal: '18k Yellow Gold',
+    availableMetals: [18k Yellow Gold'],
+    availableSizes: ['Small (6.0 in)', 'Medium (6.5 in)', 'Large (7.0 in)'],
     rating: 4.94,
     reviewCount: 31,
     inStock: true,
@@ -821,22 +821,41 @@ export const PRODUCTS: Product[] = [
       ASSET_IMAGES.BlackRing1,
       ASSET_IMAGES.BlackRing
     ],
-    description: 'An ethereal heirloom headpiece. Clusters of pearlescent gems branching out like springtime blossoms, gripping bridal updos with serene grace.',
-    story: 'Delma collaborated with premier bridal stylists to create a comb that distributes weight effortlessly without snagging delicate veils.',
+    description: 'Dark water, soft light. The Eclipse Ring features a round Tahitian pearl in deep peacock green, with flashes of blue and silver that shift as your hand moves. Two sculpted wings of pavé-set diamonds curve around the pearl, set on a polished yellow gold band. Dramatic yet refined, it is a ring for those who prefer their jewelry with mood and character, and it looks striking against both bare skin and dark evening wear.',
+    story: 'Most pearls are admired for their softness. Tahitian pearls are admired for their depth.\n\nThey grow in the warm lagoons of French Polynesia, where the black-lipped oyster produces nacre in shades no other pearl can match: charcoal, aubergine, deep green, and the rare peacock tone seen here. No dye is needed. The color comes from the oyster itself, and every pearl is slightly different. We selected this one for its round shape, its clean surface, and the way its blue-green overtones glow under light.\n\nTo frame it, we designed two small wings of pavé-set diamonds that curve upward from the band, like light breaking at the edge of a shadow. The warm yellow gold sets off the cool tones of the pearl, and the whole ring is polished by hand until it sits smooth and comfortable on the finger. It is a piece with quiet drama, meant to be worn often and remembered.',
     details: [
-      'Flexible wire branches can be molded to hair contour',
-      'Smooth comb teeth ensure zero pull on wedding hairstyles',
-      'Comes in a presentation keepsake box with bridal veil ribbon'
+      'Round Tahitian cultured pearl, 10.0 - 11.0 mm',
+      'Natural dark peacock color with blue and silver overtones',
+      'Winged motif pavé-set with brilliant-cut diamonds',
+      'Solid 18k yellow gold band, hallmarked 750',
+      'High-polish finish with a smooth, comfortable inner band',
+      'Pearl secured with a firm post and setting',
+      'Available in US sizes 5 to 9, with resizing available on request',
+      'Delivered in a presentation gift box with a care card'
     ],
-    materials: ['Cultured Freshwater Pearls', 'Rhodium-Plated Silver Wire', 'Cubic Zirconia'],
+    materials: [
+    'Genuine Tahitian Cultured Pearl',
+    'Pavé-Set Diamonds',
+    'Solid 18k Yellow Gold (Hallmarked 750)',
+    'Optional: 18k Yellow Gold or 18k Rose Gold'
+    'Natural Real Diamonds'
+    ],
     specs: {
-      luster: 'Bright Soft Glow',
-      surface: 'Smooth',
-      shape: 'Near Round to Rice',
-      nacreThickness: 'Solid Nacre',
-      origin: 'Freshwater Aquaculture'
+      luster: 'Very High (Mirror Reflection)',
+      surface: 'Clean (Minimal Visible Blemishes)',
+      shape: 'Round',
+      nacreThickness: 'Thick (0.50mm+)',
+      origin: 'French Polynesia',
+      stones: 'Brilliant-cut pavé Real diamonds',
     },
-    care: ['Store flat in presentation box.'],
+    care: [
+    'Put your ring on last, after perfume, hairspray, lotion, and makeup, so chemicals never touch the pearl.',
+    'Wipe the pearl and gold gently with a soft, dry cloth after each wear.',
+    'Remove before washing hands, swimming, showering, exercising, or doing housework.',
+    'Take it off during any activity where the pearl could be knocked or scratched.',
+    'Store separately in the soft pouch or box provided, away from harder jewelry.',
+    'Never use ultrasonic or steam cleaners, and have the pearl and diamond settings checked by a jeweler once a year.'
+    ],
     isFeatured: false,
     isBestseller: false
   },
