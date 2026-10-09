@@ -128,7 +128,7 @@ export const PRODUCTS: Product[] = [
     pearlSize: '8.0 - 11.0 mm',
     metal: '18k White Gold',
     availableMetals: ['18k White Gold', '18k Yellow Gold', 'Platinum 950'],
-    availableLengths: ['16 inch (Choker)', '18 inch (Princess)', '20 inch (Matinee)'],
+    availableLengths: ['16 inch (Choker)', '18 inch (Princess)', '20 inch (Matinee)', '24 inch (Opera)'],
     availableSizes: ['Small (6.0 in)', 'Medium (6.5 in)', 'Large (7.0 in)'],
     rating: 5.0,
     reviewCount: 29,
