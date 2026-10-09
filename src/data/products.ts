@@ -837,7 +837,7 @@ export const PRODUCTS: Product[] = [
     'Genuine Tahitian Cultured Pearl',
     'Pavé-Set Diamonds',
     'Solid 18k Yellow Gold (Hallmarked 750)',
-    'Optional: 18k Yellow Gold or 18k Rose Gold'
+    'Optional: 18k Yellow Gold or 18k Rose Gold',
     'Natural Real Diamonds'
     ],
     specs: {
