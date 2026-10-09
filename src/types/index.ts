@@ -22,7 +22,7 @@ export interface Product {
   pearlColor: string;
   pearlSize: string;
   metal: MetalType;
-  availableMetals: MetalType[];
+  availableMetals?: MetalType[];
   availableSizes?: string[];
   availableLengths?: string[];
   rating: number;
