@@ -65,8 +65,8 @@ export const PRODUCTS: Product[] = [
     pearlType: 'Freshwater',
     pearlColor: 'Cream White with Soft Rose Overtones',
     pearlSize: '10.0 - 12.0 mm',
-    metal: '18k Yellow Gold',
-    availableMetals: ['18k Yellow Gold', 'Sterling Silver 925', '14k Yellow Gold'],
+    metal: '14k Yellow Gold',
+    availableMetals: ['Sterling Silver 925', '14k Yellow Gold'],
     rating: 4.92,
     reviewCount: 32,
     inStock: true,
@@ -192,7 +192,7 @@ export const PRODUCTS: Product[] = [
     pearlColor: 'Deep Golden',
     pearlSize: '11.0 - 12.0 mm',
     metal: '18k Yellow Gold',
-    availableMetals: ['18k Yellow Gold', '18k White Gold', '18k Rose Gold'],
+    availableMetals: ['18k Yellow Gold', '18k White Gold', 'Sterling Silver 925'],
     availableSizes: ['5', '6', '7', '8', '9'],
     rating: 4.88,
     reviewCount: 19,
@@ -220,7 +220,6 @@ export const PRODUCTS: Product[] = [
     'Genuine South Sea Cultured Pearl',
     'Pavé-Set Diamonds',
     'Solid 18k Yellow Gold (Hallmarked 750)',
-    'Optional: 18k White Gold or 18k Rose Gold'
     ],
     specs: {
       luster: 'Very High (Mirror Reflection)',
@@ -356,43 +355,57 @@ export const PRODUCTS: Product[] = [
     isBestseller: false
   },
   {
-    id: 'baroque-freshwater-lariat',
-    name: 'Mari Mar Elegant Simplicity Necklace',
-    tagline: 'Organic freeform South Sea pearls on an adjustable golden slide chain',
+    id: 'the-orchid-bloom-necklace',
+    name: 'The Orchid Bloom Necklace (MariMar)',
+    tagline: 'Diamond-set petals in full bloom, each holding a South Sea pearl in a different shade',
     price: 940,
     category: 'necklaces',
     pearlType: 'South Sea',
-    pearlColor: 'Natural Pastel Peach & Lavender',
-    pearlSize: '12 - 14 mm',
-    metal: '18k Yellow Gold',
-    availableMetals: ['18k Yellow Gold', '18k White Gold'],
-    availableLengths: ['28 inch (Adjustable Slide)'],
+    pearlColor: 'Multicolor (Golden, Silver, Cream Rose, Chocolate)',
+    pearlSize: '9.0 - 12.1mm',
+    metal: 'Platinum 950',
+    availableMetals: ['Platinum 950', 'Sterling Silver 925'],
+    availableLengths: ['18 inch (Princess)'],
     rating: 4.87,
     reviewCount: 22,
     inStock: true,
     stockCount: 5,
-    badge: 'New',
+    badge: 'Limited',
     images: [
       ASSET_IMAGES.MariNecklace,
       ASSET_IMAGES.MariNecklace1,
       ASSET_IMAGES.MariNecklace2
     ],
-    description: 'Celebrates the unfiltered poetry of nature. No two baroque ripple pearls are identical; their rippled nacre planes refract mesmerizing pastel halos.',
-    story: 'Freshwater pearls formed without a solid bead nucleus develop extraordinary solid-nacre baroque silhouettes. Delma hand-selects these for their flame-like fire.',
+    description: 'A garden of light worn at the collarbone. The Orchid Bloom is a delicate chain of pavé diamond petals and leaves, with South Sea pearls nestled at its center in golden, silver, cream rose, and deep chocolate tones. A graceful drop flows down from the central bloom, drawing the eye to the neckline. Elegant enough for a wedding or gala, and refined enough to make any evening feel like an occasion.',
+    story: 'This necklace began as a single flower. We wondered what it would look like if every petal were set with light, and every heart were a pearl.\n\nSouth Sea pearls naturally grow in a wide palette: warm gold, soft silver, blush cream, and dark, smoky chocolate. Instead of matching them into one color, we chose to celebrate the variety, giving each bloom its own shade so the necklace feels alive and a little different from every angle.\n\nThe petals are pavé-set with hundreds of brilliant diamonds, each placed by hand under magnification. The pearls are chosen one by one for luster, shape, and clean surface, then secured in the center of each flower. The result is a jewel that moves softly with you, catching the light like dew on petals at sunrise.',
     details: [
-      'Silicone-grip 18k slide bead allows endless styling lengths',
-      'Solid 18k diamond-cut wheat chain for high sparkle',
-      'Each baroque pearl is one-of-a-kind in shape'
+      'Hand-selected multicolor South Sea cultured pearls, 9.0 - 11.0 mm',
+      'Floral and leaf motifs pavé-set with brilliant-cut diamonds',
+      'Central bloom with a graceful Y-shaped drop',
+      'Each pearl in a different natural color: golden, silver, cream rose, and chocolate',
+      'Solid 18k white gold setting, hallmarked 750',
+      'Secure lobster clasp with a safety catch',
+      'Available in 16" and 18" lengths',
+      'Delivered in a presentation gift box with a certificate of authenticity'
     ],
-    materials: ['Cultured Freshwater Pearls', '18k Yellow Gold Chain'],
+    materials: [
+    'Genuine South Sea Cultured Pearls',
+    'Optional: Platinum 950 or Sterling Silver 925'
+    ],
     specs: {
-      luster: 'Deep Satin Fire',
-      surface: 'Textured Rippled Baroque',
-      shape: 'Baroque Freeform',
-      nacreThickness: '100% Solid Nacre',
-      origin: 'Lake Taihu, China'
+      luster: 'Very High (Mirror Reflection)',
+      surface: 'Clean (Minimal Visible Blemishes)',
+      shape: 'Round to Near-Round',
+      nacreThickness: 'Thick (0.50mm+)',
+      origin: 'Indonesia / Philippines'
     },
-    care: ['Lay flat to store. Do not suspend continuously on hanging hooks.'],
+    care: [
+    'Put your necklace on last, after perfume, hairspray, and makeup, so chemicals never touch the pearls.',
+    'Wipe gently with a soft, dry cloth after each wear to keep the pearls and diamonds bright.',
+    'Store in the soft pouch or box provided, separate from other jewelry that could scratch the pearls.',
+    'Avoid water, chlorine, and household cleaners. Never use ultrasonic or steam cleaners, as they can damage pearls.',
+    'Have the prongs and settings checked by a jeweler once a year to keep every stone secure.''
+    ],
     isFeatured: false,
     isBestseller: false
   },
