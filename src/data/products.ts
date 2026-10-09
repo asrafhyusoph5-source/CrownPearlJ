@@ -809,7 +809,7 @@ export const PRODUCTS: Product[] = [
     pearlColor: 'Dark Peacock Green with Blue and Silver Overtones',
     pearlSize: '12.4 mm',
     metal: '18k Yellow Gold',
-    availableMetals: [18k Yellow Gold'],
+    availableMetals: ['18k Yellow Gold'],
     availableSizes: ['Small (6.0 in)', 'Medium (6.5 in)', 'Large (7.0 in)'],
     rating: 4.94,
     reviewCount: 31,
