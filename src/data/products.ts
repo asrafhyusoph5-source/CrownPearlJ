@@ -207,7 +207,7 @@ export const PRODUCTS: Product[] = [
     description: 'A golden pearl with a little bloom beside it. The Blossom Ring features a round, deep golden South Sea pearl resting beside a delicate flower of pavé-set diamonds, carried on a smooth, polished yellow gold band. The pearl glows with a warm, buttery luster, while the tiny flower adds a spark of light and a touch of playfulness. It is bold enough to be the star of your hand and graceful enough to wear every day.',
     story: 'We imagined a pearl that had just rolled to a stop beside a flower in the sun. That small moment became this ring.\n\nDeep golden South Sea pearls are among the rarest in the world. They grow slowly in warm waters, and only a small share reach the rich, even color, round shape, and clean surface we look for. For this ring, we chose a pearl with a warm, honey-gold glow that looks beautiful against the metal.\n\nBeside it, a small flower of pavé-set diamonds curls up from the band on a slim, sculpted stem, like a bud reaching toward the light. The band is polished by hand until it is smooth and comfortable on the finger. The result is a ring that feels personal, a little romantic, and made to be worn and noticed.',
     details: [
-      Round golden South Sea cultured pearl, 11.0 - 12.0 mm',
+      'Round golden South Sea cultured pearl, 11.0 - 12.0 mm',
       'Flower motif pavé-set with brilliant-cut diamonds',
       'Solid 18k yellow gold band, hallmarked 750',
       'High-polish finish with a smooth, comfortable inner band',
