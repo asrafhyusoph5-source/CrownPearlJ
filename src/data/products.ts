@@ -404,7 +404,7 @@ export const PRODUCTS: Product[] = [
     'Wipe gently with a soft, dry cloth after each wear to keep the pearls and diamonds bright.',
     'Store in the soft pouch or box provided, separate from other jewelry that could scratch the pearls.',
     'Avoid water, chlorine, and household cleaners. Never use ultrasonic or steam cleaners, as they can damage pearls.',
-    'Have the prongs and settings checked by a jeweler once a year to keep every stone secure.''
+    'Have the prongs and settings checked by a jeweler once a year to keep every stone secure.'
     ],
     isFeatured: false,
     isBestseller: false
