@@ -364,8 +364,6 @@ export const PRODUCTS: Product[] = [
     pearlColor: 'Multicolor (Golden, Silver, Cream Rose, Chocolate)',
     pearlSize: '9.0 - 12.1mm',
     metal: 'Platinum 950',
-    availableMetals: ['Platinum 950', 'Sterling Silver 925'],
-    availableLengths: ['18 inch (Princess)'],
     rating: 4.87,
     reviewCount: 22,
     inStock: true,
@@ -385,7 +383,7 @@ export const PRODUCTS: Product[] = [
       'Each pearl in a different natural color: golden, silver, cream rose, and chocolate',
       'Solid 18k white gold setting, hallmarked 750',
       'Secure lobster clasp with a safety catch',
-      'Available in 16" and 18" lengths',
+      'Available in 18" lengths',
       'Delivered in a presentation gift box with a certificate of authenticity'
     ],
     materials: [
@@ -419,7 +417,6 @@ export const PRODUCTS: Product[] = [
     pearlColor: 'Golden Champagne',
     pearlSize: '11.0 - 12.0 mm',
     metal: 'Sterling Silver 925',
-    availableMetals: ['Sterling Silver 925'],
     rating: 4.96,
     reviewCount: 18,
     inStock: true,
@@ -526,17 +523,15 @@ export const PRODUCTS: Product[] = [
     isBestseller: false
   },
   {
-    id: 'golden-south-sea-station-bangle',
-    name: 'Golden South Sea Bangle',
-    tagline: 'Natural golden South Sea pearl ',
+    id: 'the-aurora-open-bangle',
+    name: 'The Aurora Open Bangle',
+    tagline: 'Two golden South Sea pearls on a sculpted gold open cuff, wrapped in blush pink ',
     price: 320,
     category: 'bracelets',
     pearlType: 'South Sea',
     pearlColor: 'Deep Champagne Gold (24k Rich)',
-    pearlSize: '11.0 mm',
-    metal: '18k Yellow Gold',
-    availableMetals: ['18k Yellow Gold', '18k Rose Gold'],
-    availableSizes: ['Small (6.0 in)', 'Medium (6.5 in)', 'Large (7.0 in)'],
+    pearlSize: '10.0 - 11.0 mm',
+    metal: 'Platinum 950',
     rating: 4.91,
     reviewCount: 16,
     inStock: true,
@@ -547,24 +542,42 @@ export const PRODUCTS: Product[] = [
       ASSET_IMAGES.BraceletGold,
       ASSET_IMAGES.BraceletGold2
     ],
-    description: 'Breathtaking 100% natural champagne-gold color produced only by the gold-lip Pinctada maxima oyster. Mounted atop a flexible forged gold wire cuff.',
-    story: 'No dye or radiation is ever used. The golden hue is pure mother nature, harvested from crystal warm lagoons in Palawan and the Sulu Sea.',
+    description: 'Two golden pearls facing each other across the wrist. The Aurora Open Bangle features a matched pair of deep golden South Sea pearls, each set on a sculpted gold tip, joined by a soft blush pink band. The open design slips on easily and sits gracefully on the wrist, while the warm glow of the pearls adds a quiet touch of luxury to everything from a simple tee to an evening dress. It is a modern, eye-catching bracelet that feels as comfortable as it looks.',
+    story: 'We wanted to design a bracelet that felt like a conversation: two pearls, face to face, with just enough space between them to let the wrist be part of the design.\n\nThe Aurora is named for the warm light at dawn, which is exactly the color of its pearls. Deep golden South Sea pearls are among the rarest in the world. They grow slowly in warm waters, and only a very small share reach the rich, even color and clean surface we require. We match each pair carefully by color, size, and luster so the two sit as true mirror images.\n\nEach pearl is mounted on a sculpted, polished gold tip, shaped to curve naturally with the wrist. A band of soft blush pink, woven by hand, joins the two ends and adds a gentle contrast to the warm gold. The open cuff form means no clasp to fumble with. You simply slip it on, and it stays comfortably in place.',
     details: [
-      'Natural untreated color guarantee with provenance certificate',
-      'Comfort spring-temper cuff slides easily over the wrist',
-      'Two flush-set side accent diamonds (0.05 ctw)'
+      'Matched pair of golden South Sea cultured pearls, 10.0 - 11.0 mm',
+  'Sculpted, high-polish 18k gold pearl mounts',
+  'Hand-woven blush pink band with a flexible fit',
+  'Open cuff design, easy to slip on and off with no clasp',
+  'Gently adjustable to fit most wrist sizes',
+  'Available in three sizes',
+  'Pairs beautifully with watches, bangles, and stacked bracelets',
+  'Delivered in a presentation gift box with a care card'
     ],
-    materials: ['Natural Golden South Sea Pearl', '18k Yellow Gold', 'Diamonds'],
+    materials: [
+    'Genuine South Sea Cultured Pearls',
+    'Hand-woven pink cord band'
+    ],
     specs: {
-      luster: 'Rich Velvet Satin',
-      surface: 'Clean',
+      luster: 'Very High (Mirror Reflection)',
+      surface: 'Clean (Minimal Visible Blemishes)',
       shape: 'Round',
-      nacreThickness: '2.2mm',
-      origin: 'Palawan Archipelago, Philippines'
+      nacreThickness: 'Thick (0.50mm+)',
+      origin: 'Indonesia',
+      matching: 'Matched pair for color, size, and luster',
+      closure: 'Open cuff, no clasp'
     },
-    care: ['Keep separate from harder gemstones such as diamonds and sapphires.'],
+    care: [
+    'Put your bangle on after perfume, hairspray, and lotion so chemicals never touch the pearls.',
+    'Wipe the pearls and gold gently with a soft, dry cloth after each wear.',
+    'Keep the woven band away from water, since soaking can dull the color or loosen the weave. If it gets wet, let it air dry naturally.',
+    'Do not wear while swimming, showering, or exercising.',
+    'Avoid pulling the cuff wide when putting it on, to keep the fit and the pearl mounts secure.',
+    'Store in the soft pouch or box provided, away from harder jewelry that could scratch the pearls.'
+    ],
     isFeatured: true,
     isBestseller: false
+  },
   },
   {
     id: 'something-blue-pearl-locket-pendant',
