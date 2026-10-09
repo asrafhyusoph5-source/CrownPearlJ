@@ -183,14 +183,14 @@ export const PRODUCTS: Product[] = [
     isBestseller: true
   },
   {
-    id: 'celeste-solitaire-pearl-ring',
-    name: 'Celeste Solitaire Pearl Ring',
-    tagline: 'Luminous 10mm South Sea pearl cradled in an openwork 18k gold band',
+    id: 'the-blossom-golden-pearl-ring',
+    name: 'The Blossom Golden Pearl Ring',
+    tagline: 'A golden South Sea pearl and a diamond-set flower on a sleek yellow gold band',
     price: 243,
     category: 'rings',
     pearlType: 'South Sea',
-    pearlColor: 'Pure White with Warm Champagne Hue',
-    pearlSize: '10.0 - 10.5 mm',
+    pearlColor: 'Deep Golden',
+    pearlSize: '11.0 - 12.0 mm',
     metal: '18k Yellow Gold',
     availableMetals: ['18k Yellow Gold', '18k White Gold', '18k Rose Gold'],
     availableSizes: ['5', '6', '7', '8', '9'],
@@ -204,22 +204,41 @@ export const PRODUCTS: Product[] = [
       ASSET_IMAGES.GoldRing,
       ASSET_IMAGES.GoldRingM
     ],
-    description: 'A contemporary tribute to celestial harmony. An exceptionally spherical South Sea pearl rests upon a gentle scalloped cathedral setting designed to capture sunlight from all angles.',
-    story: 'Handcrafted by master carvers to ensure the pearl sits securely without bulky prongs, celebrating the organic perfection of the gem uninterrupted.',
+    description: 'A golden pearl with a little bloom beside it. The Blossom Ring features a round, deep golden South Sea pearl resting beside a delicate flower of pavé-set diamonds, carried on a smooth, polished yellow gold band. The pearl glows with a warm, buttery luster, while the tiny flower adds a spark of light and a touch of playfulness. It is bold enough to be the star of your hand and graceful enough to wear every day.',
+    story: 'We imagined a pearl that had just rolled to a stop beside a flower in the sun. That small moment became this ring.\n\nDeep golden South Sea pearls are among the rarest in the world. They grow slowly in warm waters, and only a small share reach the rich, even color, round shape, and clean surface we look for. For this ring, we chose a pearl with a warm, honey-gold glow that looks beautiful against the metal.\n\nBeside it, a small flower of pavé-set diamonds curls up from the band on a slim, sculpted stem, like a bud reaching toward the light. The band is polished by hand until it is smooth and comfortable on the finger. The result is a ring that feels personal, a little romantic, and made to be worn and noticed.',
     details: [
-      'Peg-and-cup secure mounting with internal locking thread',
-      'Subtle knife-edge tapered shank for comfortable daily wear',
-      'Interior engraving available up to 15 characters'
+      Round golden South Sea cultured pearl, 11.0 - 12.0 mm',
+      'Flower motif pavé-set with brilliant-cut diamonds',
+      'Solid 18k yellow gold band, hallmarked 750',
+      'High-polish finish with a smooth, comfortable inner band',
+      'Pearl secured with a firm post and setting',
+      'Available in US sizes 5 to 9, with resizing available on request',
+      'Suitable as a cocktail ring, anniversary gift, or everyday statement piece',
+      'Delivered in a presentation gift box with a care card'
     ],
-    materials: ['Australian South Sea Pearl', '18k Yellow Gold (100% Recycled)'],
+    materials: [
+    'Genuine South Sea Cultured Pearl',
+    'Pavé-Set Diamonds',
+    'Solid 18k Yellow Gold (Hallmarked 750)',
+    'Optional: 18k White Gold or 18k Rose Gold
+    ],
     specs: {
-      luster: 'Silky Warm Glow',
-      surface: 'Clean to the Naked Eye',
+      luster: 'Very High (Mirror Reflection)',
+      surface: 'Clean (Minimal Visible Blemishes)',
       shape: 'Round',
-      nacreThickness: '1.8mm',
-      origin: 'Broome, Australia'
+      nacreThickness: 'Thick (0.50mm+)',
+      origin: 'Philippines, Indonesia',
+      stones: 'Brilliant-cut pavé diamonds',
+      closure: 'Pearl on post, flower in pavé',
     },
-    care: ['Remove before hand-washing, exercise, or applying hand sanitizers.'],
+    care: [
+    'Put your ring on last, after perfume, hairspray, lotion, and makeup, so chemicals never touch the pearl.',
+    'Wipe the pearl and gold gently with a soft, dry cloth after each wear.',
+    'Remove before washing hands, swimming, showering, exercising, or doing housework.',
+    'Because a ring is exposed to knocks, take it off during any activity where the pearl could be hit or scratched.',
+    'Store separately in the soft pouch or box provided, away from harder jewelry.',
+    'Never use ultrasonic or steam cleaners, and have the pearl and diamond settings checked by a jeweler once a year.'
+    ],
     isFeatured: false,
     isBestseller: false
   },
