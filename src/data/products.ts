@@ -15,6 +15,7 @@ export const PRODUCTS: Product[] = [
     metal: '18k White Gold',
     availableMetals: ['18k White Gold', '18k Yellow Gold', 'Platinum 950'],
     availableLengths: ['18 inch (Princess)', '20 inch (Matinee)'],
+    availableSizes: ['Small (6.0 in)', 'Medium (6.5 in)', 'Large (7.0 in)'],
     rating: 5,
     reviewCount: 48,
     inStock: true,
@@ -44,7 +45,8 @@ export const PRODUCTS: Product[] = [
       surface: 'Clean (Minimal to No Visible Blemishes)',
       shape: 'Round to Near-Round',
       nacreThickness: 'Thick (0.50mm+)',
-      origin: 'Philippines'
+      origin: 'Philippines', 
+      includes: 'Necklace, pair of earrings, ring'
     },
     care: [
       'Put your pearls on last, after perfume, hairspray, and makeup, and wipe them with a soft, dry cloth after wearing.',
@@ -115,18 +117,19 @@ export const PRODUCTS: Product[] = [
     isBestseller: false
   },
   {
-    id: 'aurora-bridal-pearl-choker',
-    name: 'The Aurora Bridal Pearl Suite',
-    tagline: 'Ethereal Akoya pearls woven with delicate diamond dewdrop accents',
+    id: 'the-eternal-bloom-bridal-suite',
+    name: 'The Eternal Bloom Bridal Suite',
+    tagline: 'A matching South Sea pearl necklace, earrings, and ring with diamond-set blossoms, made for the bride',
     price: 2450,
     originalPrice: 2800,
     category: 'set',
     pearlType: 'Akoya',
-    pearlColor: 'Iridescent Ivory & Rose',
-    pearlSize: '7.5 - 8.0 mm',
-    metal: 'Platinum 950',
-    availableMetals: ['Platinum 950', '18k White Gold', '18k Yellow Gold'],
-    availableLengths: ['15.5 inch (Petite)', '16.5 inch (Standard)', '18 inch (Princess)'],
+    pearlColor: 'Pure White with Soft Rose Overtones',
+    pearlSize: '8.0 - 11.0 mm',
+    metal: '18k White Gold',
+    availableMetals: ['18k White Gold', '18k Yellow Gold', 'Platinum 950'],
+    availableLengths: ['16 inch (Choker)', '18 inch (Princess)', '20 inch (Matinee)'],
+    availableSizes: ['Small (6.0 in)', 'Medium (6.5 in)', 'Large (7.0 in)'],
     rating: 5.0,
     reviewCount: 29,
     inStock: true,
@@ -137,29 +140,45 @@ export const PRODUCTS: Product[] = [
       ASSET_IMAGES.bridal1,
       ASSET_IMAGES.bridal2
     ],
-    description: 'Designed specifically for the bride seeking timeless dignity. The Aurora suite features three graduated rows of lustrous Japanese Akoya pearls held by a sculpted Art Deco platinum bar clasp.',
-    story: 'First custom-created for a family wedding in 2004, the Aurora suite became Delma’s most celebrated bridal commission. Each piece is crafted upon order in our workshop with personal provenance notes.',
+    description: 'Three pieces, one love story. The Eternal Bloom Bridal Suite brings together a hand-knotted South Sea pearl necklace, a pair of pearl drop earrings, and a pearl solitaire ring, all joined by the same delicate blossom motif set with sparkling stones. The pearls are matched in color and luster so the pieces look made for each other, from the first fitting to the last dance. It is a complete bridal look in one box, and a family heirloom from the day you wear it.',
+    story: 'A wedding day asks a lot of its jewelry. It must look beautiful in photographs, feel light after twelve hours, and still mean something thirty years later. This suite was designed with all three in mind.\n\nThe pearls come from South Sea oysters, which grow slowly and build thick layers of nacre, giving each pearl its soft, glowing luster. Only a small share of each harvest is round, clean, and bright enough to become part of a suite. Every pearl across the necklace, earrings, and ring is chosen together, so the color and glow match from one piece to the next.\n\nThe blossom is the thread that ties them together. It appears as the clasp of the necklace, the crown of each earring, and the shoulders of the ring, each petal set with tiny sparkling stones. The necklace is knotted by hand on silk, so it drapes softly at the collarbone and stays protected for years.\n\nWear them all together on the day, then wear them separately for anniversaries, birthdays, and every occasion after. Or pass them on, one piece at a time.',
     details: [
-      'Graduated multi-strand design with platinum stabilizer bars',
-      'Custom hidden box clasp with safety latch',
-      'Complimentary bespoke sizing and wedding day concierge packaging',
-      'Hand-embroidered silk keepsake pouch'
+      'Three-piece suite: necklace, drop earrings, and ring',
+      'Hand-matched South Sea cultured pearls, 8.0 - 11.0 mm',
+      'Necklace hand-knotted on silk with a blossom-motif clasp pavé-set with sparkling stones',
+      'Earrings with a floral stud top and a round pearl drop, approx. 25 mm long',
+      'Ring with a round pearl and pavé-set accent stones on each shoulder',
+      'Solid 18k white gold, hallmarked 750',
+      'Necklace available in 16", 18", and 20" lengths',
+      'Ring available in US sizes 5 to 9',
+      'Pieces are matched for color and luster across the whole suite',
+      'Delivered in a presentation gift box with a care card'
     ],
     materials: [
-      'Akoya Pearls',
-      'Solid Platinum 950',
-      'Fine Natural Diamonds (0.24 ctw)'
+      'Genuine South Sea Cultured Pearls',
+      'Pavé-Set Diamonds',
+      'Solid 18k White Gold (Hallmarked 750)',
+      'Natural silk thread, individually knotted',
+      'Optional: 18k Yellow Gold or Platinum 950'
     ],
     specs: {
-      luster: 'AAA Exceptional Metallic',
-      surface: 'Flawless',
+      luster: 'Very High (Mirror Reflection)',
+      surface: 'Clean (Minimal Visible Blemishes)',
       shape: 'Round',
-      nacreThickness: 'Very Thick (0.6mm)',
-      origin: 'Nagasaki & Mie, Japan'
+      nacreThickness: 'Thick (0.50mm+)',
+      origin: 'Philippines, Indonesia',
+      includes: 'Necklace, pair of earrings, ring',
+      stones: 'Brilliant-cut pavé diamonds',
+      stringing: 'Necklace hand-knotted on silk',
+      closure: 'Post with butterfly back'
     },
     care: [
-      'Ensure makeup and setting spray are dry before putting on.',
-      'Store in the provided breathable silk wedding roll.'
+      'Put your jewelry on last, after perfume, hairspray, and makeup, so chemicals never touch the pearls.',
+      'Wipe each piece gently with a soft, dry cloth after wearing to remove skin oils and sweat.',
+      'Store the necklace flat, and keep each piece in its own pouch or compartment so pearls and stones do not scratch each other.',
+      'Remove the ring before washing hands, swimming, showering, or doing housework.',
+      'Never use ultrasonic or steam cleaners, as they can damage pearls.',
+      'Have the necklace restrung every 1-2 years if worn often, and have the stone settings checked once a year.'
     ],
     isFeatured: true,
     isBestseller: true
