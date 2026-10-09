@@ -220,7 +220,7 @@ export const PRODUCTS: Product[] = [
     'Genuine South Sea Cultured Pearl',
     'Pavé-Set Diamonds',
     'Solid 18k Yellow Gold (Hallmarked 750)',
-    'Optional: 18k White Gold or 18k Rose Gold
+    'Optional: 18k White Gold or 18k Rose Gold'
     ],
     specs: {
       luster: 'Very High (Mirror Reflection)',
@@ -299,16 +299,16 @@ export const PRODUCTS: Product[] = [
     isBestseller: true
   },
   {
-    id: 'knot-by-knot-akoya-bracelet',
-    name: 'Knot-by-Knot Baroque Pearl Bracelet',
-    tagline: 'Classic single-strand bracelet with Delma’s filigree barrel clasp',
+    id: 'the-luna-baroque-bracelet',
+    name: 'The Luna Baroque Bracelet',
+    tagline: 'Sculptural baroque freshwater pearls, hand-knotted with a gold toggle clasp',
     price: 280,
     category: 'bracelets',
     pearlType: 'Freshwater',
-    pearlColor: 'Crisp White with Silver Overtones',
-    pearlSize: '7.0 - 7.5 mm',
+    pearlColor: 'Cream White with Soft Peach Overtones',
+    pearlSize: '12.0 - 16.0 mm',
     metal: '18k Yellow Gold',
-    availableMetals: ['18k Yellow Gold', '18k White Gold', 'Sterling Silver 925'],
+    availableMetals: ['18k Yellow Gold', '14k Yellow Gold', 'Sterling Silver 925'],
     availableLengths: ['6.5 inch (Small)', '7.0 inch (Medium)', '7.5 inch (Large)'],
     rating: 4.9,
     reviewCount: 41,
@@ -320,22 +320,38 @@ export const PRODUCTS: Product[] = [
       ASSET_IMAGES.BaroqueBracelet,
       ASSET_IMAGES.BaroqueBracelet2
     ],
-    description: 'An everyday luxury essential. Designed to drape fluidly around the wrist, catching ambient light with every hand gesture.',
-    story: 'Knotting bracelets requires the tightest tension control in pearl stringing, preventing rubbing while maintaining tactile softness. Our workshop standard has remained unchanged since 2003.',
+    description: 'No two pearls are alike. The Luna Bracelet is made from large baroque freshwater pearls in creamy white with a soft peach glow, each with its own flowing, sculptural shape. Strung close together and finished with a polished gold toggle clasp, it feels relaxed, artistic, and effortlessly chic. Wear it with a white shirt, a linen dress, or stacked with your favorite gold bracelets for a look that is entirely your own.',
+    story: 'Baroque pearls are the ones that refuse to be perfectly round. Their name comes from an old word for irregular pearl, and for centuries they were treasured by artists and royalty for their individuality. We think they are the most beautiful pearls of all.\n\nThe Luna Bracelet celebrates that character. Each freshwater pearl is chosen for its rich, satin glow and its flowing, organic form, then arranged so the shapes sit comfortably side by side. Because every pearl grows its own way, every bracelet is slightly different, which makes yours one of a kind.\n\nThe pearls are knotted by hand on silk, with a small knot between each one so they stay protected and move softly on the wrist. A gold toggle clasp finishes the design. It is simple to fasten, secure, and attractive enough to be worn at the front as a detail of its own.',
     details: [
-      'Double hand-knotted between every individual pearl',
-      'Vintage-inspired hand-engraved 18k barrel clasp with safety catch',
-      'Perfect for stacking with fine gold bangles'
+      'Hand-selected baroque freshwater cultured pearls, 12.0 - 16.0 mm',
+      'Cream white with soft peach overtones and a satin luster',
+      'Each pearl has a unique, sculptural shape',
+      'Hand-knotted on silk thread, with a knot between each pearl',
+      'Polished gold toggle clasp that can be worn at the front',
+      'Available in three lengths',
+      'Easy to layer with chains, bangles, and watches',
+      'Delivered in a presentation gift box with a care card'
     ],
-    materials: ['Akoya Pearls', '18k Yellow Gold Clasp', 'Pure Silk Thread'],
+    materials: [
+    'Genuine Freshwater Cultured Baroque Pearls',
+    '18k Gold Vermeil Toggle Clasp (over Sterling Silver 925)',
+    'Natural silk thread, individually knotted'
+    ],
     specs: {
-      luster: 'High Gloss',
-      surface: 'Clean',
-      shape: 'Round',
-      nacreThickness: 'Thick (0.45mm)',
-      origin: 'Ago Bay, Japan'
+      luster: 'High (Soft Satin Glow)',
+      surface: 'Natural (Light Texture and Ridges, Typical of Baroque)',
+      shape: 'Baroque (Irregular, Organic)',
+      nacreThickness: 'Very Thick (Nearly Solid Nacre)',
+      origin: 'China',
     },
-    care: ['Clean gently with soft cloth after social events and wear.'],
+    care: [
+    'Put your bracelet on after perfume, hairspray, and lotion so chemicals never touch the pearls.',
+    'Wipe gently with a soft, dry cloth after each wear to remove skin oils and sweat.',
+    'Avoid water, chlorine, and household cleaners. Do not wear while swimming, showering, or exercising.',
+    'Store flat in the soft pouch or box provided, away from harder jewelry that could scratch the pearls.',
+    'Never use ultrasonic or steam cleaners, and polish the clasp with a soft jewelry cloth.',
+    'Have the silk inspected and restrung every 1-2 years if worn often.'
+    ],
     isFeatured: false,
     isBestseller: false
   },
