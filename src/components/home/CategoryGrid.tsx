@@ -29,7 +29,7 @@ const CATEGORIES = [
     desc: 'High-jewelry cathedral mounts in 18k recycled gold and platinum.'
   },
   {
-    title: 'Bridal High Jewelry',
+    title: 'Set High Jewelry',
     count: '5 Designs',
     path: '/shop?category=set',
     image: ASSET_IMAGES.hero,
