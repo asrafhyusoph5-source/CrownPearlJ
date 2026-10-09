@@ -370,7 +370,7 @@ export const PRODUCTS: Product[] = [
     reviewCount: 22,
     inStock: true,
     stockCount: 5,
-    badge: 'Limited',
+    badge: 'Limited Stock',
     images: [
       ASSET_IMAGES.MariNecklace,
       ASSET_IMAGES.MariNecklace1,
@@ -410,16 +410,16 @@ export const PRODUCTS: Product[] = [
     isBestseller: false
   },
   {
-    id: 'monolith-tahitian-pearl-cufflinks',
-    name: 'Monolith South Sea Pearl Bracelet',
-    tagline: 'Natural South Sea Pearl Bracelet Good for Men and Women',
+    id: 'the-noir-golden-pearl-bracelet',
+    name: 'The Noir Golden Pearl Bracelet',
+    tagline: 'One golden South Sea pearl on hand-braided black leather, made for men and women',
     price: 110,
     category: 'mens',
     pearlType: 'South Sea',
-    pearlColor: 'Graphite Charcoal & Gunmetal',
-    pearlSize: '10.5 - 11.0 mm',
+    pearlColor: 'Golden Champagne',
+    pearlSize: '11.0 - 12.0 mm',
     metal: 'Sterling Silver 925',
-    availableMetals: ['Sterling Silver 925', '18k White Gold'],
+    availableMetals: ['Sterling Silver 925'],
     rating: 4.96,
     reviewCount: 18,
     inStock: true,
@@ -430,22 +430,39 @@ export const PRODUCTS: Product[] = [
       ASSET_IMAGES.MensBracelet1,
       ASSET_IMAGES.MensBracelet2
     ],
-    description: 'Sartorial refinement for the discerning gentleman. Two button-shaped Tahitian pearls embedded within substantial brushed sterling silver swivel mounts.',
-    story: 'Created by Delma as a tribute to mid-century bespoke menswear tailoring, where pearls were a dignified symbol of power, sea heritage, and understated sophistication.',
+    description: 'A single golden South Sea pearl, set against dark braided leather. The Sable Bracelet pairs the soft, warm glow of a champagne-gold pearl with the rugged texture of hand-woven black leather, finished with polished ribbed silver accents on either side. It is bold without being loud, easy to wear every day, and sharp enough to dress up with a tailored shirt or a watch. A modern take on pearls, made for anyone who prefers their jewelry understated and full of character.',
+    story: 'Pearls are usually shown on silk and gold. We wanted to see what happens when one is placed somewhere less expected.\n\nThe Sable Bracelet began with a golden South Sea pearl, chosen for its warm color and deep, glowing luster. Gold pearls take years to form, and only a small share reach the size and clean surface we look for. Instead of a delicate chain, we set it on a thick braid of black leather, so the pearl stands out with a more relaxed and modern feel.\n\nThe leather is woven by hand, strand over strand, until it is soft, flexible, and strong. Ribbed silver rings frame the pearl on both sides and keep it centered on the wrist, while a secure magnetic clasp makes it easy to put on with one hand. The result is a bracelet that looks good with a linen shirt on the weekend and a suit during the week, and it only gets better as the leather softens with wear.',
     details: [
-      'Engine-turned swivel toggle mechanism with crisp click',
-      'Anti-tarnish rhodium plating over solid 925 sterling silver',
-      'Delivered in embossed Delma calfskin gift box'
+      'Single golden South Sea cultured pearl, 11.0 - 12.0 mm',
+      'Hand-braided genuine black leather, 5 mm width',
+      'Polished, ribbed silver end caps on both sides of the pearl',
+      'Magnetic clasp with a secure, low-profile fit',
+      'Available in four lengths to fit most wrist sizes',
+      'Designed to suit men and women alike',
+      'Pairs well with watches and other bracelets',
+      'Delivered in a presentation gift box with a care card'
     ],
-    materials: ['Tahitian Saltwater Cultured Pearls', 'Rhodium Plated Sterling Silver 925'],
+    materials: [
+    'Genuine South Sea Cultured Pearl',
+    'Genuine Braided Leather',
+    'Sterling Silver 925, Rhodium Plated',
+    'Magnetic Clasp'
+    ],
     specs: {
-      luster: 'High Metallic Sheen',
-      surface: 'Clean (<2% natural dimple)',
-      shape: 'Button / Symmetrical Oval',
-      nacreThickness: '1.4mm',
-      origin: 'Rikitea, Gambier Islands'
+      luster: 'Very High (Mirror Reflection)',
+      surface: 'Clean (Minimal Visible Blemishes)',
+      shape: 'Round',
+      nacreThickness: 'Thick (0.50mm+)',
+      origin: 'Philippines/Indonesia'
     },
-    care: ['Store cufflinks separated in velvet slots to prevent metal contact with pearls.'],
+    care: [
+    'Put your bracelet on after perfume, cologne, and lotion so chemicals never touch the pearl or leather.',
+    'Wipe the pearl gently with a soft, dry cloth after wearing to remove sweat and oils.',
+    'Keep the leather away from water, since soaking can dry it out or change its shape. If it gets wet, let it air dry naturally.',
+    'Do not wear while swimming, showering, or exercising.',
+    'Store flat in the soft pouch or box provided, away from sharp or hard jewelry.',
+    'Clean the silver caps with a soft polishing cloth, and avoid ultrasonic or steam cleaners.'
+    ],
     isFeatured: false,
     isBestseller: false
   },
