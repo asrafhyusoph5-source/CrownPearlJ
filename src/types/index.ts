@@ -46,6 +46,7 @@ export interface Product {
     matching?: string;
     includes?: string;
     stones?: string;
+    design?: string;
   };
   care: string[];
   isFeatured?: boolean;
