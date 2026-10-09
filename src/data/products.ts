@@ -8,7 +8,7 @@ export const PRODUCTS: Product[] = [
     tagline: 'Delma’s flagship creation hand-knotted with AAA South Sea pearls',
     price: 3500,
     originalPrice: 3800,
-    category: 'set',
+    category: 'set', 'necklace',
     pearlType: 'South Sea',
     pearlColor: 'Pure White Rose Overtones',
     pearlSize: '10.3 - 17.1 mm',
