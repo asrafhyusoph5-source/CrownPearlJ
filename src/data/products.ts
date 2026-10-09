@@ -581,7 +581,6 @@ export const PRODUCTS: Product[] = [
     isFeatured: true,
     isBestseller: false
   },
-  },
   {
     id: 'something-blue-pearl-locket-pendant',
     name: 'Something Blue Pearl Locket & Pendant',
@@ -624,16 +623,16 @@ export const PRODUCTS: Product[] = [
     isBestseller: false
   },
   {
-    id: 'toi-et-moi-tahitian-akoya-ring',
-    name: 'Toi et Moi Twin Pearl Ring',
-    tagline: 'Harmonious meeting of dark Tahitian pearl and luminous Akoya pearl',
+    id: 'the-duet-twin-pearl-ring',
+    name: 'The Duet Twin Pearl Ring',
+    tagline: 'One golden pearl, one dark pearl, wrapped together on a sleek yellow gold open band',
     price: 260,
     category: 'rings',
     pearlType: 'Tahitian',
-    pearlColor: 'Tahitian Charcoal & Akoya White Rose',
-    pearlSize: '8.5 mm & 8.5 mm',
-    metal: 'Platinum 950',
-    availableMetals: ['Platinum 950', '18k Yellow Gold', '18k White Gold'],
+    pearlColor: 'Golden Champagne and Dark Charcoal Green',
+    pearlSize: '8.0 - 9.0 mm',
+    metal: '18k Yellow Gold',
+    availableMetals: ['18k Yellow Gold', '18k White Gold', 'Sterling Silver 925'],
     availableSizes: ['5', '6', '7', '8', '9'],
     rating: 4.93,
     reviewCount: 21,
@@ -645,22 +644,40 @@ export const PRODUCTS: Product[] = [
       ASSET_IMAGES.TwinRing1,
       ASSET_IMAGES.TwinRing2
     ],
-    description: 'The historic "You and Me" motif re-imagined. Light and shadow intertwined on a fluid crossover bypass band.',
-    story: 'Popularized in the 18th century, Delma breathed new life into this romantic silhouette by pairing the two greatest saltwater pearls of the Pacific.',
+    description: 'Light and shadow, side by side. The Duet Ring pairs a warm golden South Sea pearl with a deep, dark Tahitian pearl, each held at the tip of a slim gold arm that wraps around the finger. The open, crossover design keeps the look light and modern, while the contrast between the two pearls makes it instantly eye-catching. It is a ring about balance: soft and bold, bright and dark, together.',
+    story: 'Some of the best things come in pairs that are not alike. We wanted a ring that held two opposites in one gesture.\n\nOn one side sits a golden South Sea pearl, with the warm glow of late afternoon light. On the other sits a Tahitian pearl, dark and glossy, with the quiet depth of still water at night. Both are chosen for their round shape, clean surface, and strong luster, and matched in size so neither one overpowers the other.\n\nA slim band of polished yellow gold curves around the finger and ends in two small cups, each cradling one pearl. The open design means the ring is easy to wear and gently adjustable, and the two pearls seem to float beside each other. It is a ring for anyone who likes jewelry with a story: two origins, two colors, one piece.',
     details: [
-      'Seamlessly matched for size and proportional balance',
-      'Solid platinum shank designed for structural longevity',
-      'Comfort-fit rounded inner profile'
+      'One golden South Sea pearl and one dark Tahitian pearl, 8.0 - 9.0 mm each',
+      'Round shape, matched in size for a balanced look',
+      'Open crossover band in polished 18k yellow gold, hallmarked 750',
+      'Each pearl held in a slim gold cup on a fine arm',
+      'Lightweight and comfortable for everyday wear',
+      'Gently adjustable fit within one size up or down',
+      'Available in US sizes 5 to 9',
+      'Delivered in a presentation gift box with a care card'
     ],
-    materials: ['Tahitian Pearl', 'Akoya Pearl', 'Solid Platinum 950'],
+    materials: [
+    'Genuine South Sea Cultured Pearl (Golden)',
+    'Genuine Tahitian Cultured Pearl (Dark)',
+    'Solid 18k Yellow Gold (Hallmarked 750)',
+    'Optional: 18k White Gold or 18k Rose Gold'
+    ],
     specs: {
-      luster: 'High Metallic & Mirror',
-      surface: 'Clean',
-      shape: 'Near Round',
-      nacreThickness: 'Thick',
-      origin: 'French Polynesia & Japan'
+      luster: 'Very High (Mirror Reflection)',
+      surface: 'Clean (Minimal Visible Blemishes)',
+      shape: 'Round',
+      nacreThickness: 'Thick (0.50mm+)',
+      origin: 'Philippines (South Sea) and French Polynesia (Tahitian)',
+      design: 'Open crossover band, toi et moi style',
     },
-    care: ['Store in its bespoke Delma presentation case.'],
+    care: [
+    'Put your ring on last, after perfume, hairspray, lotion, and makeup, so chemicals never touch the pearls.',
+    'Wipe the pearls and gold gently with a soft, dry cloth after each wear.',
+    'Remove before washing hands, swimming, showering, exercising, or doing housework.',
+    'Avoid squeezing or bending the open band, which can loosen the pearl settings.',
+    'Store separately in the soft pouch or box provided, away from harder jewelry.',
+    'Never use ultrasonic or steam cleaners, and have the settings checked by a jeweler once a year.'
+    ],
     isFeatured: false,
     isBestseller: false
   },
