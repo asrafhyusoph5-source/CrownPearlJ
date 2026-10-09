@@ -44,6 +44,8 @@ export interface Product {
     motif?: string;
     closure?: string;
     matching?: string;
+    includes?: string;
+    stones?: string;
   };
   care: string[];
   isFeatured?: boolean;
