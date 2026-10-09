@@ -18,7 +18,7 @@ import { useShop } from '../context/ShopContext';
 import { ShippingAddress, OrderConfirmation } from '../types';
 
 // 👇 REPLACE THIS WITH YOUR FACEBOOK PAGE USERNAME OR ID
-const FB_PAGE_USERNAME = 'shoponlineph';
+const FB_PAGE_USERNAME = 'delmapearlonline';
 
 export const CheckoutPage: React.FC = () => {
   const {
