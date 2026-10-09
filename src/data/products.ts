@@ -509,7 +509,7 @@ export const PRODUCTS: Product[] = [
       surface: 'Clean (Minimal Visible Blemishes)',
       shape: 'Round',
       nacreThickness: 'Thick (0.50mm+)',
-      origin: 'Indonesia',
+      origin: 'Philippines',
       closure: 'Post with butterfly back',
       matching: 'Matched pair for size, color, and luster'
     },
@@ -566,7 +566,7 @@ export const PRODUCTS: Product[] = [
       surface: 'Clean (Minimal Visible Blemishes)',
       shape: 'Round',
       nacreThickness: 'Thick (0.50mm+)',
-      origin: 'Indonesia',
+      origin: 'Philippines',
       matching: 'Matched pair for color, size, and luster',
       closure: 'Open cuff, no clasp'
     },
@@ -682,15 +682,15 @@ export const PRODUCTS: Product[] = [
     isBestseller: false
   },
   {
-    id: 'cascading-keshi-pearl-drops',
-    name: 'Cascading Pearl Drops',
-    tagline: 'Shimmering petals of seedless South Sea pearls suspended on fine wire',
+    id: 'the-laurel-white-drop-earrings',
+    name: 'The Laurel Pearl Drop Earrings',
+    tagline: 'Round white South Sea pearls beneath diamond-set laurel leaves on pavé hooks',
     price: 720,
     category: 'earrings',
     pearlType: 'South Sea',
-    pearlColor: 'Opalescent Silver with Rainbow Sheen',
-    pearlSize: '6 - 9 mm Assorted',
-    metal: '18k Yellow Gold',
+    pearlColor: 'Pure White with Soft Silver Overtones',
+    pearlSize: '10.0 - 11.0 mm',
+    metal: '18k White Gold',
     availableMetals: ['18k Yellow Gold', '18k White Gold'],
     rating: 4.89,
     reviewCount: 17,
@@ -702,22 +702,41 @@ export const PRODUCTS: Product[] = [
       ASSET_IMAGES.earrings1,
       ASSET_IMAGES.earrings2
     ],
-    description: 'Feather-light and endlessly kinetic. Keshi pearls form purely of solid nacre when an oyster rejects its nucleus, resulting in unmatched organic iridescence.',
-    story: 'Because Keshi pearls have no nucleus, their surface glows with intense crystalline reflections that catch light from across the room.',
+    description: 'A crown of leaves above a perfect pearl. The Laurel Earrings pair round, creamy-white South Sea pearls with a delicate cluster of pavé-set laurel leaves, hung from sparkling hook wires that glitter as they catch the light. Classic, graceful, and made to be noticed quietly, they are an elegant choice for a bride, a guest, or anyone who wants a timeless pair of pearl earrings for everyday and special days alike.',
+    story: 'The laurel leaf has been a symbol of honor, victory, and lasting beauty since ancient times. We wanted to bring that tradition to the ear in a way that feels light, modern, and refined.\n\nEach earring begins with a round South Sea pearl, chosen for its smooth surface, deep luster, and soft glow. South Sea pearls grow slowly in warm waters, building thick layers of nacre that give them their rich, satin-like radiance. Only a small share of each harvest is round, clean, and bright enough to meet our standard, and each pair is matched carefully so the two look like mirror images.\n\nAbove each pearl sits a spray of laurel leaves, pavé-set with tiny sparkling stones, and a hook wire with its own line of light along the curve. The result is a pair of earrings that moves softly, frames the face, and looks as good at a wedding as it does with a simple white shirt.',
     details: [
-      'Extremely lightweight for all-day comfort',
-      'Delicate hand-wrapped 18k wire links',
-      'Total earring drop length: 1.75 inches'
+      'Matched pair of round South Sea cultured pearls, 10.0 - 11.0 mm',
+      'Laurel leaf cluster pavé-set with brilliant-cut stones',
+      'Hook wires set with a line of sparkling stones',
+      'Solid 18k white gold, hallmarked 750',
+      'Secure hook design that is comfortable for all-day wear',
+      'Approximately 30 mm drop length',
+      'Suitable for brides, bridesmaids, and everyday wear',
+      'Delivered in a presentation gift box with a care card'
     ],
-    materials: ['Natural Non-Nucleated Keshi Pearls', '18k Yellow Gold'],
+    materials: [
+    'Genuine South Sea Cultured Pearls',
+    'Solid 18k White Gold (Hallmarked 750)',
+    'Optional: 18k Yellow Gold or Platinum 950'
+    ],
     specs: {
-      luster: 'Superior Intense Sparkle',
-      surface: 'Organic Crinkled Flakes',
-      shape: 'Freeform Petal / Cornflake',
-      nacreThickness: '100% Solid Nacre',
-      origin: 'Japan & Australia'
+      luster: 'Very High (Mirror Reflection)',
+      surface: 'Clean (Minimal Visible Blemishes)',
+      shape: 'Round',
+      nacreThickness: 'Thick (0.50mm+)',
+      origin: 'Philippines',
+      stones: 'Brilliant-cut pavé diamonds',
+      closure: 'Fish hook wire',
+      matching: 'Matched pair for size, color, and luster'
     },
-    care: ['Handle gently by the metal wire when putting on.'],
+    care: [
+    'Put your earrings on after perfume, hairspray, and makeup so chemicals never touch the pearls.',
+    'Wipe the pearls and stones gently with a soft, dry cloth after each wear.',
+    'Avoid water, chlorine, and household cleaners. Remove before swimming, showering, or exercising.',
+    'Store each earring separately in the soft pouch or box provided, away from harder jewelry that could scratch the pearls.',
+    'Never use ultrasonic or steam cleaners, as they can damage pearls.',
+    'Have the settings checked by a jeweler once a year to keep every stone secure.'
+    ],
     isFeatured: false,
     isBestseller: false
   },
