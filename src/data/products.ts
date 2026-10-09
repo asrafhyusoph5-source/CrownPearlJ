@@ -169,7 +169,6 @@ export const PRODUCTS: Product[] = [
       origin: 'Philippines, Indonesia',
       includes: 'Necklace, pair of earrings, ring',
       stones: 'Brilliant-cut pavé diamonds',
-      stringing: 'Necklace hand-knotted on silk',
       closure: 'Post with butterfly back'
     },
     care: [
