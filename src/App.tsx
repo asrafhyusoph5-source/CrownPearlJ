@@ -29,6 +29,7 @@ import { LegalPage } from './pages/LegalPage';
 import { LiveSellingPage } from './pages/LiveSellingPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { CertificateVerificationPage } from './pages/CertificateVerificationPage';
+import { CertificateImportPage } from './pages/CertificateImportPage';
 
 function ScrollToTop() {
   const { pathname, search } = useLocation();
@@ -62,6 +63,7 @@ export default function App() {
               <Route path="/shipping-returns" element={<ShippingReturnsPage />} />
               <Route path="/legal" element={<LegalPage />} />
               <Route path="/verify" element={<CertificateVerificationPage />} />
+              <Route path="/certificate-import" element={<CertificateImportPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>
