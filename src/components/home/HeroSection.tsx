@@ -2,18 +2,25 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles, ShieldCheck } from 'lucide-react';
 import { ASSET_IMAGES } from '../../assets/images';
+import pearlHeroVideo from '../../assets/videos/pearl-hero.mp4';
 
 export const HeroSection: React.FC = () => {
   return (
     <section className="relative min-h-[85vh] lg:min-h-[88vh] flex items-center justify-center bg-[#1A2327] overflow-hidden">
       {/* Background Photography with Luxury Scrim */}
       <div className="absolute inset-0 z-0">
-        <img
-          src={ASSET_IMAGES.hero}
-          alt="Crown Pearl High Jewelry Collection"
-          className="w-full h-full object-cover object-center opacity-85 transform scale-102 transition-transform duration-10000"
-          referrerPolicy="no-referrer"
-        />
+        <video
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="metadata"
+  poster={ASSET_IMAGES.hero}
+  aria-hidden="true"
+  className="w-full h-full object-cover object-center"
+>
+  <source src={pearlHeroVideo} type="video/mp4" />
+</video>
         {/* Measured Scrim for contrast per Section 1.F */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#1A2327]/90 via-[#1A2327]/60 to-[#1A2327]/30" />
         <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#1A2327]/20 to-[#1A2327]/80" />
