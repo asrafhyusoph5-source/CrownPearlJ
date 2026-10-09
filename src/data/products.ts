@@ -467,16 +467,16 @@ export const PRODUCTS: Product[] = [
     isBestseller: false
   },
   {
-    id: 'minima-akoya-pearl-studs',
-    name: 'Minima South Sea Pearl Studs',
-    tagline: 'The consummate pearl stud: matched spherical South Sea pearls',
+    id: 'the-halo-pearl-studs',
+    name: 'The Halo Pearl Studs',
+    tagline: 'Classic round white South Sea pearls on polished white gold posts, made for every day',
     price: 210,
     category: 'earrings',
     pearlType: 'South Sea',
     pearlColor: 'Pure White with Cool Silver Glow',
-    pearlSize: '7.5 - 8.0 mm',
+    pearlSize: '9.0 - 10.0 mm',
     metal: '18k White Gold',
-    availableMetals: ['18k White Gold', '18k Yellow Gold', '18k Rose Gold', 'Platinum 950'],
+    availableMetals: ['18k White Gold', '18k Yellow Gold', 'Platinum 950'],
     rating: 4.98,
     reviewCount: 76,
     inStock: true,
@@ -487,22 +487,41 @@ export const PRODUCTS: Product[] = [
       ASSET_IMAGES.StudEarringswhite1,
       ASSET_IMAGES.StudEarringswhite2
     ],
-    description: 'The foundation of every fine jewelry wardrobe. Sourced from the winter harvests of Ago Bay when cooler ocean currents concentrate nacre density for ultimate luster.',
-    story: 'Since our opening in 2003, Delma has inspected every pair of studs by hand under north-facing studio daylight, rejecting over 80% to ensure identical brilliance across left and right ears.',
+    description: 'The one pair of pearl earrings you will reach for again and again. The Halo Studs feature round, creamy-white South Sea pearls with a deep, satin glow, mounted on polished white gold posts for a clean, close fit. Simple enough for the office, refined enough for a wedding, and comfortable enough to forget you are wearing them. A true wardrobe essential and a gift that never goes out of style.',
+    story: 'Every jewelry collection needs a quiet center, a piece that does not ask for attention but earns it anyway. For us, that piece is the pearl stud.\n\nThe Halo Studs begin with South Sea pearls, grown slowly in warm, clear waters where each oyster builds thick layers of nacre over several years. That patience shows in the glow: soft, deep, and luminous rather than glassy. Only a small share of each harvest is round, clean, and bright enough to become a stud, where there is nothing to hide behind.\n\nEach pair is matched carefully for size, color, and luster, so both ears look the same. Then each pearl is mounted on a polished white gold post with a secure butterfly back. The result is a pair of earrings that goes with everything, suits everyone, and gets better the more often you wear it.',
     details: [
-      'Matched for diameter, tone, reflection sharpness, and pin positioning',
-      'Heavy gauge 18k posts with oversized comfort butterfly friction backs',
-      'Laser engraved Delma hallmark on post'
+      'Matched pair of round South Sea cultured pearls, 9.0 - 10.0 mm',
+      'Polished solid 18k white gold posts, hallmarked 750',
+      'Secure butterfly backs for a comfortable, steady fit',
+      'Smooth, classic dome profile that sits close to the ear',
+      'Lightweight enough for all-day wear',
+      'Suitable for men and women, and for second or third piercings',
+      'Pairs well with other earrings, studs, and small hoops',
+      'Delivered in a presentation gift box with a care card'
     ],
-    materials: ['Japanese Akoya Pearls', '18k Solid Gold (Hypoallergenic)'],
+    materials: [
+    'Genuine South Sea Cultured Pearls',
+    'Solid 18k White Gold Posts (Hallmarked 750)',
+    'Butterfly Backs in 18k White Gold',
+    'Optional: 18k Yellow Gold or Platinum 950'
+    ],
     specs: {
-      luster: 'AAA Super Sharp Mirror',
-      surface: 'Flawless (98%+ clean)',
-      shape: 'Perfect Round',
-      nacreThickness: '0.45mm',
-      origin: 'Ago Bay, Japan'
+      luster: 'Very High (Mirror Reflection)',
+      surface: 'Clean (Minimal Visible Blemishes)',
+      shape: 'Round',
+      nacreThickness: 'Thick (0.50mm+)',
+      origin: 'Indonesia',
+      closure: 'Post with butterfly back',
+      matching: 'Matched pair for size, color, and luster'
     },
-    care: ['Wipe clean after daily wear before returning to jewelry box.'],
+    care: [
+    'Put your earrings on after perfume, hairspray, and makeup so chemicals never touch the pearls.',
+    'Wipe gently with a soft, dry cloth after each wear to remove skin oils and sweat.',
+    'Avoid water, chlorine, and household cleaners. Remove before swimming, showering, or exercising.',
+    'Store in the soft pouch or box provided, away from harder jewelry that could scratch the pearls.',
+    'Never use ultrasonic or steam cleaners, as they can damage pearls.',
+    'Wipe the posts with a soft cloth after wearing to keep them clean and smooth for your ears.'
+    ],
     isFeatured: true,
     isBestseller: false
   },
