@@ -105,4 +105,3 @@ export interface OrderConfirmation {
   shippingMethod: string;
   estimatedDelivery: string;
 }
-
