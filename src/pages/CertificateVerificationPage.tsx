@@ -98,7 +98,7 @@ export const CertificateVerificationPage: React.FC = () => {
                 type="text"
                 value={certificateNumber}
                 onChange={(e) => setCertificateNumber(e.target.value)}
-                placeholder="Example: CP-2026-00001"
+                placeholder="Example: CP-2026-00003"
                 className="min-w-0 flex-1 rounded-md border border-[#D6DAD8] bg-white px-4 py-3.5 outline-none focus:border-[#7FC8C0] focus:ring-1 focus:ring-[#7FC8C0]"
               />
 
