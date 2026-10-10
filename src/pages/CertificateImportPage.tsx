@@ -14,6 +14,8 @@ import {
   LogOut,
   ShieldCheck,
   Trash2,
+  Search,
+  X,
 } from 'lucide-react';
 
 import { auth, ADMIN_UID } from '../lib/firebase';
@@ -54,6 +56,21 @@ export const CertificateImportPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const [form, setForm] = useState<Certificate>(emptyForm);
   const [records, setRecords] = useState<Certificate[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const filteredRecords = records.filter((record) => {
+   const query = searchQuery.trim().toLowerCase();
+
+   if (!query) return true;
+
+   return [
+     record.productId,
+     record.certificateNumber,
+     record.productName,
+     record.category,
+   ].some((value) =>
+     (value || '').toLowerCase().includes(query)
+   );
+ });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -323,52 +340,90 @@ export const CertificateImportPage: React.FC = () => {
         </form>
 
         <section className="mt-8 rounded-xl border border-[#D6DAD8] bg-white p-5 sm:p-8">
-          <h2 className="mb-4 font-serif text-2xl">
-            Registered Certificates ({records.length})
-          </h2>
+          <div className="mb-5">
+  <h2 className="mb-4 font-serif text-2xl">
+    Registered Certificates ({filteredRecords.length})
+  </h2>
+
+  <div className="relative">
+    <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+
+    <input
+      type="search"
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+      placeholder="Search product ID, certificate number, product name, or category..."
+      className="w-full rounded-md border border-[#D6DAD8] bg-white py-3 pl-10 pr-10 text-sm outline-none focus:border-[#7FC8C0] focus:ring-1 focus:ring-[#7FC8C0]"
+      aria-label="Search registered certificates"
+    />
+
+    {searchQuery && (
+      <button
+        type="button"
+        onClick={() => setSearchQuery('')}
+        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700"
+        aria-label="Clear search"
+      >
+        <X className="h-4 w-4" />
+      </button>
+    )}
+  </div>
+</div>
 
           {records.length === 0 ? (
-            <p className="text-sm text-gray-500">No certificates registered yet.</p>
-          ) : (
-            <div className="space-y-3">
-              {records.map((record) => (
-                <div
-                  key={record.certificateNumber}
-                  className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 py-3 last:border-0"
-                >
-                  <div>
-                    <p className="font-medium">{record.productName}</p>
-                    <p className="text-xs text-gray-500">
-                      {record.certificateNumber} · {record.pearlType} · {record.pearlSize} · Grade {record.pearlGrade || 'Not recorded'}
-                    </p>
-                    <p className={`mt-1 text-xs ${record.status === 'verified' ? 'text-[#238B80]' : 'text-red-600'}`}>
-                      {record.status.toUpperCase()}
-                    </p>
-                  </div>
-                  
-<div className="flex flex-wrap items-center gap-2">
-  <button
-    type="button"
-    onClick={() => void changeStatus(record)}
-    className="rounded-md border border-[#D6DAD8] px-3 py-2 text-xs hover:bg-gray-50"
-  >
-    {record.status === 'verified' ? 'Revoke' : 'Restore'}
-  </button>
+  <p className="text-sm text-gray-500">
+    No certificates registered yet.
+  </p>
+) : filteredRecords.length === 0 ? (
+  <p className="py-6 text-center text-sm text-gray-500">
+    No certificates match "{searchQuery}". Try another search.
+  </p>
+) : (
+  <div className="space-y-3">
+    {filteredRecords.map((record) => (
+      <div
+        key={record.certificateNumber}
+        className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 py-3 last:border-0"
+      >
+        <div>
+          <p className="font-medium">{record.productName}</p>
+          <p className="text-xs text-gray-500">
+            {record.certificateNumber} · {record.productId} · {record.category} · {record.pearlType} · {record.pearlSize} · Grade {record.pearlGrade || 'Not recorded'}
+          </p>
+          <p
+            className={`mt-1 text-xs ${
+              record.status === 'verified'
+                ? 'text-[#238B80]'
+                : 'text-red-600'
+            }`}
+          >
+            {record.status.toUpperCase()}
+          </p>
+        </div>
 
-  <button
-    type="button"
-    onClick={() => void handleDelete(record)}
-    className="flex items-center gap-1 rounded-md border border-red-200 px-3 py-2 text-xs text-red-600 hover:bg-red-50"
-  >
-    <Trash2 className="h-3.5 w-3.5" />
-    Delete
-  </button>
-</div>
-                </div>
-              ))}
-            </div>
-          )}
-        </section>
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() => void changeStatus(record)}
+            className="rounded-md border border-[#D6DAD8] px-3 py-2 text-xs hover:bg-gray-50"
+          >
+            {record.status === 'verified' ? 'Revoke' : 'Restore'}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => void handleDelete(record)}
+            className="flex items-center gap-1 rounded-md border border-red-200 px-3 py-2 text-xs text-red-600 hover:bg-red-50"
+          >
+            <Trash2 className="h-3.5 w-3.5" />
+            Delete
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+)}
+</section>
 
         <Link to="/" className="mt-8 flex items-center justify-center gap-2 text-sm text-gray-600">
           <ArrowLeft className="h-4 w-4" /> Back to Crown Pearl
