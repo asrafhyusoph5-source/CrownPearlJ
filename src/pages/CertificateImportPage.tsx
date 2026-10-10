@@ -362,7 +362,6 @@ export const CertificateImportPage: React.FC = () => {
     Delete
   </button>
 </div>
-
                 </div>
               ))}
             </div>
