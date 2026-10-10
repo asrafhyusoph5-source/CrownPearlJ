@@ -257,7 +257,7 @@ export const CertificateImportPage: React.FC = () => {
               ['productId', 'Product ID', 'CP-NK-0003'],
               ['productName', 'Product Name', 'Pearl necklace name'],
               ['productImage', 'Product Image URL', 'https://...'],
-              ['productGrade', 'Pearl Grade', 'AAA / High Quality'],
+              ['pearlGrade', 'Pearl Grade / Quality', 'Type pearl grade (e.g. AAA)'],
               ['pearlColor', 'Pearl Color', 'White / Golden / Black'],
               ['pearlSize', 'Pearl Size', '10–11 mm'],
               ['metal', 'Metal', '18K Yellow Gold'],
