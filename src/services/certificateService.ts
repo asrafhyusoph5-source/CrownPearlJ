@@ -7,6 +7,7 @@ import {
   setDoc,
   updateDoc,
   orderBy,
+  deleteDoc, 
 } from 'firebase/firestore';
 
 import { db } from '../lib/firebase';
@@ -61,6 +62,12 @@ export async function createCertificate(certificate: Certificate) {
     productName: certificate.productName.trim(),
     createdAt: new Date().toISOString(),
   });
+}
+
+export async function deleteCertificate(certificateNumber: string) {
+  const normalizedNumber = normalizeCertificateNumber(certificateNumber);
+
+  await deleteDoc(doc(db, 'certificates', normalizedNumber));
 }
 
 export async function updateCertificateStatus(
