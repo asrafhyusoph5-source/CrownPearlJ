@@ -25,8 +25,6 @@ import {
   type Certificate,
 } from '../services/certificateService';
 
-import { deleteDoc } from 'firebase/firestore';
-
 const emptyForm: Certificate = {
   certificateNumber: '',
   productId: '',
@@ -378,11 +376,5 @@ export const CertificateImportPage: React.FC = () => {
     </main>
   );
 };
-
-export async function deleteCertificate(certificateNumber: string) {
-  const normalizedNumber = normalizeCertificateNumber(certificateNumber);
-
-  await deleteDoc(doc(db, 'certificates', normalizedNumber));
-}
 
 export default CertificateImportPage;
