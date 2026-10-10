@@ -18,6 +18,7 @@ export interface Certificate {
   productName: string;
   productImage: string;
   pearlType: string;
+  pearlGrade: string;
   pearlColor: string;
   pearlSize: string;
   metal: string;
