@@ -31,6 +31,7 @@ const emptyForm: Certificate = {
   productName: '',
   productImage: '',
   pearlType: 'South Sea',
+  pearlGrade: 'AAA',
   pearlColor: 'White',
   pearlSize: '',
   metal: '18K Yellow Gold',
@@ -256,6 +257,7 @@ export const CertificateImportPage: React.FC = () => {
               ['productId', 'Product ID', 'CP-NK-0003'],
               ['productName', 'Product Name', 'Pearl necklace name'],
               ['productImage', 'Product Image URL', 'https://...'],
+              ['productGrade', 'Pearl Grade', 'AAA / High Quality'],
               ['pearlColor', 'Pearl Color', 'White / Golden / Black'],
               ['pearlSize', 'Pearl Size', '10–11 mm'],
               ['metal', 'Metal', '18K Yellow Gold'],
@@ -337,7 +339,7 @@ export const CertificateImportPage: React.FC = () => {
                   <div>
                     <p className="font-medium">{record.productName}</p>
                     <p className="text-xs text-gray-500">
-                      {record.certificateNumber} · {record.pearlType} · {record.pearlSize}
+                      {record.certificateNumber} · {record.pearlType} · {record.pearlSize} · Grade {record.pearlGrade || 'Not recorded'}
                     </p>
                     <p className={`mt-1 text-xs ${record.status === 'verified' ? 'text-[#238B80]' : 'text-red-600'}`}>
                       {record.status.toUpperCase()}
