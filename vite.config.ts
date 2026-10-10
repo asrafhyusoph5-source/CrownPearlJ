@@ -4,7 +4,7 @@ import path from 'path';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/CrownPearlJ/',
+  base: '/',
 
   plugins: [react(), tailwindcss()],
 
