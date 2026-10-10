@@ -178,6 +178,7 @@ export const CertificateVerificationPage: React.FC = () => {
                   <Info label="Certificate Number" value={certificate.certificateNumber} />
                   <Info label="Product ID" value={certificate.productId} />
                   <Info label="Pearl Type" value={certificate.pearlType} />
+                  <Info label="Pearl Grade / Quality" value={certificate.pearlGrade || 'Not recorded'} />
                   <Info label="Pearl Color" value={certificate.pearlColor} />
                   <Info label="Pearl Size" value={certificate.pearlSize} />
                   <Info label="Metal" value={certificate.metal} />
