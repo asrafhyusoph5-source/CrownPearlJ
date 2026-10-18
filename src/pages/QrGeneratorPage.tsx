@@ -76,7 +76,7 @@ export const QrGeneratorPage: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   // URL / Content State
-  const defaultInitialUrl = `${window.location.origin}/verify-certificate?number=CP-2026-00001`;
+  const defaultInitialUrl = `${window.location.origin}/verify?number=CP-2026-00001`;
   const [urlInput, setUrlInput] = useState<string>(searchParams.get('url') || defaultInitialUrl);
 
   // Mode Selection: Normal vs Customized
@@ -635,7 +635,7 @@ export const QrGeneratorPage: React.FC = () => {
 
                 <button
                   type="button"
-                  onClick={() => setUrlInput(`${window.location.origin}/verify-certificate?number=CP-2026-00001`)}
+                  onClick={() => setUrlInput(`${window.location.origin}/verify?number=CP-2026-00001`)}
                   className="px-2.5 py-1 bg-gray-50 hover:bg-[#EAF6F4] text-[#238B80] border border-gray-200 rounded text-[11px] font-mono transition-colors"
                 >
                   Cert CP-2026-00001
@@ -676,7 +676,7 @@ export const QrGeneratorPage: React.FC = () => {
                     <button
                       key={c.number}
                       type="button"
-                      onClick={() => setUrlInput(`${window.location.origin}/verify-certificate?number=${c.number}`)}
+                      onClick={() => setUrlInput(`${window.location.origin}/verify?number=${c.number}`)}
                       className="px-2 py-0.5 rounded bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 text-[10px] font-mono shrink-0 transition-colors"
                     >
                       {c.number}
