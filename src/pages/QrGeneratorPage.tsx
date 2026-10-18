@@ -503,7 +503,7 @@ export const QrGeneratorPage: React.FC = () => {
             light: qrMode === 'normal' ? normalBg : bgColor
           }
         },
-        (err: Error | null, svgString: string) => {
+        (err: Error | null | undefined, svgString: string) => {
           if (!err && svgString) {
             const blob = new Blob([svgString], { type: 'image/svg+xml' });
             const url = URL.createObjectURL(blob);
