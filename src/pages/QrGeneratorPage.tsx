@@ -18,7 +18,7 @@ import {
   CheckCircle2,
   Maximize2
 } from 'lucide-react';
-import { certificateStorage } from '../services/certificateStorage';
+import { getAllCertificates } from '../services/certificateService';
 
 type QrMode = 'normal' | 'customized';
 type DotStyle = 'square' | 'rounded' | 'dots' | 'diamond';
@@ -107,10 +107,33 @@ export const QrGeneratorPage: React.FC = () => {
   const [recentCerts, setRecentCerts] = useState<{ number: string; name: string }[]>([]);
 
   useEffect(() => {
-    document.title = 'Luxury QR Code Generator – Crown Pearl Atelier';
-    const certs = certificateStorage.getCertificates();
-    setRecentCerts(certs.slice(0, 5).map(c => ({ number: c.certificateNumber, name: c.productName })));
-  }, []);
+  document.title = 'Luxury QR Code Generator – Crown Pearl Atelier';
+
+  let cancelled = false;
+
+  async function loadRecentCertificates() {
+    try {
+      const certs = await getAllCertificates();
+
+      if (!cancelled) {
+        setRecentCerts(
+          certs.slice(0, 5).map((certificate) => ({
+            number: certificate.certificateNumber,
+            name: certificate.productName,
+          })),
+        );
+      }
+    } catch (error) {
+      console.error('Failed to load certificates:', error);
+    }
+  }
+
+  void loadRecentCertificates();
+
+  return () => {
+    cancelled = true;
+  };
+}, []);
 
   // Update URL if query changes
   useEffect(() => {
