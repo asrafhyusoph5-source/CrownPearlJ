@@ -1,0 +1,83 @@
+{
+  "entities": {
+    "product": {
+      "title": "Product",
+      "description": "Handcrafted pearl jewelry item in the Crown Pearl catalog",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 200 },
+        "subtitle": { "type": "string", "maxLength": 300 },
+        "price": { "type": "number" },
+        "originalPrice": { "type": "number" },
+        "pearlType": { "type": "string", "maxLength": 100 },
+        "category": { "type": "string", "maxLength": 100 },
+        "images": { "type": "array" },
+        "rating": { "type": "number" },
+        "reviewsCount": { "type": "number" },
+        "inStock": { "type": "boolean" },
+        "pearlSize": { "type": "string", "maxLength": 100 },
+        "pearlGrade": { "type": "string", "maxLength": 100 },
+        "pearlColor": { "type": "string", "maxLength": 100 },
+        "pearlLuster": { "type": "string", "maxLength": 100 },
+        "pearlShape": { "type": "string", "maxLength": 100 },
+        "pearlOrigin": { "type": "string", "maxLength": 150 },
+        "availableMetals": { "type": "array" },
+        "description": { "type": "string", "maxLength": 2000 },
+        "details": { "type": "array" },
+        "certificateIncluded": { "type": "boolean" },
+        "isBestseller": { "type": "boolean" },
+        "isFeatured": { "type": "boolean" },
+        "badge": { "type": "string", "maxLength": 100 }
+      },
+      "required": ["id", "name", "price", "pearlType", "category", "inStock"]
+    },
+    "certificate": {
+      "title": "Certificate",
+      "description": "Pearl Authenticity Certificate registered by Crown Pearl Atelier",
+      "type": "object",
+      "properties": {
+        "certificateNumber": { "type": "string", "maxLength": 128 },
+        "productId": { "type": "string", "maxLength": 128 },
+        "productName": { "type": "string", "maxLength": 200 },
+        "productImage": { "type": "string", "maxLength": 500 },
+        "pearlType": { "type": "string", "maxLength": 100 },
+        "pearlGrade": { "type": "string", "maxLength": 100 },
+        "pearlColor": { "type": "string", "maxLength": 100 },
+        "pearlSize": { "type": "string", "maxLength": 100 },
+        "metal": { "type": "string", "maxLength": 100 },
+        "category": { "type": "string", "maxLength": 100 },
+        "issuedDate": { "type": "string", "maxLength": 100 },
+        "status": { "type": "string", "enum": ["verified", "revoked"] },
+        "createdAt": { "type": "string", "maxLength": 100 }
+      },
+      "required": ["certificateNumber", "productId", "productName", "pearlType", "status"]
+    },
+    "admin": {
+      "title": "Admin",
+      "description": "Authorized atelier manager or owner with access to manage inventory",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "maxLength": 200 },
+        "displayName": { "type": "string", "maxLength": 200 },
+        "role": { "type": "string", "enum": ["owner", "manager", "atelier_staff"] },
+        "createdAt": { "type": "string", "maxLength": 100 }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "product",
+      "description": "Jewelry products visible to all shoppers and modifiable by authorized managers"
+    },
+    "/certificates/{certificateNumber}": {
+      "schema": "certificate",
+      "description": "Authenticity certificates verifiable by public QR code and customers, managed by atelier staff"
+    },
+    "/admins/{adminId}": {
+      "schema": "admin",
+      "description": "Atelier manager accounts permitted to administer jewelry inventory and certificate records"
+    }
+  }
+}

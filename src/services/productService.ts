@@ -11,6 +11,8 @@ import {
 import { db } from './firebase';
 import { Product } from '../types';
 import { PRODUCTS as INITIAL_PRODUCTS } from '../data/products';
+import { handleFirestoreError, OperationType } from '../lib/firestoreError';
+
 
 const PRODUCTS_COLLECTION = 'products';
 const STORAGE_KEY = 'crown_pearl_catalog_cache_v1';

@@ -1,0 +1,89 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net: default-deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Hardened ABAC helper functions
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email in ['srahmahadjiali@gmail.com', 'delmapearl17@gmail.com'] ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    function isValidProduct(data) {
+      return data.keys().hasAll(['id', 'name', 'price', 'pearlType', 'category', 'inStock']) &&
+        data.id is string && data.id.size() <= 128 &&
+        data.name is string && data.name.size() <= 200 &&
+        data.price is number && data.price >= 0 &&
+        data.pearlType is string && data.pearlType.size() <= 100 &&
+        data.category is string && data.category.size() <= 100 &&
+        data.inStock is bool;
+    }
+
+    function isValidCertificate(data) {
+      return data.keys().hasAll(['certificateNumber', 'productId', 'productName', 'pearlType', 'status']) &&
+        data.certificateNumber is string && data.certificateNumber.size() <= 128 &&
+        data.productId is string && data.productId.size() <= 128 &&
+        data.productName is string && data.productName.size() <= 200 &&
+        data.pearlType is string && data.pearlType.size() <= 100 &&
+        data.status in ['verified', 'revoked'];
+    }
+
+    function isValidAdmin(data) {
+      return data.keys().hasAll(['email', 'role']) &&
+        data.email is string && data.email.size() <= 200 &&
+        data.role in ['owner', 'manager', 'atelier_staff'];
+    }
+
+    // Products collection: public read for shoppers, write by authorized atelier admins
+    match /products/{productId} {
+      allow get, list: if true;
+      allow create: if isAdmin() && isValidId(productId) && isValidProduct(incoming()) && incoming().id == productId;
+      allow update: if isAdmin() && isValidId(productId) && isValidProduct(incoming());
+      allow delete: if isAdmin() && isValidId(productId);
+    }
+
+    // Certificates collection: public read for authenticity verification, write/list by admins
+    match /certificates/{certificateNumber} {
+      allow get: if true;
+      allow list: if isAdmin();
+      allow create: if isAdmin() && isValidId(certificateNumber) && isValidCertificate(incoming()) && incoming().certificateNumber == certificateNumber;
+      allow update: if isAdmin() && isValidId(certificateNumber) && isValidCertificate(incoming());
+      allow delete: if isAdmin() && isValidId(certificateNumber);
+    }
+
+    // Admins collection: managed by atelier admins
+    match /admins/{adminId} {
+      allow get: if isSignedIn() && (request.auth.uid == adminId || isAdmin());
+      allow list: if isAdmin();
+      allow create, update: if isAdmin() && isValidId(adminId) && isValidAdmin(incoming());
+      allow delete: if isAdmin() && isValidId(adminId);
+    }
+
+    // Test connection check
+    match /test/{docId} {
+      allow read: if true;
+    }
+  }
+}
