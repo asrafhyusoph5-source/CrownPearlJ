@@ -152,7 +152,16 @@ export const AdminProductsPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <Link
+              to="/certificate-import"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#7FC8C0] hover:bg-[#68B6AE] text-[#1A2327] text-xs font-heading uppercase tracking-wider font-semibold transition-all shadow-sm"
+              title="Open Certificate Import Page"
+            >
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>Certificate Import</span>
+            </Link>
+
             <Link
               to="/shop"
               target="_blank"
@@ -176,6 +185,7 @@ export const AdminProductsPage: React.FC = () => {
           </div>
         </div>
       </header>
+
 
       {/* Main Content Area */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
