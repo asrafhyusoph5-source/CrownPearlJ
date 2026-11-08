@@ -43,12 +43,17 @@ const CATEGORIES: { label: string; value: ProductCategory }[] = [
   { label: 'Earrings & Drops', value: 'earrings' },
   { label: 'Solitaire & Duo Rings', value: 'rings' },
   { label: 'Bracelets & Cuffs', value: 'bracelets' },
-  { label: 'Bridal High Jewelry', value: 'bridal' },
-  { label: 'Men\'s Cufflinks & Accents', value: 'mens' },
+  { label: 'Pearl Sets & Bridal Jewelry', value: 'set' },
+  { label: "Men's Cufflinks & Accents", value: 'mens' },
   { label: 'Gifts & Care Sets', value: 'gifts' },
 ];
 
-const PEARL_TYPES: PearlType[] = ['South Sea', 'Akoya', 'Tahitian', 'Freshwater', 'Keshi'];
+const PEARL_TYPES: PearlType[] = [
+  'South Sea',
+  'Akoya',
+  'Tahitian',
+  'Freshwater',
+];
 
 const METALS: MetalType[] = [
   '18k Yellow Gold',
