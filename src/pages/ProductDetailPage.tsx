@@ -29,10 +29,11 @@ export const ProductDetailPage: React.FC = () => {
     toggleWishlist,
     setIsSizeGuideModalOpen,
     setIsConsultationModalOpen,
-    addRecentlyViewed
+    addRecentlyViewed, 
+    products
   } = useShop();
 
-  const product = PRODUCTS.find((p) => p.id === id) || PRODUCTS[0];
+  const product = products.find((p) => p.id === id) || PRODUCTS.find((p) => p.id === id) || products[0] || PRODUCTS[0];
 
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const [selectedMetal, setSelectedMetal] = useState<MetalType>(product.metal);
