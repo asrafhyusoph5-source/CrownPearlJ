@@ -8,7 +8,7 @@ import { useShop } from '../context/ShopContext';
 
 export const ShopPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { wishlist, isInWishlist } = useShop();
+  const { products, wishlist, isInWishlist } = useShop();
 
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
@@ -61,7 +61,7 @@ export const ShopPage: React.FC = () => {
 
   // Filtering and sorting computation
   const filteredProducts = useMemo(() => {
-    return products.filter((product) => {
+    return products.filter((product: Product) => {
       // Wishlist view
       if (filterParam === 'wishlist' && !isInWishlist(product.id)) {
         return false;
@@ -103,7 +103,7 @@ export const ShopPage: React.FC = () => {
       }
 
       return true;
-    }).sort((a, b) => {
+    }).sort((a: Product, b: Product) => {
       if (sortBy === 'price-low') return a.price - b.price;
       if (sortBy === 'price-high') return b.price - a.price;
       if (sortBy === 'rating') return b.rating - a.rating;
@@ -112,6 +112,7 @@ export const ShopPage: React.FC = () => {
       return (b.isBestseller ? 1 : 0) - (a.isBestseller ? 1 : 0);
     });
   }, [
+    products,
     selectedCategory,
     selectedPearlType,
     selectedMetal,
@@ -120,7 +121,8 @@ export const ShopPage: React.FC = () => {
     sortBy,
     searchParam,
     filterParam,
-    wishlist
+    wishlist,
+    isInWishlist
   ]);
 
   const resetFilters = () => {
@@ -335,7 +337,7 @@ export const ShopPage: React.FC = () => {
                       <span className="text-[10px] text-gray-400">
                         {c.value === 'all'
                           ? products.length
-                          : products.filter((p) => p.category === c.value).length}
+                          : products.filter((p: Product) => p.category === c.value).length}
                       </span>
                     </button>
                   ))}
@@ -363,7 +365,7 @@ export const ShopPage: React.FC = () => {
                       <span className="text-[10px] text-gray-400">
                         {pt === 'all'
                           ? products.length
-                          : products.filter((p) => p.pearlType === pt).length}
+                          : products.filter((p: Product) => p.pearlType === pt).length}
                       </span>
                     </button>
                   ))}
@@ -456,14 +458,14 @@ export const ShopPage: React.FC = () => {
               </div>
             ) : viewMode === 'grid' ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filteredProducts.map((product) => (
+                {filteredProducts.map((product: Product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </div>
             ) : (
               /* List View */
               <div className="space-y-4">
-                {filteredProducts.map((product) => (
+                {filteredProducts.map((product: Product) => (
                   <div
                     key={product.id}
                     className="bg-white rounded-xl border border-[#E5E7EB] p-4 flex flex-col sm:flex-row gap-5 items-center hover:border-[#7FC8C0] transition-colors shadow-xs"
