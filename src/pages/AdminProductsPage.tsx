@@ -15,16 +15,31 @@ import {
   ArrowUpDown,
   CheckCircle2,
   AlertTriangle,
+  AlertCircle,
   X,
   Image as ImageIcon,
   DollarSign,
   ShieldCheck,
-  RotateCcw
+  RotateCcw,
+  Mail,
+  Lock,
+  LogIn,
+  ArrowLeft,
 } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { Product, ProductCategory, PearlType, MetalType } from '../types';
-import { getAdminSession, logoutAdmin } from '../services/adminAuth';
+import {
+  getAdminSession,
+  logoutAdmin,
+  loginWithEmail,
+  resetPassword,
+  subscribeAdminAuth,
+  getFriendlyAuthErrorMessage,
+  type AdminSession,
+} from '../services/adminAuth';
+import { Logo } from '../components/common/Logo';
 import { ASSET_IMAGES } from '../assets/images';
+
 
 const PRESET_IMAGES = [
   { label: 'Palawan Golden Pearl', url: ASSET_IMAGES.pearlTypes },
@@ -67,7 +82,16 @@ export const AdminProductsPage: React.FC = () => {
   const navigate = useNavigate();
   const { products, addProduct, updateProduct, deleteProduct, resetProductsToDefault } = useShop();
 
-  const [session, setSession] = useState(getAdminSession());
+  const [session, setSession] = useState<AdminSession | null>(getAdminSession());
+  const [authLoading, setAuthLoading] = useState(true);
+
+  // In-page Manager Sign In form states
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [isLoginLoading, setIsLoginLoading] = useState(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const [loginSuccess, setLoginSuccess] = useState<string | null>(null);
+
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [pearlTypeFilter, setPearlTypeFilter] = useState<string>('all');
@@ -83,24 +107,69 @@ export const AdminProductsPage: React.FC = () => {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Auth Guard
+  // Auth Subscription
   useEffect(() => {
-    const currentSession = getAdminSession();
-    if (!currentSession || !currentSession.isAuthenticated) {
-      navigate('/admin/login', { replace: true });
-    } else {
-      setSession(currentSession);
-    }
-  }, [navigate]);
+    const unsubscribe = subscribeAdminAuth((curr) => {
+      setSession(curr);
+      setAuthLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 4000);
   };
 
+  const handleManagerLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!loginEmail.trim()) {
+      setLoginError('Please enter your manager email address.');
+      return;
+    }
+    if (!loginPassword) {
+      setLoginError('Please enter your password.');
+      return;
+    }
+
+    setIsLoginLoading(true);
+    setLoginError(null);
+    setLoginSuccess(null);
+
+    try {
+      const s = await loginWithEmail(loginEmail, loginPassword);
+      setSession(s);
+      showToast('Welcome back! Signed in to Crown Pearl Atelier.');
+    } catch (err) {
+      setLoginError(getFriendlyAuthErrorMessage(err));
+    } finally {
+      setIsLoginLoading(false);
+    }
+  };
+
+  const handleResetPassword = async () => {
+    if (!loginEmail.trim()) {
+      setLoginError('Please enter your manager email above first, then click "Forgot Password?".');
+      return;
+    }
+    setIsLoginLoading(true);
+    setLoginError(null);
+    setLoginSuccess(null);
+
+    try {
+      await resetPassword(loginEmail);
+      setLoginSuccess(`Password reset link sent to ${loginEmail.trim()}. Please check your inbox.`);
+    } catch (err) {
+      setLoginError(getFriendlyAuthErrorMessage(err));
+    } finally {
+      setIsLoginLoading(false);
+    }
+  };
+
   const handleLogout = async () => {
     await logoutAdmin();
-    navigate('/admin/login');
+    setSession(null);
+    showToast('Signed out of Atelier Portal.');
   };
 
   // Filtered products list
@@ -127,6 +196,145 @@ export const AdminProductsPage: React.FC = () => {
   const inStockCount = products.filter((p) => p.inStock && p.stockCount > 0).length;
   const outOfStockCount = totalItems - inStockCount;
   const totalValue = products.reduce((acc, p) => acc + p.price * (p.stockCount || 1), 0);
+
+  if (authLoading) {
+    return (
+      <main className="min-h-screen bg-[#1A2327] flex items-center justify-center p-10 text-white">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-2 border-[#7FC8C0] border-t-transparent rounded-full animate-spin" />
+          <p className="text-sm font-heading tracking-wider uppercase text-white/70">
+            Verifying Atelier Credentials…
+          </p>
+        </div>
+      </main>
+    );
+  }
+
+  // If not authenticated as Admin, show the in-place Manager Sign In form
+  if (!session || !session.isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-[#1A2327] text-white flex flex-col justify-between selection:bg-[#7FC8C0]/30 selection:text-white">
+        {/* Top Bar */}
+        <div className="max-w-7xl mx-auto w-full px-6 py-6 flex items-center justify-between">
+          <Link
+            to="/"
+            className="flex items-center gap-2 text-xs font-heading uppercase tracking-widest text-white/70 hover:text-white transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Back to Crown Pearl Store</span>
+          </Link>
+          <div className="flex items-center gap-2 text-xs text-[#7FC8C0] font-heading uppercase tracking-wider">
+            <ShieldCheck className="w-4 h-4" />
+            <span>Authorized Staff Only</span>
+          </div>
+        </div>
+
+        {/* Main Login Card */}
+        <div className="max-w-md w-full mx-auto px-6 py-8">
+          <div className="text-center mb-8">
+            <div className="flex justify-center mb-4">
+              <Logo size="lg" isLightMode={true} />
+            </div>
+            <span className="inline-block px-3 py-1 rounded-full bg-[#7FC8C0]/15 text-[#7FC8C0] text-[11px] font-heading font-semibold uppercase tracking-[0.25em] border border-[#7FC8C0]/30 mb-3">
+              Atelier Management Portal
+            </span>
+            <h1 className="text-2xl md:text-3xl font-serif text-white">
+              Manager Sign In
+            </h1>
+            <p className="text-xs text-white/60 mt-2 max-w-sm mx-auto leading-relaxed">
+              Enter your Crown Pearl staff credentials to manage jewelry inventory, catalog pricing, and certificates.
+            </p>
+          </div>
+
+          <div className="bg-[#242E33] border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl relative backdrop-blur-md">
+            {loginError && (
+              <div className="mb-5 p-3.5 rounded-lg bg-red-950/70 border border-red-500/40 text-red-200 text-xs flex items-start gap-2.5">
+                <AlertCircle className="w-4 h-4 shrink-0 text-red-400 mt-0.5" />
+                <span>{loginError}</span>
+              </div>
+            )}
+
+            {loginSuccess && (
+              <div className="mb-5 p-3.5 rounded-lg bg-emerald-950/70 border border-emerald-500/40 text-emerald-200 text-xs flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400 mt-0.5" />
+                <span>{loginSuccess}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleManagerLogin} className="space-y-4">
+              <div>
+                <label className="block text-xs font-heading uppercase tracking-wider text-white/80 mb-1.5">
+                  Manager Email
+                </label>
+                <div className="relative">
+                  <input
+                    type="email"
+                    required
+                    value={loginEmail}
+                    onChange={(e) => setLoginEmail(e.target.value)}
+                    placeholder="manager@crownpearl.ph"
+                    className="w-full bg-[#1A2327] border border-white/15 px-3.5 py-2.5 rounded-lg text-sm text-white placeholder-white/30 focus:border-[#7FC8C0] focus:ring-1 focus:ring-[#7FC8C0] outline-none transition-colors"
+                  />
+                  <Mail className="w-4 h-4 text-white/30 absolute right-3 top-3 pointer-events-none" />
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="block text-xs font-heading uppercase tracking-wider text-white/80">
+                    Password
+                  </label>
+                  <button
+                    type="button"
+                    onClick={handleResetPassword}
+                    className="text-[11px] text-[#7FC8C0] hover:underline transition-colors"
+                  >
+                    Forgot Password?
+                  </button>
+                </div>
+                <div className="relative">
+                  <input
+                    type="password"
+                    required
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
+                    placeholder="••••••••"
+                    className="w-full bg-[#1A2327] border border-white/15 px-3.5 py-2.5 rounded-lg text-sm text-white placeholder-white/30 focus:border-[#7FC8C0] focus:ring-1 focus:ring-[#7FC8C0] outline-none font-mono transition-colors"
+                  />
+                  <Lock className="w-4 h-4 text-white/30 absolute right-3 top-3 pointer-events-none" />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isLoginLoading}
+                className="w-full mt-3 py-3 bg-[#7FC8C0] hover:bg-[#68B6AE] text-[#1A2327] font-heading font-semibold text-xs uppercase tracking-widest rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-50 cursor-pointer"
+              >
+                {isLoginLoading ? (
+                  <div className="w-4 h-4 border-2 border-[#1A2327] border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <>
+                    <LogIn className="w-4 h-4" />
+                    <span>Sign In to Manager Portal</span>
+                  </>
+                )}
+              </button>
+            </form>
+
+            <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-center gap-2 text-[11px] text-white/40">
+              <CheckCircle2 className="w-3.5 h-3.5 text-[#7FC8C0]" />
+              <span>Encrypted Firebase Authentication · Crown Pearl Palawan</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center py-6 text-xs text-white/40">
+          Crown Pearl Jewelry Atelier · Puerto Princesa, Palawan, Philippines · Estd. 2003
+        </div>
+      </div>
+    );
+  }
+
 
   return (
     <div className="min-h-screen bg-[#F4F4F1] text-[#1A2327]">
