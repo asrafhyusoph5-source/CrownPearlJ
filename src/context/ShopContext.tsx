@@ -1,6 +1,14 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Product, CartItem, MetalType, OrderConfirmation } from '../types';
 import { PRODUCTS } from '../data/products';
+import {
+  subscribeProducts,
+  addProduct as addProductService,
+  updateProduct as updateProductService,
+  deleteProduct as deleteProductService,
+  resetProductsToDefault as resetProductsToDefaultService,
+} from '../services/productService';
+
 
 interface ShopContextType {
   cart: CartItem[];
@@ -40,6 +48,14 @@ interface ShopContextType {
   setQuickViewProduct: (product: Product | null) => void;
   isSearchOpen: boolean;
   setIsSearchOpen: (open: boolean) => void;
+  
+  // Products Catalog (Real-time synced with Firestore)
+  products: Product[];
+  isProductsLoading: boolean;
+  addProduct: (product: Product) => Promise<void>;
+  updateProduct: (id: string, updates: Partial<Product>) => Promise<void>;
+  deleteProduct: (id: string) => Promise<void>;
+  resetProductsToDefault: () => Promise<void>;
   lastOrder: OrderConfirmation | null;
   setLastOrder: (order: OrderConfirmation | null) => void;
 }
@@ -47,6 +63,36 @@ interface ShopContextType {
 const ShopContext = createContext<ShopContextType | undefined>(undefined);
 
 export const ShopProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    // Live Products State (from Firestore)
+  const [products, setProducts] = useState<Product[]>(PRODUCTS);
+  const [isProductsLoading, setIsProductsLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = subscribeProducts((liveItems) => {
+      if (liveItems && liveItems.length > 0) {
+        setProducts(liveItems);
+      }
+      setIsProductsLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const addProduct = async (newProd: Product) => {
+    await addProductService(newProd);
+  };
+
+  const updateProduct = async (id: string, updates: Partial<Product>) => {
+    await updateProductService(id, updates);
+  };
+
+  const deleteProduct = async (id: string) => {
+    await deleteProductService(id);
+  };
+
+  const resetProductsToDefault = async () => {
+    await resetProductsToDefaultService();
+  };
+
   const [cart, setCart] = useState<CartItem[]>(() => {
     try {
       const saved = localStorage.getItem('crown_pearl_cart_v1');
@@ -211,6 +257,12 @@ export const ShopProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setQuickViewProduct,
         isSearchOpen,
         setIsSearchOpen,
+        products,
+        isProductsLoading,
+        addProduct,
+        updateProduct,
+        deleteProduct,
+        resetProductsToDefault,
         lastOrder,
         setLastOrder
       }}
