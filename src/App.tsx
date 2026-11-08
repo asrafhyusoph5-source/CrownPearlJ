@@ -30,6 +30,7 @@ import { LiveSellingPage } from './pages/LiveSellingPage';
 import { CertificateVerificationPage } from './pages/CertificateVerificationPage';
 import { CertificateImportPage } from './pages/CertificateImportPage';
 import { QrGeneratorPage } from './pages/QrGeneratorPage';
+import { AdminLoginPage } from './pages/AdminLoginPage';
 import { AdminProductsPage } from './pages/AdminProductsPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -67,10 +68,11 @@ export default function App() {
               <Route path="/verify" element={<CertificateVerificationPage />} />
               <Route path="/certificate-import" element={<CertificateImportPage />} />
               <Route path="/qr-generator" element={<QrGeneratorPage />} />
-              <Route path="/admin/login" element={<AdminProductsPage />} />
-              <Route path="/login" element={<AdminProductsPage />} />
+              <Route path="/admin/login" element={<AdminLoginPage />} />
+              <Route path="/login" element={<AdminLoginPage />} />
               <Route path="/admin/products" element={<AdminProductsPage />} />
               <Route path="/admin" element={<AdminProductsPage />} />
+
 
               <Route path="*" element={<NotFoundPage />} />
             </Routes>

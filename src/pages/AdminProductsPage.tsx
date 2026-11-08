@@ -853,7 +853,27 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
   const [inStock, setInStock] = useState(initialData ? initialData.inStock : true);
   const [stockCount, setStockCount] = useState<number>(initialData?.stockCount ?? 5);
   const [badge, setBadge] = useState<string>(initialData?.badge || 'New');
-  const [imageUrl, setImageUrl] = useState(initialData?.images?.[0] || ASSET_IMAGES.pearlTypes);
+  
+  // 3 Photos Gallery State (Cover, Detail, Lifestyle)
+  const [images, setImages] = useState<[string, string, string]>([
+    initialData?.images?.[0] || ASSET_IMAGES.pearlTypes,
+    initialData?.images?.[1] || ASSET_IMAGES.bridal,
+    initialData?.images?.[2] || ASSET_IMAGES.workshop,
+  ]);
+  const [activeSlot, setActiveSlot] = useState<0 | 1 | 2>(0);
+
+  const handleImageUrlChange = (url: string) => {
+    setImages((prev) => {
+      const next: [string, string, string] = [prev[0], prev[1], prev[2]];
+      next[activeSlot] = url;
+      return next;
+    });
+  };
+
+  const handleApplyPreset = (url: string) => {
+    handleImageUrlChange(url);
+  };
+
   const [description, setDescription] = useState(
     initialData?.description ||
       'Handcrafted in Puerto Princesa, Palawan. Formed by natural ocean currents and individually knotted on double-spun silk cord.'
@@ -871,7 +891,6 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
     }
   };
 
-
 const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
 
@@ -880,8 +899,8 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     return;
   }
 
-  if (!imageUrl.trim()) {
-    alert('Please provide a product image URL.');
+  if (!images[0]?.trim()) {
+    alert('Please provide at least the primary cover image URL.');
     return;
   }
 
@@ -900,19 +919,12 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
   const finalStockCount = Math.max(0, Number(stockCount) || 0);
 
-  // Preserve existing product gallery images.
-  const existingImages = initialData?.images ?? [];
+  // Build clean 3-image gallery array, filtering out empty slots
+  const updatedImages = images.map((img) => img.trim()).filter((img) => img.length > 0);
+  if (updatedImages.length === 0) {
+    updatedImages.push(ASSET_IMAGES.pearlTypes);
+  }
 
-  const updatedImages = initialData
-    ? [
-        imageUrl.trim(),
-        ...existingImages.slice(1),
-      ]
-    : [
-        imageUrl.trim(),
-        ASSET_IMAGES.hero,
-        ASSET_IMAGES.workshop,
-      ];
 
   // Preserve existing product variations.
   const availableMetals = Array.from(
@@ -1196,17 +1208,18 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
               <button
                 type="button"
                 onClick={() => setInStock(!inStock)}
-                className={`w-full py-2 px-3 rounded-lg text-xs font-heading uppercase tracking-wider font-semibold border transition-colors flex items-center justify-center gap-1.5 ${
+                className={`w-full py-2 px-3 rounded-lg text-xs font-heading uppercase tracking-wider font-semibold border transition-colors flex items-center justify-center gap-1.5 cursor-pointer ${
                   inStock
-                    ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                    ? 'bg-[#F0FDF4] text-[#065F46] border-[#A7F3D0]'
                     : 'bg-red-50 text-red-800 border-red-300'
                 }`}
               >
-                <span className={`w-2 h-2 rounded-full ${inStock ? 'bg-emerald-500' : 'bg-red-500'}`} />
-                <span>{inStock ? 'In Stock' : 'Out of Stock'}</span>
+                <span className={`w-2 h-2 rounded-full ${inStock ? 'bg-[#10B981]' : 'bg-red-500'}`} />
+                <span>{inStock ? 'IN STOCK' : 'OUT OF STOCK'}</span>
               </button>
             </div>
           </div>
+
 
           {/* Section 4: Pearl Specifications */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -1254,45 +1267,190 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
             </div>
           </div>
 
-          {/* Section 5: Image URL & Quick Presets */}
-          <div>
-            <label className="block text-xs font-heading uppercase tracking-wider text-gray-700 font-semibold mb-1.5 flex items-center justify-between">
-              <span>Primary Product Image URL</span>
-              <span className="text-[11px] text-[#238B80] normal-case">Supports web image link or presets below</span>
-            </label>
-            <div className="flex gap-2">
-              <input
-                type="url"
-                required
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                placeholder="https://images.unsplash.com/..."
-                className="flex-1 bg-[#FAFAF8] border border-gray-300 px-3.5 py-2.5 rounded-lg text-xs font-mono text-gray-900 outline-none focus:border-[#7FC8C0]"
-              />
-              {imageUrl && (
-                <img
-                  src={imageUrl}
-                  alt="Preview"
-                  className="w-10 h-10 rounded-lg object-cover border border-gray-200 shrink-0"
-                />
-              )}
+          {/* Section 5: PRODUCT PHOTO GALLERY (3 PHOTOS) */}
+          <div className="rounded-xl border border-gray-200 bg-white p-4 sm:p-5 space-y-4 shadow-2xs">
+            {/* Header row: Left title & subtitle, Right 3 tabs */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-gray-100">
+              <div className="flex items-start gap-2.5">
+                <div className="p-2 rounded-lg bg-[#7FC8C0]/15 text-[#238B80] mt-0.5">
+                  <ImageIcon className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-xs font-heading font-bold uppercase tracking-wider text-gray-900">
+                    Product Photo Gallery (3 Photos)
+                  </h3>
+                  <p className="text-[11px] text-gray-500 mt-0.5">
+                    Customers can swipe and zoom through all 3 images on the product page.
+                  </p>
+                </div>
+              </div>
+
+              {/* Segmented Control Tabs */}
+              <div className="inline-flex rounded-lg bg-gray-100 p-1 border border-gray-200 shrink-0 self-start sm:self-auto">
+                {[
+                  { index: 0 as const, tabName: '1. COVER' },
+                  { index: 1 as const, tabName: '2. DETAIL' },
+                  { index: 2 as const, tabName: '3. LIFESTYLE' },
+                ].map((slot) => {
+                  const isActive = activeSlot === slot.index;
+                  const hasValue = Boolean(images[slot.index]?.trim());
+                  return (
+                    <button
+                      key={slot.index}
+                      type="button"
+                      onClick={() => setActiveSlot(slot.index)}
+                      className={`px-3 py-1.5 rounded-md text-[11px] font-heading uppercase tracking-wider font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
+                        isActive
+                          ? 'bg-[#2D3B42] text-white shadow-xs'
+                          : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/60'
+                      }`}
+                    >
+                      <span>{slot.tabName}</span>
+                      <span
+                        className={`w-1.5 h-1.5 rounded-full ${
+                          hasValue ? 'bg-[#7FC8C0]' : 'bg-gray-300'
+                        }`}
+                      />
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
-            {/* Quick Presets */}
-            <div className="mt-2.5 flex flex-wrap gap-2">
-              <span className="text-[10px] font-heading uppercase tracking-wider text-gray-400 self-center">
-                Presets:
-              </span>
-              {PRESET_IMAGES.map((preset) => (
-                <button
-                  key={preset.label}
-                  type="button"
-                  onClick={() => setImageUrl(preset.url)}
-                  className="px-2.5 py-1 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 text-[11px] font-heading uppercase tracking-wider transition-colors"
-                >
-                  {preset.label}
-                </button>
-              ))}
+            {/* Active Slot Editor Row */}
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-5 h-5 rounded-full bg-[#2D3B42] text-white text-[11px] font-bold flex items-center justify-center font-heading">
+                    {activeSlot + 1}
+                  </span>
+                  <label className="text-xs font-heading uppercase tracking-wider font-bold text-gray-800">
+                    {activeSlot === 0
+                      ? '1ST PHOTO: PRIMARY COVER IMAGE *'
+                      : activeSlot === 1
+                      ? '2ND PHOTO: CRAFT DETAIL ANGLE'
+                      : '3RD PHOTO: LIFESTYLE / WORN VIEW'}
+                  </label>
+                </div>
+                <span className="text-[11px] text-gray-400 font-mono hidden sm:inline">
+                  {activeSlot === 0
+                    ? 'Main photo on shop cards & cover'
+                    : activeSlot === 1
+                    ? 'Macro pearl luster close-up & setting'
+                    : 'Model editorial & styling perspective'}
+                </span>
+              </div>
+
+              <div className="flex gap-3 items-center">
+                <div className="w-14 h-14 rounded-lg object-cover bg-[#FAFAF8] border border-gray-200 shrink-0 overflow-hidden flex items-center justify-center">
+                  {images[activeSlot]?.trim() ? (
+                    <img
+                      src={images[activeSlot]}
+                      alt="Slot preview"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = ASSET_IMAGES.pearlTypes;
+                      }}
+                    />
+                  ) : (
+                    <ImageIcon className="w-5 h-5 text-gray-300" />
+                  )}
+                </div>
+
+                <input
+                  type="text"
+                  required={activeSlot === 0}
+                  value={images[activeSlot]}
+                  onChange={(e) => handleImageUrlChange(e.target.value)}
+                  placeholder={
+                    activeSlot === 0
+                      ? '/src/assets/images/pearl_types_showcase_... or https://...'
+                      : 'Paste image URL or select from quick presets below'
+                  }
+                  className="flex-1 bg-[#FAFAF8] border border-gray-300 px-3.5 py-3 rounded-lg text-xs font-mono text-gray-900 outline-none focus:border-[#7FC8C0] focus:ring-1 focus:ring-[#7FC8C0] transition-colors"
+                />
+              </div>
+
+              {/* Quick Presets */}
+              <div className="mt-3 flex flex-wrap items-center gap-1.5">
+                <span className="text-[10px] font-heading uppercase tracking-wider text-gray-400 font-semibold mr-1">
+                  QUICK PRESETS:
+                </span>
+                {PRESET_IMAGES.map((preset) => (
+                  <button
+                    key={preset.label}
+                    type="button"
+                    onClick={() => handleApplyPreset(preset.url)}
+                    className="px-2.5 py-1 rounded bg-white hover:bg-gray-100 text-gray-700 text-[10px] sm:text-[11px] font-heading uppercase tracking-wider border border-gray-200 hover:border-gray-300 transition-colors cursor-pointer"
+                  >
+                    {preset.label.toUpperCase()}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Gallery Preview in Customer Store */}
+            <div className="pt-3 border-t border-gray-100">
+              <div className="text-[10px] font-heading uppercase tracking-widest text-gray-500 font-bold mb-2.5">
+                GALLERY PREVIEW IN CUSTOMER STORE:
+              </div>
+
+              <div className="grid grid-cols-3 gap-3">
+                {[
+                  { index: 0 as const, previewLabel: '1. COVER', badge: 'PRIMARY' },
+                  { index: 1 as const, previewLabel: '2. DETAIL', badge: 'SET' },
+                  { index: 2 as const, previewLabel: '3. LIFESTYLE', badge: 'SET' },
+                ].map((slot) => {
+                  const isCurrentSlot = activeSlot === slot.index;
+                  const currentUrl = images[slot.index]?.trim();
+                  return (
+                    <div
+                      key={slot.index}
+                      onClick={() => setActiveSlot(slot.index)}
+                      className={`rounded-xl border p-2.5 transition-all cursor-pointer ${
+                        isCurrentSlot
+                          ? 'border-[#7FC8C0] ring-2 ring-[#7FC8C0]/30 bg-[#7FC8C0]/5'
+                          : 'border-gray-200 bg-white hover:border-gray-300'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between text-[10px] font-heading uppercase tracking-wider font-semibold mb-1.5">
+                        <span className={isCurrentSlot ? 'text-gray-900 font-bold' : 'text-gray-600'}>
+                          {slot.previewLabel}
+                        </span>
+                        <span
+                          className={`text-[9px] font-heading font-bold uppercase tracking-wider ${
+                            slot.index === 0
+                              ? 'text-[#238B80]'
+                              : currentUrl
+                              ? 'text-gray-500'
+                              : 'text-gray-400'
+                          }`}
+                        >
+                          {slot.index === 0 ? 'PRIMARY' : currentUrl ? 'SET' : 'EMPTY'}
+                        </span>
+                      </div>
+
+                      <div className="aspect-[16/10] rounded-lg overflow-hidden bg-gray-100 border border-gray-200 flex items-center justify-center">
+                        {currentUrl ? (
+                          <img
+                            src={currentUrl}
+                            alt={slot.previewLabel}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              (e.currentTarget as HTMLImageElement).src = ASSET_IMAGES.pearlTypes;
+                            }}
+                          />
+                        ) : (
+                          <div className="flex flex-col items-center gap-1 text-gray-300">
+                            <ImageIcon className="w-5 h-5" />
+                            <span className="text-[9px] font-heading uppercase">Add Photo</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
@@ -1316,25 +1474,26 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
               type="button"
               onClick={onClose}
               disabled={isSubmitting}
-              className="px-5 py-2.5 rounded-lg border border-gray-300 text-xs font-heading uppercase tracking-wider text-gray-700 hover:bg-gray-50 transition-colors"
+              className="px-6 py-2.5 rounded-lg border border-gray-300 text-xs font-heading font-semibold uppercase tracking-wider text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
             >
-              Cancel
+              CANCEL
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-6 py-2.5 rounded-lg bg-[#3B4A50] hover:bg-[#263238] text-white text-xs font-heading uppercase tracking-widest font-semibold transition-all shadow-md flex items-center gap-2 disabled:opacity-50"
+              className="px-6 py-2.5 rounded-lg bg-[#2D3B42] hover:bg-[#1E293B] text-white text-xs font-heading uppercase tracking-widest font-semibold transition-all shadow-md flex items-center gap-2 disabled:opacity-50 cursor-pointer"
             >
               {isSubmitting ? (
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
               ) : (
                 <>
                   <CheckCircle2 className="w-4 h-4 text-[#7FC8C0]" />
-                  <span>Save Creation to Store</span>
+                  <span>SAVE CREATION TO STORE</span>
                 </>
               )}
             </button>
           </div>
+
         </form>
       </div>
     </div>
