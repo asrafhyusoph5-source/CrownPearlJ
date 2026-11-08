@@ -15,31 +15,17 @@ import {
   ArrowUpDown,
   CheckCircle2,
   AlertTriangle,
-  AlertCircle,
   X,
   Image as ImageIcon,
   DollarSign,
   ShieldCheck,
   RotateCcw,
-  Mail,
-  Lock,
-  LogIn,
-  ArrowLeft,
+  Copy
 } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { Product, ProductCategory, PearlType, MetalType } from '../types';
-import {
-  getAdminSession,
-  logoutAdmin,
-  loginWithEmail,
-  resetPassword,
-  subscribeAdminAuth,
-  getFriendlyAuthErrorMessage,
-  type AdminSession,
-} from '../services/adminAuth';
-import { Logo } from '../components/common/Logo';
+import { getAdminSession, logoutAdmin } from '../services/adminAuth';
 import { ASSET_IMAGES } from '../assets/images';
-
 
 const PRESET_IMAGES = [
   { label: 'Palawan Golden Pearl', url: ASSET_IMAGES.pearlTypes },
@@ -58,17 +44,12 @@ const CATEGORIES: { label: string; value: ProductCategory }[] = [
   { label: 'Earrings & Drops', value: 'earrings' },
   { label: 'Solitaire & Duo Rings', value: 'rings' },
   { label: 'Bracelets & Cuffs', value: 'bracelets' },
-  { label: 'Pearl Sets & Bridal Jewelry', value: 'set' },
-  { label: "Men's Cufflinks & Accents", value: 'mens' },
+  { label: 'Bridal High Jewelry', value: 'bridal' },
+  { label: 'Men\'s Cufflinks & Accents', value: 'mens' },
   { label: 'Gifts & Care Sets', value: 'gifts' },
 ];
 
-const PEARL_TYPES: PearlType[] = [
-  'South Sea',
-  'Akoya',
-  'Tahitian',
-  'Freshwater',
-];
+const PEARL_TYPES: PearlType[] = ['South Sea', 'Akoya', 'Tahitian', 'Freshwater', 'Keshi'];
 
 const METALS: MetalType[] = [
   '18k Yellow Gold',
@@ -82,16 +63,7 @@ export const AdminProductsPage: React.FC = () => {
   const navigate = useNavigate();
   const { products, addProduct, updateProduct, deleteProduct, resetProductsToDefault } = useShop();
 
-  const [session, setSession] = useState<AdminSession | null>(getAdminSession());
-  const [authLoading, setAuthLoading] = useState(true);
-
-  // In-page Manager Sign In form states
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
-  const [isLoginLoading, setIsLoginLoading] = useState(false);
-  const [loginError, setLoginError] = useState<string | null>(null);
-  const [loginSuccess, setLoginSuccess] = useState<string | null>(null);
-
+  const [session, setSession] = useState(getAdminSession());
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [pearlTypeFilter, setPearlTypeFilter] = useState<string>('all');
@@ -107,69 +79,24 @@ export const AdminProductsPage: React.FC = () => {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Auth Subscription
+  // Auth Guard
   useEffect(() => {
-    const unsubscribe = subscribeAdminAuth((curr) => {
-      setSession(curr);
-      setAuthLoading(false);
-    });
-    return () => unsubscribe();
-  }, []);
+    const currentSession = getAdminSession();
+    if (!currentSession || !currentSession.isAuthenticated) {
+      navigate('/admin/login', { replace: true });
+    } else {
+      setSession(currentSession);
+    }
+  }, [navigate]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 4000);
   };
 
-  const handleManagerLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!loginEmail.trim()) {
-      setLoginError('Please enter your manager email address.');
-      return;
-    }
-    if (!loginPassword) {
-      setLoginError('Please enter your password.');
-      return;
-    }
-
-    setIsLoginLoading(true);
-    setLoginError(null);
-    setLoginSuccess(null);
-
-    try {
-      const s = await loginWithEmail(loginEmail, loginPassword);
-      setSession(s);
-      showToast('Welcome back! Signed in to Crown Pearl Atelier.');
-    } catch (err) {
-      setLoginError(getFriendlyAuthErrorMessage(err));
-    } finally {
-      setIsLoginLoading(false);
-    }
-  };
-
-  const handleResetPassword = async () => {
-    if (!loginEmail.trim()) {
-      setLoginError('Please enter your manager email above first, then click "Forgot Password?".');
-      return;
-    }
-    setIsLoginLoading(true);
-    setLoginError(null);
-    setLoginSuccess(null);
-
-    try {
-      await resetPassword(loginEmail);
-      setLoginSuccess(`Password reset link sent to ${loginEmail.trim()}. Please check your inbox.`);
-    } catch (err) {
-      setLoginError(getFriendlyAuthErrorMessage(err));
-    } finally {
-      setIsLoginLoading(false);
-    }
-  };
-
   const handleLogout = async () => {
     await logoutAdmin();
-    setSession(null);
-    showToast('Signed out of Atelier Portal.');
+    navigate('/admin/login');
   };
 
   // Filtered products list
@@ -197,145 +124,6 @@ export const AdminProductsPage: React.FC = () => {
   const outOfStockCount = totalItems - inStockCount;
   const totalValue = products.reduce((acc, p) => acc + p.price * (p.stockCount || 1), 0);
 
-  if (authLoading) {
-    return (
-      <main className="min-h-screen bg-[#1A2327] flex items-center justify-center p-10 text-white">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 border-2 border-[#7FC8C0] border-t-transparent rounded-full animate-spin" />
-          <p className="text-sm font-heading tracking-wider uppercase text-white/70">
-            Verifying Atelier Credentials…
-          </p>
-        </div>
-      </main>
-    );
-  }
-
-  // If not authenticated as Admin, show the in-place Manager Sign In form
-  if (!session || !session.isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-[#1A2327] text-white flex flex-col justify-between selection:bg-[#7FC8C0]/30 selection:text-white">
-        {/* Top Bar */}
-        <div className="max-w-7xl mx-auto w-full px-6 py-6 flex items-center justify-between">
-          <Link
-            to="/"
-            className="flex items-center gap-2 text-xs font-heading uppercase tracking-widest text-white/70 hover:text-white transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Back to Crown Pearl Store</span>
-          </Link>
-          <div className="flex items-center gap-2 text-xs text-[#7FC8C0] font-heading uppercase tracking-wider">
-            <ShieldCheck className="w-4 h-4" />
-            <span>Authorized Staff Only</span>
-          </div>
-        </div>
-
-        {/* Main Login Card */}
-        <div className="max-w-md w-full mx-auto px-6 py-8">
-          <div className="text-center mb-8">
-            <div className="flex justify-center mb-4">
-              <Logo size="lg" isLightMode={true} />
-            </div>
-            <span className="inline-block px-3 py-1 rounded-full bg-[#7FC8C0]/15 text-[#7FC8C0] text-[11px] font-heading font-semibold uppercase tracking-[0.25em] border border-[#7FC8C0]/30 mb-3">
-              Atelier Management Portal
-            </span>
-            <h1 className="text-2xl md:text-3xl font-serif text-white">
-              Manager Sign In
-            </h1>
-            <p className="text-xs text-white/60 mt-2 max-w-sm mx-auto leading-relaxed">
-              Enter your Crown Pearl staff credentials to manage jewelry inventory, catalog pricing, and certificates.
-            </p>
-          </div>
-
-          <div className="bg-[#242E33] border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl relative backdrop-blur-md">
-            {loginError && (
-              <div className="mb-5 p-3.5 rounded-lg bg-red-950/70 border border-red-500/40 text-red-200 text-xs flex items-start gap-2.5">
-                <AlertCircle className="w-4 h-4 shrink-0 text-red-400 mt-0.5" />
-                <span>{loginError}</span>
-              </div>
-            )}
-
-            {loginSuccess && (
-              <div className="mb-5 p-3.5 rounded-lg bg-emerald-950/70 border border-emerald-500/40 text-emerald-200 text-xs flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400 mt-0.5" />
-                <span>{loginSuccess}</span>
-              </div>
-            )}
-
-            <form onSubmit={handleManagerLogin} className="space-y-4">
-              <div>
-                <label className="block text-xs font-heading uppercase tracking-wider text-white/80 mb-1.5">
-                  Manager Email
-                </label>
-                <div className="relative">
-                  <input
-                    type="email"
-                    required
-                    value={loginEmail}
-                    onChange={(e) => setLoginEmail(e.target.value)}
-                    placeholder="manager@crownpearl.ph"
-                    className="w-full bg-[#1A2327] border border-white/15 px-3.5 py-2.5 rounded-lg text-sm text-white placeholder-white/30 focus:border-[#7FC8C0] focus:ring-1 focus:ring-[#7FC8C0] outline-none transition-colors"
-                  />
-                  <Mail className="w-4 h-4 text-white/30 absolute right-3 top-3 pointer-events-none" />
-                </div>
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="block text-xs font-heading uppercase tracking-wider text-white/80">
-                    Password
-                  </label>
-                  <button
-                    type="button"
-                    onClick={handleResetPassword}
-                    className="text-[11px] text-[#7FC8C0] hover:underline transition-colors"
-                  >
-                    Forgot Password?
-                  </button>
-                </div>
-                <div className="relative">
-                  <input
-                    type="password"
-                    required
-                    value={loginPassword}
-                    onChange={(e) => setLoginPassword(e.target.value)}
-                    placeholder="••••••••"
-                    className="w-full bg-[#1A2327] border border-white/15 px-3.5 py-2.5 rounded-lg text-sm text-white placeholder-white/30 focus:border-[#7FC8C0] focus:ring-1 focus:ring-[#7FC8C0] outline-none font-mono transition-colors"
-                  />
-                  <Lock className="w-4 h-4 text-white/30 absolute right-3 top-3 pointer-events-none" />
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                disabled={isLoginLoading}
-                className="w-full mt-3 py-3 bg-[#7FC8C0] hover:bg-[#68B6AE] text-[#1A2327] font-heading font-semibold text-xs uppercase tracking-widest rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-50 cursor-pointer"
-              >
-                {isLoginLoading ? (
-                  <div className="w-4 h-4 border-2 border-[#1A2327] border-t-transparent rounded-full animate-spin" />
-                ) : (
-                  <>
-                    <LogIn className="w-4 h-4" />
-                    <span>Sign In to Manager Portal</span>
-                  </>
-                )}
-              </button>
-            </form>
-
-            <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-center gap-2 text-[11px] text-white/40">
-              <CheckCircle2 className="w-3.5 h-3.5 text-[#7FC8C0]" />
-              <span>Encrypted Firebase Authentication · Crown Pearl Palawan</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="text-center py-6 text-xs text-white/40">
-          Crown Pearl Jewelry Atelier · Puerto Princesa, Palawan, Philippines · Estd. 2003
-        </div>
-      </div>
-    );
-  }
-
-
   return (
     <div className="min-h-screen bg-[#F4F4F1] text-[#1A2327]">
       {/* Top Admin Navigation Header */}
@@ -360,16 +148,7 @@ export const AdminProductsPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-2.5 sm:gap-3">
-            <Link
-              to="/certificate-import"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#7FC8C0] hover:bg-[#68B6AE] text-[#1A2327] text-xs font-heading uppercase tracking-wider font-semibold transition-all shadow-sm"
-              title="Open Certificate Import Page"
-            >
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Certificate Import</span>
-            </Link>
-
+          <div className="flex items-center gap-3">
             <Link
               to="/shop"
               target="_blank"
@@ -393,7 +172,6 @@ export const AdminProductsPage: React.FC = () => {
           </div>
         </div>
       </header>
-
 
       {/* Main Content Area */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -560,11 +338,26 @@ export const AdminProductsPage: React.FC = () => {
                         {/* Product Title & Image */}
                         <td className="py-4 px-4 sm:px-6">
                           <div className="flex items-center gap-3.5">
-                            <img
-                              src={primaryImg}
-                              alt={product.name}
-                              className="w-14 h-14 rounded-lg object-cover bg-gray-100 border border-gray-200 shrink-0"
-                            />
+                            <div className="relative shrink-0">
+                              <img
+                                src={primaryImg}
+                                alt={product.name}
+                                className="w-14 h-14 rounded-lg object-cover bg-gray-100 border border-gray-200"
+                              />
+                              {product.images && product.images.length > 1 && (
+                                <div className="absolute -bottom-1 -right-1 flex -space-x-1.5" title={`${product.images.length} photos registered`}>
+                                  {product.images.slice(1, 3).map((extraImg, idx) => (
+                                    <img
+                                      key={idx}
+                                      src={extraImg}
+                                      alt=""
+                                      className="w-5 h-5 rounded-full object-cover border-2 border-white shadow-xs bg-gray-100"
+                                      title={`Photo ${idx + 2}`}
+                                    />
+                                  ))}
+                                </div>
+                              )}
+                            </div>
                             <div>
                               <Link
                                 to={`/product/${product.id}`}
@@ -853,7 +646,13 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
   const [inStock, setInStock] = useState(initialData ? initialData.inStock : true);
   const [stockCount, setStockCount] = useState<number>(initialData?.stockCount ?? 5);
   const [badge, setBadge] = useState<string>(initialData?.badge || 'New');
-  const [imageUrl, setImageUrl] = useState(initialData?.images?.[0] || ASSET_IMAGES.pearlTypes);
+  
+  // 3 Independent Product Images
+  const [image1, setImage1] = useState(initialData?.images?.[0] || ASSET_IMAGES.pearlTypes);
+  const [image2, setImage2] = useState(initialData?.images?.[1] || ASSET_IMAGES.hero);
+  const [image3, setImage3] = useState(initialData?.images?.[2] || ASSET_IMAGES.workshop);
+  const [selectedImageTab, setSelectedImageTab] = useState<1 | 2 | 3>(1);
+
   const [description, setDescription] = useState(
     initialData?.description ||
       'Handcrafted in Puerto Princesa, Palawan. Formed by natural ocean currents and individually knotted on double-spun silk cord.'
@@ -871,156 +670,78 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
     }
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim()) {
+      alert('Please enter a product name.');
+      return;
+    }
 
-const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
+    if (!image1.trim()) {
+      alert('Please provide at least the primary product image URL.');
+      return;
+    }
 
-  if (!name.trim()) {
-    alert('Please enter a product name.');
-    return;
-  }
+    const finalSku = (sku.trim() || name.toLowerCase().replace(/[^a-z0-9]+/g, '-')).toLowerCase();
 
-  if (!imageUrl.trim()) {
-    alert('Please provide a product image URL.');
-    return;
-  }
+    // Assemble all 3 images with graceful fallbacks
+    const img1 = image1.trim();
+    const img2 = image2.trim() || img1;
+    const img3 = image3.trim() || img2 || img1;
+    const finalImages: string[] = [img1, img2, img3];
 
-  const finalSku = (
-    sku.trim() ||
-    name
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '')
-  ).toLowerCase();
-
-  if (!finalSku) {
-    alert('Please provide a valid product SKU.');
-    return;
-  }
-
-  const finalStockCount = Math.max(0, Number(stockCount) || 0);
-
-  // Preserve existing product gallery images.
-  const existingImages = initialData?.images ?? [];
-
-  const updatedImages = initialData
-    ? [
-        imageUrl.trim(),
-        ...existingImages.slice(1),
-      ]
-    : [
-        imageUrl.trim(),
-        ASSET_IMAGES.hero,
-        ASSET_IMAGES.workshop,
-      ];
-
-  // Preserve existing product variations.
-  const availableMetals = Array.from(
-    new Set([
-      ...(initialData?.availableMetals ?? []),
+    const productPayload: Product = {
+      id: finalSku,
+      name: name.trim(),
+      tagline: tagline.trim() || `${pearlType} pearl jewelry by Delma`,
+      price: Number(price) || 0,
+      originalPrice: originalPrice ? Number(originalPrice) : undefined,
+      category,
+      pearlType,
+      pearlColor: pearlColor.trim() || 'Natural Luster',
+      pearlSize: pearlSize.trim() || '10 - 11 mm',
       metal,
-    ])
-  );
+      availableMetals: [metal],
+      availableLengths: category === 'necklaces' ? ['16 inch (Choker)', '18 inch (Princess)', '20 inch (Matinee)'] : undefined,
+      availableSizes: category === 'rings' ? ['5', '6', '7', '8', '9'] : undefined,
+      rating: initialData?.rating ?? 4.95,
+      reviewCount: initialData?.reviewCount ?? 12,
+      inStock,
+      stockCount: Number(stockCount) || 0,
+      badge: badge === 'none' ? undefined : (badge as any),
+      images: finalImages,
+      description: description.trim(),
+      story:
+        initialData?.story ||
+        'Handcrafted in Delma’s Puerto Princesa atelier using certified natural South Sea pearls harvested in Palawan lagoons.',
+      details: initialData?.details || [
+        'Certified genuine cultured pearl from Palawan waters',
+        'Includes Crown Pearl Estd. 2003 Certificate of Authenticity',
+        'Hand-knotted on pure high-tensile silk cord',
+        'Complimentary signature velvet presentation box',
+      ],
+      materials: initialData?.materials || [
+        `${pearlType} Cultured Pearl`,
+        metal,
+        'Double-Spun Silk Cord',
+      ],
+      specs: initialData?.specs || {
+        luster: 'Superior High Silk Glow',
+        surface: 'Clean (95%+ blemish free)',
+        shape: 'Round',
+        nacreThickness: 'Thick (1.5mm+)',
+        origin: 'Palawan, Philippines',
+      },
+      care: initialData?.care || [
+        'Last on, first off: apply cosmetics and perfumes prior to wearing.',
+        'Wipe with lint-free microfiber cloth after every wear.',
+      ],
+      isFeatured: initialData?.isFeatured ?? true,
+      isBestseller: badge === 'Bestseller',
+    };
 
-  const availableLengths =
-    initialData?.availableLengths ??
-    (category === 'necklaces'
-      ? [
-          '16 inch (Choker)',
-          '18 inch (Princess)',
-          '20 inch (Matinee)',
-        ]
-      : undefined);
-
-  const availableSizes =
-    initialData?.availableSizes ??
-    (category === 'rings'
-      ? ['5', '6', '7', '8', '9']
-      : undefined);
-
-  const productPayload: Product = {
-    // Preserve all existing product information.
-    ...(initialData ?? {} as Product),
-
-    id: finalSku,
-    name: name.trim(),
-
-    tagline:
-      tagline.trim() ||
-      `${pearlType} pearl jewelry by Delma`,
-
-    price: Math.max(0, Number(price) || 0),
-
-    originalPrice:
-      originalPrice !== undefined &&
-      Number(originalPrice) > 0
-        ? Number(originalPrice)
-        : undefined,
-
-    category,
-    pearlType,
-    pearlColor: pearlColor.trim() || 'Natural Luster',
-    pearlSize: pearlSize.trim() || '10 - 11 mm',
-    metal,
-
-    availableMetals,
-    availableLengths,
-    availableSizes,
-
-    // Preserve existing reviews.
-    rating: initialData?.rating ?? 4.95,
-    reviewCount: initialData?.reviewCount ?? 12,
-
-    // Keep stock status consistent.
-    inStock: inStock && finalStockCount > 0,
-    stockCount: finalStockCount,
-
-    badge:
-      badge === 'none'
-        ? undefined
-        : badge as Product['badge'],
-
-    images: updatedImages,
-
-    description: description.trim(),
-
-    // Preserve existing detailed product content.
-    story:
-      initialData?.story ||
-      'Handcrafted in Delma’s Puerto Princesa atelier using carefully selected cultured pearls.',
-
-    details: initialData?.details ?? [
-      'Certified genuine cultured pearl',
-      'Includes Crown Pearl Certificate of Authenticity',
-      'Carefully crafted jewelry',
-      'Complimentary presentation box',
-    ],
-
-    materials: initialData?.materials ?? [
-      `${pearlType} Cultured Pearl`,
-      metal,
-    ],
-
-    specs: initialData?.specs ?? {
-      luster: 'High Natural Luster',
-      surface: 'Clean',
-      shape: 'Round',
-      nacreThickness: 'Thick',
-      origin: 'Philippines',
-    },
-
-    care: initialData?.care ?? [
-      'Keep away from chemicals and perfumes.',
-      'Wipe with a soft microfiber cloth after wearing.',
-      'Store separately in a jewelry box.',
-    ],
-
-    isFeatured: initialData?.isFeatured ?? true,
-    isBestseller: badge === 'Bestseller',
+    onSave(productPayload);
   };
-
-  void onSave(productPayload);
-};
 
   return (
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
@@ -1254,45 +975,308 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
             </div>
           </div>
 
-          {/* Section 5: Image URL & Quick Presets */}
-          <div>
-            <label className="block text-xs font-heading uppercase tracking-wider text-gray-700 font-semibold mb-1.5 flex items-center justify-between">
-              <span>Primary Product Image URL</span>
-              <span className="text-[11px] text-[#238B80] normal-case">Supports web image link or presets below</span>
-            </label>
-            <div className="flex gap-2">
-              <input
-                type="url"
-                required
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                placeholder="https://images.unsplash.com/..."
-                className="flex-1 bg-[#FAFAF8] border border-gray-300 px-3.5 py-2.5 rounded-lg text-xs font-mono text-gray-900 outline-none focus:border-[#7FC8C0]"
-              />
-              {imageUrl && (
-                <img
-                  src={imageUrl}
-                  alt="Preview"
-                  className="w-10 h-10 rounded-lg object-cover border border-gray-200 shrink-0"
-                />
-              )}
+          {/* Section 5: Product Image Gallery (3 Images) */}
+          <div className="p-4 rounded-xl bg-[#FAFAF8] border border-gray-200 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-2 border-b border-gray-200">
+              <div>
+                <h4 className="text-xs font-heading uppercase tracking-wider text-gray-900 font-bold flex items-center gap-1.5">
+                  <ImageIcon className="w-4 h-4 text-[#238B80]" />
+                  <span>Product Photo Gallery (3 Photos)</span>
+                </h4>
+                <p className="text-[11px] text-gray-500">
+                  Customers can swipe and zoom through all 3 images on the product page.
+                </p>
+              </div>
+
+              {/* Tab Selector */}
+              <div className="flex items-center gap-1 bg-white p-1 rounded-lg border border-gray-200 shadow-2xs self-start sm:self-auto">
+                <button
+                  type="button"
+                  onClick={() => setSelectedImageTab(1)}
+                  className={`px-3 py-1 rounded text-xs font-heading uppercase tracking-wider transition-colors flex items-center gap-1 ${
+                    selectedImageTab === 1
+                      ? 'bg-[#3B4A50] text-white font-bold'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  <span>1. Cover</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSelectedImageTab(2)}
+                  className={`px-3 py-1 rounded text-xs font-heading uppercase tracking-wider transition-colors flex items-center gap-1 ${
+                    selectedImageTab === 2
+                      ? 'bg-[#3B4A50] text-white font-bold'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  <span>2. Detail</span>
+                  {image2 && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSelectedImageTab(3)}
+                  className={`px-3 py-1 rounded text-xs font-heading uppercase tracking-wider transition-colors flex items-center gap-1 ${
+                    selectedImageTab === 3
+                      ? 'bg-[#3B4A50] text-white font-bold'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  <span>3. Lifestyle</span>
+                  {image3 && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>}
+                </button>
+              </div>
             </div>
 
-            {/* Quick Presets */}
-            <div className="mt-2.5 flex flex-wrap gap-2">
-              <span className="text-[10px] font-heading uppercase tracking-wider text-gray-400 self-center">
-                Presets:
+            {/* TAB 1: PRIMARY COVER IMAGE */}
+            {selectedImageTab === 1 && (
+              <div className="space-y-3 animate-fade-in">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-heading uppercase tracking-wider text-gray-800 font-semibold flex items-center gap-1.5">
+                    <span className="w-5 h-5 rounded-full bg-[#3B4A50] text-white flex items-center justify-center text-[10px]">
+                      1
+                    </span>
+                    <span>1st Photo: Primary Cover Image *</span>
+                  </label>
+                  <span className="text-[10px] text-gray-500 font-mono">Main photo on shop cards & cover</span>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 border border-gray-300 shrink-0 shadow-2xs">
+                    {image1 ? (
+                      <img src={image1} alt="Cover Preview" className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-400">
+                        <ImageIcon className="w-6 h-6" />
+                      </div>
+                    )}
+                  </div>
+                  <input
+                    type="url"
+                    required
+                    value={image1}
+                    onChange={(e) => setImage1(e.target.value)}
+                    placeholder="Enter main product photo URL..."
+                    className="flex-1 bg-white border border-gray-300 px-3.5 py-2.5 rounded-lg text-xs font-mono text-gray-900 outline-none focus:border-[#7FC8C0] focus:ring-1 focus:ring-[#7FC8C0]"
+                  />
+                </div>
+
+                <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                  <span className="text-[10px] font-heading uppercase tracking-wider text-gray-400">
+                    Quick Presets:
+                  </span>
+                  {PRESET_IMAGES.map((preset) => (
+                    <button
+                      key={preset.label}
+                      type="button"
+                      onClick={() => setImage1(preset.url)}
+                      className="px-2.5 py-1 rounded bg-white hover:bg-gray-100 text-gray-700 text-[10px] font-heading uppercase tracking-wider border border-gray-200 transition-colors"
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* TAB 2: SECOND IMAGE (DETAIL / ANGLE) */}
+            {selectedImageTab === 2 && (
+              <div className="space-y-3 animate-fade-in">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-heading uppercase tracking-wider text-gray-800 font-semibold flex items-center gap-1.5">
+                    <span className="w-5 h-5 rounded-full bg-[#238B80] text-white flex items-center justify-center text-[10px]">
+                      2
+                    </span>
+                    <span>2nd Photo: Close-Up / Luster Detail</span>
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => setImage2(image1)}
+                    className="text-[11px] text-[#238B80] hover:underline flex items-center gap-1 font-heading uppercase tracking-wider"
+                  >
+                    <Copy className="w-3 h-3" />
+                    <span>Copy 1st Photo</span>
+                  </button>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 border border-gray-300 shrink-0 shadow-2xs">
+                    {image2 ? (
+                      <img src={image2} alt="Detail Preview" className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-400">
+                        <ImageIcon className="w-6 h-6" />
+                      </div>
+                    )}
+                  </div>
+                  <input
+                    type="url"
+                    value={image2}
+                    onChange={(e) => setImage2(e.target.value)}
+                    placeholder="Enter second photo URL (or click Copy 1st Photo)..."
+                    className="flex-1 bg-white border border-gray-300 px-3.5 py-2.5 rounded-lg text-xs font-mono text-gray-900 outline-none focus:border-[#7FC8C0] focus:ring-1 focus:ring-[#7FC8C0]"
+                  />
+                  {image2 && (
+                    <button
+                      type="button"
+                      onClick={() => setImage2('')}
+                      className="p-2 text-gray-400 hover:text-red-600 rounded-lg"
+                      title="Clear second image"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+
+                <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                  <span className="text-[10px] font-heading uppercase tracking-wider text-gray-400">
+                    Quick Presets:
+                  </span>
+                  {PRESET_IMAGES.map((preset) => (
+                    <button
+                      key={preset.label}
+                      type="button"
+                      onClick={() => setImage2(preset.url)}
+                      className="px-2.5 py-1 rounded bg-white hover:bg-gray-100 text-gray-700 text-[10px] font-heading uppercase tracking-wider border border-gray-200 transition-colors"
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* TAB 3: THIRD IMAGE (LIFESTYLE / WORKSHOP / SCALE) */}
+            {selectedImageTab === 3 && (
+              <div className="space-y-3 animate-fade-in">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-heading uppercase tracking-wider text-gray-800 font-semibold flex items-center gap-1.5">
+                    <span className="w-5 h-5 rounded-full bg-[#3B4A50] text-white flex items-center justify-center text-[10px]">
+                      3
+                    </span>
+                    <span>3rd Photo: Lifestyle / On-Model / Workshop</span>
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => setImage3(image1)}
+                    className="text-[11px] text-[#238B80] hover:underline flex items-center gap-1 font-heading uppercase tracking-wider"
+                  >
+                    <Copy className="w-3 h-3" />
+                    <span>Copy 1st Photo</span>
+                  </button>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 border border-gray-300 shrink-0 shadow-2xs">
+                    {image3 ? (
+                      <img src={image3} alt="Lifestyle Preview" className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-400">
+                        <ImageIcon className="w-6 h-6" />
+                      </div>
+                    )}
+                  </div>
+                  <input
+                    type="url"
+                    value={image3}
+                    onChange={(e) => setImage3(e.target.value)}
+                    placeholder="Enter third photo URL (or click Copy 1st Photo)..."
+                    className="flex-1 bg-white border border-gray-300 px-3.5 py-2.5 rounded-lg text-xs font-mono text-gray-900 outline-none focus:border-[#7FC8C0] focus:ring-1 focus:ring-[#7FC8C0]"
+                  />
+                  {image3 && (
+                    <button
+                      type="button"
+                      onClick={() => setImage3('')}
+                      className="p-2 text-gray-400 hover:text-red-600 rounded-lg"
+                      title="Clear third image"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+
+                <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                  <span className="text-[10px] font-heading uppercase tracking-wider text-gray-400">
+                    Quick Presets:
+                  </span>
+                  {PRESET_IMAGES.map((preset) => (
+                    <button
+                      key={preset.label}
+                      type="button"
+                      onClick={() => setImage3(preset.url)}
+                      className="px-2.5 py-1 rounded bg-white hover:bg-gray-100 text-gray-700 text-[10px] font-heading uppercase tracking-wider border border-gray-200 transition-colors"
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Gallery Overview Strip (shows all 3 thumbnails side-by-side) */}
+            <div className="pt-3 border-t border-gray-200">
+              <span className="text-[10px] font-heading uppercase tracking-wider text-gray-500 block mb-2">
+                Gallery Preview in Customer Store:
               </span>
-              {PRESET_IMAGES.map((preset) => (
-                <button
-                  key={preset.label}
-                  type="button"
-                  onClick={() => setImageUrl(preset.url)}
-                  className="px-2.5 py-1 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 text-[11px] font-heading uppercase tracking-wider transition-colors"
+              <div className="grid grid-cols-3 gap-3">
+                <div
+                  onClick={() => setSelectedImageTab(1)}
+                  className={`cursor-pointer rounded-lg p-2 border transition-all ${
+                    selectedImageTab === 1
+                      ? 'border-[#238B80] bg-[#EAF6F4]'
+                      : 'border-gray-200 bg-white hover:border-gray-300'
+                  }`}
                 >
-                  {preset.label}
-                </button>
-              ))}
+                  <div className="flex items-center justify-between text-[10px] font-heading uppercase tracking-wider text-gray-600 mb-1">
+                    <span className="font-bold">1. Cover</span>
+                    <span className="text-[#238B80]">Primary</span>
+                  </div>
+                  <img
+                    src={image1 || ASSET_IMAGES.pearlTypes}
+                    alt="Cover thumbnail"
+                    className="w-full h-16 rounded object-cover bg-gray-100 border border-gray-200"
+                  />
+                </div>
+
+                <div
+                  onClick={() => setSelectedImageTab(2)}
+                  className={`cursor-pointer rounded-lg p-2 border transition-all ${
+                    selectedImageTab === 2
+                      ? 'border-[#238B80] bg-[#EAF6F4]'
+                      : 'border-gray-200 bg-white hover:border-gray-300'
+                  }`}
+                >
+                  <div className="flex items-center justify-between text-[10px] font-heading uppercase tracking-wider text-gray-600 mb-1">
+                    <span className="font-bold">2. Detail</span>
+                    <span className="text-gray-400">{image2 ? 'Set' : 'Empty'}</span>
+                  </div>
+                  <img
+                    src={image2 || image1 || ASSET_IMAGES.hero}
+                    alt="Detail thumbnail"
+                    className="w-full h-16 rounded object-cover bg-gray-100 border border-gray-200"
+                  />
+                </div>
+
+                <div
+                  onClick={() => setSelectedImageTab(3)}
+                  className={`cursor-pointer rounded-lg p-2 border transition-all ${
+                    selectedImageTab === 3
+                      ? 'border-[#238B80] bg-[#EAF6F4]'
+                      : 'border-gray-200 bg-white hover:border-gray-300'
+                  }`}
+                >
+                  <div className="flex items-center justify-between text-[10px] font-heading uppercase tracking-wider text-gray-600 mb-1">
+                    <span className="font-bold">3. Lifestyle</span>
+                    <span className="text-gray-400">{image3 ? 'Set' : 'Empty'}</span>
+                  </div>
+                  <img
+                    src={image3 || image2 || image1 || ASSET_IMAGES.workshop}
+                    alt="Lifestyle thumbnail"
+                    className="w-full h-16 rounded object-cover bg-gray-100 border border-gray-200"
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
