@@ -61,7 +61,7 @@ export const ShopPage: React.FC = () => {
 
   // Filtering and sorting computation
   const filteredProducts = useMemo(() => {
-    return PRODUCTS.filter((product) => {
+    return products.filter((product) => {
       // Wishlist view
       if (filterParam === 'wishlist' && !isInWishlist(product.id)) {
         return false;
@@ -334,8 +334,8 @@ export const ShopPage: React.FC = () => {
                       <span>{c.label}</span>
                       <span className="text-[10px] text-gray-400">
                         {c.value === 'all'
-                          ? PRODUCTS.length
-                          : PRODUCTS.filter((p) => p.category === c.value).length}
+                          ? products.length
+                          : products.filter((p) => p.category === c.value).length}
                       </span>
                     </button>
                   ))}
@@ -362,8 +362,8 @@ export const ShopPage: React.FC = () => {
                       <span>{pt === 'all' ? 'All Pearl Types' : `${pt} Pearls`}</span>
                       <span className="text-[10px] text-gray-400">
                         {pt === 'all'
-                          ? PRODUCTS.length
-                          : PRODUCTS.filter((p) => p.pearlType === pt).length}
+                          ? products.length
+                          : products.filter((p) => p.pearlType === pt).length}
                       </span>
                     </button>
                   ))}
