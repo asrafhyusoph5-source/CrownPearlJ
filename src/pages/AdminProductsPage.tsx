@@ -653,67 +653,156 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!name.trim()) {
-      alert('Please enter a product name.');
-      return;
-    }
 
-    const finalSku = (sku.trim() || name.toLowerCase().replace(/[^a-z0-9]+/g, '-')).toLowerCase();
+const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
-    const productPayload: Product = {
-      id: finalSku,
-      name: name.trim(),
-      tagline: tagline.trim() || `${pearlType} pearl jewelry by Delma`,
-      price: Number(price) || 0,
-      originalPrice: originalPrice ? Number(originalPrice) : undefined,
-      category,
-      pearlType,
-      pearlColor: pearlColor.trim() || 'Natural Luster',
-      pearlSize: pearlSize.trim() || '10 - 11 mm',
+  if (!name.trim()) {
+    alert('Please enter a product name.');
+    return;
+  }
+
+  if (!imageUrl.trim()) {
+    alert('Please provide a product image URL.');
+    return;
+  }
+
+  const finalSku = (
+    sku.trim() ||
+    name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '')
+  ).toLowerCase();
+
+  if (!finalSku) {
+    alert('Please provide a valid product SKU.');
+    return;
+  }
+
+  const finalStockCount = Math.max(0, Number(stockCount) || 0);
+
+  // Preserve existing product gallery images.
+  const existingImages = initialData?.images ?? [];
+
+  const updatedImages = initialData
+    ? [
+        imageUrl.trim(),
+        ...existingImages.slice(1),
+      ]
+    : [
+        imageUrl.trim(),
+        ASSET_IMAGES.hero,
+        ASSET_IMAGES.workshop,
+      ];
+
+  // Preserve existing product variations.
+  const availableMetals = Array.from(
+    new Set([
+      ...(initialData?.availableMetals ?? []),
       metal,
-      availableMetals: [metal],
-      availableLengths: category === 'necklaces' ? ['16 inch (Choker)', '18 inch (Princess)', '20 inch (Matinee)'] : undefined,
-      availableSizes: category === 'rings' ? ['5', '6', '7', '8', '9'] : undefined,
-      rating: initialData?.rating ?? 4.95,
-      reviewCount: initialData?.reviewCount ?? 12,
-      inStock,
-      stockCount: Number(stockCount) || 0,
-      badge: badge === 'none' ? undefined : (badge as any),
-      images: [imageUrl.trim(), ASSET_IMAGES.hero, ASSET_IMAGES.workshop],
-      description: description.trim(),
-      story:
-        initialData?.story ||
-        'Handcrafted in Delma’s Puerto Princesa atelier using certified natural South Sea pearls harvested in Palawan lagoons.',
-      details: initialData?.details || [
-        'Certified genuine cultured pearl from Palawan waters',
-        'Includes Crown Pearl Estd. 2003 Certificate of Authenticity',
-        'Hand-knotted on pure high-tensile silk cord',
-        'Complimentary signature velvet presentation box',
-      ],
-      materials: initialData?.materials || [
-        `${pearlType} Cultured Pearl`,
-        metal,
-        'Double-Spun Silk Cord',
-      ],
-      specs: initialData?.specs || {
-        luster: 'Superior High Silk Glow',
-        surface: 'Clean (95%+ blemish free)',
-        shape: 'Round',
-        nacreThickness: 'Thick (1.5mm+)',
-        origin: 'Palawan, Philippines',
-      },
-      care: initialData?.care || [
-        'Last on, first off: apply cosmetics and perfumes prior to wearing.',
-        'Wipe with lint-free microfiber cloth after every wear.',
-      ],
-      isFeatured: initialData?.isFeatured ?? true,
-      isBestseller: badge === 'Bestseller',
-    };
+    ])
+  );
 
-    onSave(productPayload);
+  const availableLengths =
+    initialData?.availableLengths ??
+    (category === 'necklaces'
+      ? [
+          '16 inch (Choker)',
+          '18 inch (Princess)',
+          '20 inch (Matinee)',
+        ]
+      : undefined);
+
+  const availableSizes =
+    initialData?.availableSizes ??
+    (category === 'rings'
+      ? ['5', '6', '7', '8', '9']
+      : undefined);
+
+  const productPayload: Product = {
+    // Preserve all existing product information.
+    ...(initialData ?? {} as Product),
+
+    id: finalSku,
+    name: name.trim(),
+
+    tagline:
+      tagline.trim() ||
+      `${pearlType} pearl jewelry by Delma`,
+
+    price: Math.max(0, Number(price) || 0),
+
+    originalPrice:
+      originalPrice !== undefined &&
+      Number(originalPrice) > 0
+        ? Number(originalPrice)
+        : undefined,
+
+    category,
+    pearlType,
+    pearlColor: pearlColor.trim() || 'Natural Luster',
+    pearlSize: pearlSize.trim() || '10 - 11 mm',
+    metal,
+
+    availableMetals,
+    availableLengths,
+    availableSizes,
+
+    // Preserve existing reviews.
+    rating: initialData?.rating ?? 4.95,
+    reviewCount: initialData?.reviewCount ?? 12,
+
+    // Keep stock status consistent.
+    inStock: inStock && finalStockCount > 0,
+    stockCount: finalStockCount,
+
+    badge:
+      badge === 'none'
+        ? undefined
+        : badge as Product['badge'],
+
+    images: updatedImages,
+
+    description: description.trim(),
+
+    // Preserve existing detailed product content.
+    story:
+      initialData?.story ||
+      'Handcrafted in Delma’s Puerto Princesa atelier using carefully selected cultured pearls.',
+
+    details: initialData?.details ?? [
+      'Certified genuine cultured pearl',
+      'Includes Crown Pearl Certificate of Authenticity',
+      'Carefully crafted jewelry',
+      'Complimentary presentation box',
+    ],
+
+    materials: initialData?.materials ?? [
+      `${pearlType} Cultured Pearl`,
+      metal,
+    ],
+
+    specs: initialData?.specs ?? {
+      luster: 'High Natural Luster',
+      surface: 'Clean',
+      shape: 'Round',
+      nacreThickness: 'Thick',
+      origin: 'Philippines',
+    },
+
+    care: initialData?.care ?? [
+      'Keep away from chemicals and perfumes.',
+      'Wipe with a soft microfiber cloth after wearing.',
+      'Store separately in a jewelry box.',
+    ],
+
+    isFeatured: initialData?.isFeatured ?? true,
+    isBestseller: badge === 'Bestseller',
   };
+
+  void onSave(productPayload);
+};
 
   return (
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
