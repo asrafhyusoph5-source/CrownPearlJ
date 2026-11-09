@@ -30,7 +30,8 @@ export const ProductDetailPage: React.FC = () => {
     setIsSizeGuideModalOpen,
     setIsConsultationModalOpen,
     addRecentlyViewed, 
-    products
+    products,
+    formatPrice
   } = useShop();
 
   const product = products.find((p) => p.id === id) || PRODUCTS.find((p) => p.id === id) || products[0] || PRODUCTS[0];
@@ -234,11 +235,11 @@ export const ProductDetailPage: React.FC = () => {
             {/* Pricing block */}
             <div className="flex items-baseline gap-3 pb-4 border-b border-[#E5E7EB]">
               <span className="font-heading font-bold text-3xl text-[#111111] tabular-nums">
-                ${product.price.toLocaleString()}
+                {formatPrice(product.price)}
               </span>
               {product.originalPrice && (
                 <span className="text-sm text-gray-400 line-through tabular-nums">
-                  ${product.originalPrice.toLocaleString()}
+                  {formatPrice(product.originalPrice)}
                 </span>
               )}
               <span className="text-xs text-emerald-700 font-medium bg-emerald-50 px-2 py-0.5 rounded">
@@ -569,7 +570,7 @@ export const ProductDetailPage: React.FC = () => {
                     {completeTheLook.name}
                   </h4>
                   <div className="text-xs font-heading font-bold text-[#111] tabular-nums mt-0.5">
-                    ${completeTheLook.price.toLocaleString()}
+                    {formatPrice(completeTheLook.price)}
                   </div>
                 </div>
               </div>
@@ -717,7 +718,7 @@ export const ProductDetailPage: React.FC = () => {
             {product.name}
           </div>
           <div className="font-heading font-bold text-sm text-[#111] tabular-nums">
-            ${product.price.toLocaleString()}
+            {formatPrice(product.price)}
           </div>
         </div>
         <button

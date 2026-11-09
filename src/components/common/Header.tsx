@@ -5,7 +5,7 @@ import { Logo } from './Logo';
 import { useShop } from '../../context/ShopContext';
 
 export const Header: React.FC = () => {
-  const { cartCount, wishlist, setIsCartDrawerOpen, setIsSearchOpen, setIsConsultationModalOpen } = useShop();
+  const { cartCount, wishlist, setIsCartDrawerOpen, setIsSearchOpen, currency, setCurrency } = useShop();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [collectionsDropdownOpen, setCollectionsDropdownOpen] = useState(false);
   const location = useLocation();
@@ -99,8 +99,21 @@ export const Header: React.FC = () => {
           })}
         </nav>
 
-        {/* Zone 3: Actions (Search, Wishlist, Cart Drawer, Consultation CTA) */}
-        <div className="flex items-center gap-2 sm:gap-4">
+        {/* Zone 3: Actions (Currency, Search, Wishlist, Cart Drawer) */}
+        <div className="flex items-center gap-1.5 sm:gap-3">
+          {/* Currency Switcher Badge */}
+          <button
+            type="button"
+            onClick={() => setCurrency(currency === 'USD' ? 'PHP' : 'USD')}
+            className="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-heading font-semibold uppercase tracking-wider bg-[#FAFAF8] hover:bg-[#EAEAEA] text-[#3B4A50] border border-[#C9D1D3] transition-colors cursor-pointer shadow-2xs"
+            title={`Active display currency: ${currency}. Click to switch between $ USD and ₱ PHP.`}
+          >
+            <span className="text-[#238B80] font-serif font-bold text-sm">
+              {currency === 'PHP' ? '₱' : '$'}
+            </span>
+            <span className="text-[11px] font-bold">{currency}</span>
+          </button>
+
           <button
             type="button"
             onClick={() => setIsSearchOpen(true)}

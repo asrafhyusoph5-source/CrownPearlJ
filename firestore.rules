@@ -56,6 +56,12 @@ service cloud.firestore {
         data.role in ['owner', 'manager', 'atelier_staff'];
     }
 
+    function isValidSetting(data) {
+      return data.keys().hasAll(['currency']) &&
+        data.currency in ['USD', 'PHP'] &&
+        (!('exchangeRate' in data) || (data.exchangeRate is number && data.exchangeRate > 0));
+    }
+
     // Products collection: public read for shoppers, write by authorized atelier admins
     match /products/{productId} {
       allow get, list: if true;
@@ -79,6 +85,13 @@ service cloud.firestore {
       allow list: if isAdmin();
       allow create, update: if isAdmin() && isValidId(adminId) && isValidAdmin(incoming());
       allow delete: if isAdmin() && isValidId(adminId);
+    }
+
+    // Settings collection: public read for store currency display, write by admins
+    match /settings/{settingId} {
+      allow get, list: if true;
+      allow create, update: if isAdmin() && isValidId(settingId) && isValidSetting(incoming());
+      allow delete: if isAdmin() && isValidId(settingId);
     }
 
     // Test connection check

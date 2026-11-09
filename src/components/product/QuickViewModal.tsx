@@ -5,7 +5,7 @@ import { useShop } from '../../context/ShopContext';
 import { MetalType } from '../../types';
 
 export const QuickViewModal: React.FC = () => {
-  const { quickViewProduct, setQuickViewProduct, addToCart, setIsCartDrawerOpen } = useShop();
+  const { quickViewProduct, setQuickViewProduct, addToCart, setIsCartDrawerOpen, formatPrice } = useShop();
 
   const [selectedMetal, setSelectedMetal] = useState<MetalType>(
     quickViewProduct ? quickViewProduct.metal : '18k White Gold'
@@ -75,11 +75,11 @@ export const QuickViewModal: React.FC = () => {
             <div className="flex items-center justify-between pb-3 border-b border-[#E5E7EB]">
               <div className="flex items-baseline gap-2">
                 <span className="font-heading font-bold text-2xl text-[#111] tabular-nums">
-                  ${quickViewProduct.price.toLocaleString()}
+                  {formatPrice(quickViewProduct.price)}
                 </span>
                 {quickViewProduct.originalPrice && (
                   <span className="text-xs text-gray-400 line-through tabular-nums">
-                    ${quickViewProduct.originalPrice.toLocaleString()}
+                    {formatPrice(quickViewProduct.originalPrice)}
                   </span>
                 )}
               </div>

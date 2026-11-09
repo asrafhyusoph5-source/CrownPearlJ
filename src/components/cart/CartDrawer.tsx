@@ -19,7 +19,8 @@ export const CartDrawer: React.FC = () => {
     applyPromoCode,
     removePromoCode,
     orderTotal,
-    addToCart
+    addToCart,
+    formatPrice
   } = useShop();
 
   const [promoInput, setPromoInput] = useState('');
@@ -70,7 +71,7 @@ export const CartDrawer: React.FC = () => {
                   Complimentary Insured Courier Unlocked
                 </span>
               ) : (
-                <span>Add ${amountToFreeShipping} for Free Courier</span>
+                <span>Add {formatPrice(amountToFreeShipping)} for Free Courier</span>
               )}
               <span className="tabular-nums text-gray-500">{progressPercent}%</span>
             </div>
@@ -101,7 +102,7 @@ export const CartDrawer: React.FC = () => {
                       <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="px-2 text-xs">+</button>
                     </div>
                     <span className="font-heading font-semibold text-xs text-[#111] tabular-nums">
-                      ${(item.product.price * item.quantity).toLocaleString()}
+                      {formatPrice(item.product.price * item.quantity)}
                     </span>
                   </div>
                 </div>
@@ -114,7 +115,7 @@ export const CartDrawer: React.FC = () => {
             <div className="p-5 bg-white border-t border-[#E5E7EB] space-y-3 shadow-lg">
               <div className="flex justify-between text-base font-serif font-bold text-[#111]">
                 <span>Estimated Total</span>
-                <span className="font-heading font-bold text-lg">${orderTotal.toLocaleString()}</span>
+                <span className="font-heading font-bold text-lg">{formatPrice(orderTotal)}</span>
               </div>
               <button
                 type="button"

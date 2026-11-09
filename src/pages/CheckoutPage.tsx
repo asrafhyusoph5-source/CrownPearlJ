@@ -30,7 +30,8 @@ export const CheckoutPage: React.FC = () => {
     setLastOrder,
     lastOrder,
     updateQuantity,
-    removeFromCart
+    removeFromCart,
+    formatPrice
   } = useShop();
 
   const navigate = useNavigate();
@@ -101,7 +102,7 @@ const orderNum = `C${customerInitial}${lastDigitOfDay}-${lastTwoDigitsOfYear}${f
         (item) =>
           `• ${item.quantity}x ${item.product.name} (${item.selectedMetal}${
             item.selectedLength ? `, ${item.selectedLength}` : ''
-          }) - $${(item.product.price * item.quantity).toLocaleString()}`
+          }) - ${formatPrice(item.product.price * item.quantity)}`
       )
       .join('\n');
 
@@ -127,9 +128,9 @@ ${address.city}, ${address.state} ${address.postalCode}
 ORDER ITEMS:
 ${itemsList}
 
-SUBTOTAL: $${subtotal.toLocaleString()}
-SHIPPING: ${shippingCost === 0 ? 'Complimentary' : `$${shippingCost}`}
-TOTAL DUE: $${finalTotal.toLocaleString()}
+SUBTOTAL: ${formatPrice(subtotal)}
+SHIPPING: ${shippingCost === 0 ? 'Complimentary' : formatPrice(shippingCost)}
+TOTAL DUE: ${formatPrice(finalTotal, { showBoth: true })}
 PREFERRED PAYMENT: ${paymentLabel}
 -----------------------------
 Hello Crown Atelier, please confirm my order and send the payment details!`;
@@ -559,7 +560,7 @@ Hello Crown Atelier, please confirm my order and send the payment details!`;
                           {item.selectedMetal} {item.selectedLength ? `· ${item.selectedLength}` : ''}
                         </div>
                         <div className="text-xs font-heading font-semibold text-[#111] mt-1 tabular-nums">
-                          ${item.product.price.toLocaleString()} each
+                          {formatPrice(item.product.price)} each
                         </div>
                       </div>
                     </div>
@@ -614,7 +615,7 @@ Hello Crown Atelier, please confirm my order and send the payment details!`;
                     <div className="text-right">
                       <span className="text-[10px] uppercase font-heading text-gray-400 block leading-tight">Total</span>
                       <span className="font-heading font-bold text-sm text-[#111] tabular-nums">
-                        ${(item.product.price * item.quantity).toLocaleString()}
+                        {formatPrice(item.product.price * item.quantity)}
                       </span>
                     </div>
                   </div>
@@ -627,25 +628,25 @@ Hello Crown Atelier, please confirm my order and send the payment details!`;
               <div className="flex justify-between">
                 <span>Subtotal</span>
                 <span className="font-semibold text-[#111] tabular-nums">
-                  ${subtotal.toLocaleString()}
+                  {formatPrice(subtotal)}
                 </span>
               </div>
               {discountAmount > 0 && (
                 <div className="flex justify-between text-emerald-700 font-medium">
                   <span>Heirloom Savings</span>
-                  <span className="tabular-nums">-${discountAmount.toLocaleString()}</span>
+                  <span className="tabular-nums">-{formatPrice(discountAmount)}</span>
                 </div>
               )}
               <div className="flex justify-between">
                 <span>Insured Courier Delivery</span>
                 <span className="tabular-nums font-semibold text-[#111]">
-                  {shippingCost === 0 ? 'Complimentary' : `$${shippingCost}`}
+                  {shippingCost === 0 ? 'Complimentary' : formatPrice(shippingCost)}
                 </span>
               </div>
               <div className="flex justify-between text-base font-serif font-bold text-[#111] pt-3 border-t border-gray-100">
                 <span>Total Payment</span>
                 <span className="font-heading text-xl tabular-nums text-[#0084FF]">
-                  ${finalTotal.toLocaleString()}
+                  {formatPrice(finalTotal)}
                 </span>
               </div>
             </div>

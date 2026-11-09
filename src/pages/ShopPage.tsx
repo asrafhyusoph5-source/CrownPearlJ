@@ -8,7 +8,7 @@ import { useShop } from '../context/ShopContext';
 
 export const ShopPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { products, wishlist, isInWishlist } = useShop();
+  const { products, wishlist, isInWishlist, formatPrice } = useShop();
 
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
@@ -402,7 +402,7 @@ export const ShopPage: React.FC = () => {
                     Maximum Price
                   </h4>
                   <span className="text-xs font-heading font-bold text-[#111] tabular-nums">
-                    ${maxPrice.toLocaleString()}
+                    {formatPrice(maxPrice)}
                   </span>
                 </div>
                 <input
@@ -415,8 +415,8 @@ export const ShopPage: React.FC = () => {
                   className="w-full accent-[#3B4A50] cursor-pointer"
                 />
                 <div className="flex justify-between text-[10px] text-gray-400 mt-1">
-                  <span>$100</span>
-                  <span>$3,500+</span>
+                  <span>{formatPrice(100)}</span>
+                  <span>{formatPrice(3500)}+</span>
                 </div>
               </div>
 
@@ -501,7 +501,7 @@ export const ShopPage: React.FC = () => {
                     </div>
                     <div className="sm:border-l sm:border-gray-100 sm:pl-5 flex flex-col items-center sm:items-end justify-between w-full sm:w-auto shrink-0 gap-3">
                       <div className="font-heading font-bold text-xl text-[#111] tabular-nums">
-                        ${product.price.toLocaleString()}
+                        {formatPrice(product.price)}
                       </div>
                       <Link
                         to={`/product/${product.id}`}

@@ -17,7 +17,8 @@ export const CartPage: React.FC = () => {
     applyPromoCode,
     removePromoCode,
     orderTotal,
-    addToCart
+    addToCart,
+    formatPrice
   } = useShop();
 
   const [promoCodeInput, setPromoCodeInput] = useState('');
@@ -98,7 +99,7 @@ export const CartPage: React.FC = () => {
                   Complimentary Insured Courier Delivery Unlocked
                 </span>
               ) : (
-                <span>Add ${amountToFreeShipping} more to qualify for Complimentary Worldwide Courier</span>
+                <span>Add {formatPrice(amountToFreeShipping)} more to qualify for Complimentary Worldwide Courier</span>
               )}
             </span>
             <span className="tabular-nums font-semibold">{progressPercent}%</span>
@@ -172,10 +173,10 @@ export const CartPage: React.FC = () => {
 
                     <div className="text-right">
                       <div className="font-heading font-bold text-base sm:text-lg text-[#111] tabular-nums">
-                        ${(item.product.price * item.quantity).toLocaleString()}
+                        {formatPrice(item.product.price * item.quantity)}
                       </div>
                       <div className="text-[11px] text-gray-400 tabular-nums">
-                        ${item.product.price.toLocaleString()} each
+                        {formatPrice(item.product.price)} each
                       </div>
                     </div>
 
@@ -231,7 +232,7 @@ export const CartPage: React.FC = () => {
                       {recommendedUpsell.name}
                     </h5>
                     <span className="text-xs font-heading font-bold text-[#111] tabular-nums">
-                      ${recommendedUpsell.price}
+                      {formatPrice(recommendedUpsell.price)}
                     </span>
                   </div>
                 </div>
@@ -305,19 +306,19 @@ export const CartPage: React.FC = () => {
               <div className="flex justify-between">
                 <span>Subtotal</span>
                 <span className="font-semibold text-[#111] tabular-nums">
-                  ${subtotal.toLocaleString()}
+                  {formatPrice(subtotal)}
                 </span>
               </div>
               {discountAmount > 0 && (
                 <div className="flex justify-between text-emerald-700 font-medium">
                   <span>Heirloom Savings</span>
-                  <span className="tabular-nums">-${discountAmount.toLocaleString()}</span>
+                  <span className="tabular-nums">-{formatPrice(discountAmount)}</span>
                 </div>
               )}
               <div className="flex justify-between">
                 <span>Insured Global Courier</span>
                 <span className="tabular-nums font-medium text-[#111]">
-                  {shippingFee === 0 ? 'Complimentary' : `$${shippingFee}`}
+                  {shippingFee === 0 ? 'Complimentary' : formatPrice(shippingFee)}
                 </span>
               </div>
               <div className="flex justify-between">
@@ -327,7 +328,7 @@ export const CartPage: React.FC = () => {
               <div className="flex justify-between text-base font-serif font-bold text-[#111] pt-3 border-t border-gray-100">
                 <span>Estimated Total</span>
                 <span className="font-heading text-xl tabular-nums">
-                  ${orderTotal.toLocaleString()}
+                  {formatPrice(orderTotal)}
                 </span>
               </div>
             </div>

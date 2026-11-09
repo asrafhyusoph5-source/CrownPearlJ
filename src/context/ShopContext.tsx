@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Product, CartItem, MetalType, OrderConfirmation } from '../types';
+import { Product, CartItem, MetalType, OrderConfirmation, CurrencyCode } from '../types';
 import { PRODUCTS } from '../data/products';
 import {
   subscribeProducts,
@@ -8,9 +8,24 @@ import {
   deleteProduct as deleteProductService,
   resetProductsToDefault as resetProductsToDefaultService,
 } from '../services/productService';
-
+import {
+  subscribeStoreSettings,
+  updateStoreSettings,
+  DEFAULT_STORE_SETTINGS,
+  StoreSettings,
+} from '../services/storeSettingsService';
 
 interface ShopContextType {
+  // Currency & Internationalization
+  currency: CurrencyCode;
+  currencySymbol: '$' | '₱';
+  exchangeRate: number;
+  formatPrice: (amountInUSD: number, options?: { showBoth?: boolean; showSymbol?: boolean }) => string;
+  formatRawPrice: (amountInUSD: number) => string;
+  convertPrice: (amountInUSD: number) => number;
+  setCurrency: (c: CurrencyCode) => void;
+  setExchangeRate: (rate: number) => void;
+  updateStoreCurrency: (currency: CurrencyCode, rate?: number, adminEmail?: string) => Promise<void>;
   cart: CartItem[];
   addToCart: (
     product: Product,
@@ -63,7 +78,71 @@ interface ShopContextType {
 const ShopContext = createContext<ShopContextType | undefined>(undefined);
 
 export const ShopProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    // Live Products State (from Firestore)
+  // Store Settings (Currency $ vs ₱, Exchange Rate) synced in real-time
+  const [storeSettings, setStoreSettings] = useState<StoreSettings>(DEFAULT_STORE_SETTINGS);
+
+  useEffect(() => {
+    const unsubscribeSettings = subscribeStoreSettings((live) => {
+      setStoreSettings(live);
+    });
+    return () => unsubscribeSettings();
+  }, []);
+
+  const currency = storeSettings.currency;
+  const exchangeRate = storeSettings.exchangeRate || 58;
+  const currencySymbol: '$' | '₱' = currency === 'PHP' ? '₱' : '$';
+
+  const convertPrice = (amountInUSD: number): number => {
+    if (typeof amountInUSD !== 'number' || isNaN(amountInUSD)) return 0;
+    if (currency === 'PHP') {
+      return Math.round(amountInUSD * exchangeRate);
+    }
+    return amountInUSD;
+  };
+
+  const formatRawPrice = (amountInUSD: number): string => {
+    const val = convertPrice(amountInUSD);
+    return `${currencySymbol}${val.toLocaleString()}`;
+  };
+
+  const formatPrice = (amountInUSD: number, options?: { showBoth?: boolean; showSymbol?: boolean }): string => {
+    if (typeof amountInUSD !== 'number' || isNaN(amountInUSD)) {
+      return `${currencySymbol}0`;
+    }
+    const val = convertPrice(amountInUSD);
+    const primary = `${currencySymbol}${val.toLocaleString()}`;
+
+    if (options?.showBoth) {
+      if (currency === 'USD') {
+        const phpVal = Math.round(amountInUSD * exchangeRate);
+        return `${primary} (≈ ₱${phpVal.toLocaleString()} PHP)`;
+      } else {
+        return `${primary} (≈ $${amountInUSD.toLocaleString()} USD)`;
+      }
+    }
+    return primary;
+  };
+
+  const setCurrency = (c: CurrencyCode) => {
+    setStoreSettings((prev) => ({ ...prev, currency: c }));
+  };
+
+  const setExchangeRate = (rate: number) => {
+    setStoreSettings((prev) => ({ ...prev, exchangeRate: rate }));
+  };
+
+  const updateStoreCurrency = async (newCurrency: CurrencyCode, newRate?: number, adminEmail?: string) => {
+    const updated = await updateStoreSettings(
+      {
+        currency: newCurrency,
+        exchangeRate: newRate !== undefined ? newRate : exchangeRate,
+      },
+      adminEmail
+    );
+    setStoreSettings(updated);
+  };
+
+  // Live Products State (from Firestore)
   const [products, setProducts] = useState<Product[]>(PRODUCTS);
   const [isProductsLoading, setIsProductsLoading] = useState(true);
 
@@ -228,6 +307,15 @@ export const ShopProvider: React.FC<{ children: React.ReactNode }> = ({ children
   return (
     <ShopContext.Provider
       value={{
+        currency,
+        currencySymbol,
+        exchangeRate,
+        formatPrice,
+        formatRawPrice,
+        convertPrice,
+        setCurrency,
+        setExchangeRate,
+        updateStoreCurrency,
         cart,
         addToCart,
         updateQuantity,

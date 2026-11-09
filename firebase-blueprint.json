@@ -64,6 +64,19 @@
         "createdAt": { "type": "string", "maxLength": 100 }
       },
       "required": ["email", "role"]
+    },
+    "setting": {
+      "title": "StoreSetting",
+      "description": "Global store settings such as active currency and exchange rates",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "currency": { "type": "string", "enum": ["USD", "PHP"] },
+        "exchangeRate": { "type": "number" },
+        "updatedAt": { "type": "string", "maxLength": 100 },
+        "updatedBy": { "type": "string", "maxLength": 200 }
+      },
+      "required": ["currency"]
     }
   },
   "firestore": {
@@ -78,6 +91,10 @@
     "/admins/{adminId}": {
       "schema": "admin",
       "description": "Atelier manager accounts permitted to administer jewelry inventory and certificate records"
+    },
+    "/settings/{settingId}": {
+      "schema": "setting",
+      "description": "Store configuration such as currency display ($ / ₱) and exchange rate"
     }
   }
 }

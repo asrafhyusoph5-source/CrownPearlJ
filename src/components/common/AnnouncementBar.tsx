@@ -1,39 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { Sparkles, ArrowRight, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
-const ANNOUNCEMENTS = [
-  {
-    icon: Sparkles,
-    text: 'Spring Heirloom Event: 10% Off Orders with Code WELCOME10',
-    link: '/shop',
-    actionText: 'Explore Collection'
-  },
-  {
-    icon: ShieldCheck,
-    text: 'Complimentary Insured Courier Delivery on All Orders Over $150',
-    link: '/shipping-returns',
-    actionText: 'Learn More'
-  },
-  {
-    icon: Sparkles,
-    text: '30-Day In-Home Natural Daylight Examination & Free Returns',
-    link: '/shipping-returns',
-    actionText: 'Details'
-  }
-];
+import { useShop } from '../../context/ShopContext';
 
 export const AnnouncementBar: React.FC = () => {
+  const { formatPrice } = useShop();
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const announcements = [
+    {
+      icon: Sparkles,
+      text: 'Spring Heirloom Event: 10% Off Orders with Code WELCOME10',
+      link: '/shop',
+      actionText: 'Explore Collection'
+    },
+    {
+      icon: ShieldCheck,
+      text: `Complimentary Insured Courier Delivery on All Orders Over ${formatPrice(150)}`,
+      link: '/shipping-returns',
+      actionText: 'Learn More'
+    },
+    {
+      icon: Sparkles,
+      text: '30-Day In-Home Natural Daylight Examination & Free Returns',
+      link: '/shipping-returns',
+      actionText: 'Details'
+    }
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % ANNOUNCEMENTS.length);
+      setCurrentIndex((prev) => (prev + 1) % announcements.length);
     }, 4800);
     return () => clearInterval(timer);
-  }, []);
+  }, [announcements.length]);
 
-  const active = ANNOUNCEMENTS[currentIndex];
+  const active = announcements[currentIndex];
   const Icon = active.icon;
 
   return (

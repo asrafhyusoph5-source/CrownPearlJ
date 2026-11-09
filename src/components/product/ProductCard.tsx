@@ -10,7 +10,7 @@ interface ProductCardProps {
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product, priority = false }) => {
-  const { isInWishlist, toggleWishlist, addToCart, setQuickViewProduct } = useShop();
+  const { isInWishlist, toggleWishlist, addToCart, setQuickViewProduct, formatPrice } = useShop();
   const isWishlisted = isInWishlist(product.id);
 
   const handleQuickAdd = (e: React.MouseEvent) => {
@@ -119,11 +119,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, priority = fa
           <div className="flex items-baseline gap-2">
             {product.originalPrice && (
               <span className="text-xs text-gray-400 line-through tabular-nums">
-                ${product.originalPrice.toLocaleString()}
+                {formatPrice(product.originalPrice)}
               </span>
             )}
             <span className="font-heading font-bold text-sm md:text-base text-[#111111] tabular-nums">
-              ${product.price.toLocaleString()}
+              {formatPrice(product.price)}
             </span>
           </div>
         </div>

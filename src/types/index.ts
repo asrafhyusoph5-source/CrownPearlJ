@@ -105,3 +105,12 @@ export interface OrderConfirmation {
   shippingMethod: string;
   estimatedDelivery: string;
 }
+
+export type CurrencyCode = 'USD' | 'PHP';
+
+export interface StoreCurrencySettings {
+  currency: CurrencyCode;
+  exchangeRate: number;
+  updatedAt?: string;
+  updatedBy?: string;
+}

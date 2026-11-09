@@ -19,6 +19,7 @@ import {
   X,
   Image as ImageIcon,
   DollarSign,
+  Coins,
   ShieldCheck,
   RotateCcw,
   Mail,
@@ -80,10 +81,63 @@ const METALS: MetalType[] = [
 
 export const AdminProductsPage: React.FC = () => {
   const navigate = useNavigate();
-  const { products, addProduct, updateProduct, deleteProduct, resetProductsToDefault } = useShop();
+  const {
+    products,
+    addProduct,
+    updateProduct,
+    deleteProduct,
+    resetProductsToDefault,
+    currency,
+    currencySymbol,
+    exchangeRate,
+    formatPrice,
+    updateStoreCurrency,
+  } = useShop();
 
   const [session, setSession] = useState<AdminSession | null>(getAdminSession());
   const [authLoading, setAuthLoading] = useState(true);
+
+  // Currency & Internationalization control state
+  const [isUpdatingCurrency, setIsUpdatingCurrency] = useState(false);
+  const [customRate, setCustomRate] = useState<number>(exchangeRate);
+
+  useEffect(() => {
+    setCustomRate(exchangeRate);
+  }, [exchangeRate]);
+
+  const handleCurrencyChange = async (newCurr: 'USD' | 'PHP') => {
+    setIsUpdatingCurrency(true);
+    try {
+      await updateStoreCurrency(newCurr, customRate, session?.userEmail || undefined);
+      showToast(
+        newCurr === 'PHP'
+          ? 'Website currency switched to Philippine Peso (₱). All shop pages now showcase ₱ PHP prices!'
+          : 'Website currency switched to US Dollar ($). All shop pages now showcase $ USD prices!'
+      );
+    } catch (err) {
+      console.error('Failed to update currency in Firestore:', err);
+      showToast('Currency preference saved locally.');
+    } finally {
+      setIsUpdatingCurrency(false);
+    }
+  };
+
+  const handleSaveRate = async () => {
+    if (!customRate || customRate <= 0) {
+      showToast('Please enter a valid positive exchange rate.');
+      return;
+    }
+    setIsUpdatingCurrency(true);
+    try {
+      await updateStoreCurrency(currency, customRate, session?.userEmail || undefined);
+      showToast(`Exchange rate updated: $1 USD = ₱${customRate.toLocaleString()} PHP.`);
+    } catch (err) {
+      console.error('Failed to update rate in Firestore:', err);
+      showToast('Exchange rate updated locally.');
+    } finally {
+      setIsUpdatingCurrency(false);
+    }
+  };
 
   // In-page Manager Sign In form states
   const [loginEmail, setLoginEmail] = useState('');
@@ -360,14 +414,49 @@ export const AdminProductsPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 flex-wrap justify-end">
+            {/* Currency Quick Switcher */}
+            <div className="flex items-center bg-[#242E33] border border-white/20 rounded-xl p-1 text-xs font-heading">
+              <span className="text-[10px] text-white/50 px-2 uppercase tracking-wider hidden md:inline">
+                Currency:
+              </span>
+              <button
+                type="button"
+                onClick={() => handleCurrencyChange('USD')}
+                disabled={isUpdatingCurrency}
+                className={`px-2.5 py-1 rounded-lg transition-all font-semibold flex items-center gap-1 cursor-pointer ${
+                  currency === 'USD'
+                    ? 'bg-[#7FC8C0] text-[#1A2327] shadow-sm font-bold'
+                    : 'text-white/70 hover:text-white hover:bg-white/5'
+                }`}
+                title="Display website prices in US Dollars ($ USD)"
+              >
+                <span className="font-serif font-bold text-sm">$</span>
+                <span>USD</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleCurrencyChange('PHP')}
+                disabled={isUpdatingCurrency}
+                className={`px-2.5 py-1 rounded-lg transition-all font-semibold flex items-center gap-1 cursor-pointer ${
+                  currency === 'PHP'
+                    ? 'bg-[#7FC8C0] text-[#1A2327] shadow-sm font-bold'
+                    : 'text-white/70 hover:text-white hover:bg-white/5'
+                }`}
+                title="Display website prices in Philippine Pesos (₱ PHP)"
+              >
+                <span className="font-serif font-bold text-sm">₱</span>
+                <span>PHP</span>
+              </button>
+            </div>
+
             <Link
               to="/certificate-import"
               className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#7FC8C0] hover:bg-[#68B6AE] text-[#1A2327] text-xs font-heading uppercase tracking-wider font-semibold transition-all shadow-sm"
               title="Open Certificate Import Page"
             >
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Certificate Import</span>
+              <span className="hidden sm:inline">Certificate Import</span>
             </Link>
 
             <Link
@@ -414,6 +503,124 @@ export const AdminProductsPage: React.FC = () => {
           </div>
         )}
 
+        {/* Atelier Currency & Exchange Rate Control Card */}
+        <section className="bg-white rounded-2xl border border-gray-200 p-5 md:p-6 mb-8 shadow-xs">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-gray-100">
+            <div className="flex items-start gap-3">
+              <div className="w-11 h-11 rounded-xl bg-[#7FC8C0]/20 text-[#238B80] border border-[#7FC8C0]/40 flex items-center justify-center shrink-0">
+                <Coins className="w-5 h-5 text-[#238B80]" />
+              </div>
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h2 className="font-serif text-lg md:text-xl font-bold text-gray-900">
+                    Website Currency & Pricing Display ($ / ₱)
+                  </h2>
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-heading uppercase tracking-widest bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold">
+                    Active on Store: {currency === 'PHP' ? '₱ Philippine Peso (PHP)' : '$ US Dollar (USD)'}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-500 mt-1 max-w-2xl leading-relaxed">
+                  Choose whether your store shows prices in <strong className="text-gray-900">US Dollar ($)</strong> or <strong className="text-gray-900">Philippine Peso (₱)</strong>. Changes apply instantly across the live storefront, catalog, bag, and checkout.
+                </p>
+              </div>
+            </div>
+
+            {/* Currency Mode Selection Toggle Buttons */}
+            <div className="flex items-center gap-2 bg-[#FAFAF8] p-1.5 rounded-xl border border-gray-200 shrink-0">
+              <button
+                type="button"
+                onClick={() => handleCurrencyChange('USD')}
+                disabled={isUpdatingCurrency}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-heading font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                  currency === 'USD'
+                    ? 'bg-[#1A2327] text-white shadow-sm ring-2 ring-[#7FC8C0]'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                }`}
+              >
+                <span className="font-serif text-base text-[#7FC8C0]">$</span>
+                <span>US Dollar ($ USD)</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleCurrencyChange('PHP')}
+                disabled={isUpdatingCurrency}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-heading font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                  currency === 'PHP'
+                    ? 'bg-[#1A2327] text-white shadow-sm ring-2 ring-[#7FC8C0]'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                }`}
+              >
+                <span className="font-serif text-base text-[#7FC8C0]">₱</span>
+                <span>Philippine Peso (₱ PHP)</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Rate & Live Customer Preview Row */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-5 pt-4 items-center">
+            {/* Exchange Rate Setting */}
+            <div className="md:col-span-5 bg-[#FAFAF8] p-4 rounded-xl border border-gray-200">
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-[11px] font-heading uppercase tracking-wider text-gray-700 font-bold">
+                  Palawan Exchange Rate (1 USD = ? PHP)
+                </label>
+                <span className="text-[10px] text-gray-400 font-mono">1 USD = ₱{exchangeRate}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="relative flex-1">
+                  <span className="absolute left-3 top-2 text-xs font-bold text-gray-400">₱</span>
+                  <input
+                    type="number"
+                    step="0.5"
+                    min="1"
+                    value={customRate}
+                    onChange={(e) => setCustomRate(Number(e.target.value))}
+                    className="w-full bg-white border border-gray-300 pl-7 pr-3 py-1.5 rounded-lg text-xs font-bold text-gray-900 outline-none focus:border-[#7FC8C0]"
+                    placeholder="58"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={handleSaveRate}
+                  disabled={isUpdatingCurrency}
+                  className="px-3.5 py-1.5 bg-[#238B80] hover:bg-[#1b6b63] text-white text-[11px] font-heading font-semibold uppercase tracking-wider rounded-lg transition-colors cursor-pointer disabled:opacity-50 shadow-2xs"
+                >
+                  {isUpdatingCurrency ? 'Saving…' : 'Save Rate'}
+                </button>
+              </div>
+              <p className="text-[10px] text-gray-500 mt-1">
+                Standard Palawan jewelry commerce rate is ₱58 PHP per $1 USD.
+              </p>
+            </div>
+
+            {/* Live Customer Preview */}
+            <div className="md:col-span-7 bg-[#FAFAF8] p-4 rounded-xl border border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+              <div>
+                <span className="text-[10px] uppercase font-heading font-bold text-gray-400 tracking-wider block">
+                  Customer Store Display Preview ($950 Item)
+                </span>
+                <div className="font-heading font-bold text-base text-gray-900 mt-1 flex items-baseline gap-2">
+                  <span className="text-emerald-700">
+                    {currency === 'PHP' ? `₱${(950 * exchangeRate).toLocaleString()} PHP` : '$950 USD'}
+                  </span>
+                  <span className="text-gray-400 text-xs font-normal">
+                    {currency === 'PHP' ? '(≈ $950 USD)' : `(≈ ₱${(950 * exchangeRate).toLocaleString()} PHP)`}
+                  </span>
+                </div>
+                <p className="text-[11px] text-gray-500 mt-0.5">
+                  Customers in the shop will see: <strong className="text-gray-800">{currency === 'PHP' ? `₱${(950 * exchangeRate).toLocaleString()}` : '$950'}</strong>
+                </p>
+              </div>
+
+              <div className="flex items-center gap-1.5 bg-white border border-emerald-200 text-emerald-800 px-3 py-2 rounded-lg text-[11px] font-medium shadow-2xs shrink-0">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>Instant Cloud Sync</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Stats Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-2xs">
@@ -449,9 +656,13 @@ export const AdminProductsPage: React.FC = () => {
               <DollarSign className="w-4 h-4 text-[#238B80]" />
             </div>
             <div className="text-2xl md:text-3xl font-serif font-bold text-gray-900">
-              ${totalValue.toLocaleString()}
+              {formatPrice(totalValue)}
             </div>
-            <p className="text-[11px] text-gray-500 mt-1">~₱{(totalValue * 58).toLocaleString()} PHP</p>
+            <p className="text-[11px] text-gray-500 mt-1">
+              {currency === 'PHP'
+                ? `≈ $${totalValue.toLocaleString()} USD`
+                : `≈ ₱${(totalValue * exchangeRate).toLocaleString()} PHP`}
+            </p>
           </div>
         </div>
 
@@ -598,14 +809,16 @@ export const AdminProductsPage: React.FC = () => {
                         {/* Price */}
                         <td className="py-4 px-4">
                           <div className="font-semibold text-gray-900">
-                            ${product.price.toLocaleString()}
+                            {formatPrice(product.price)}
                           </div>
                           <div className="text-[11px] text-gray-500 font-mono">
-                            ₱{(product.price * 58).toLocaleString()} PHP
+                            {currency === 'PHP'
+                              ? `≈ $${product.price.toLocaleString()} USD`
+                              : `≈ ₱${(product.price * exchangeRate).toLocaleString()} PHP`}
                           </div>
                           {product.originalPrice && (
                             <div className="text-[10px] text-gray-400 line-through">
-                              ${product.originalPrice.toLocaleString()}
+                              {formatPrice(product.originalPrice)}
                             </div>
                           )}
                         </td>
@@ -840,6 +1053,7 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
   onSave,
   isSubmitting,
 }) => {
+  const { currency, exchangeRate } = useShop();
   const [name, setName] = useState(initialData?.name || '');
   const [sku, setSku] = useState(initialData?.id || '');
   const [tagline, setTagline] = useState(initialData?.tagline || '');
@@ -1158,7 +1372,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 p-4 rounded-xl bg-[#FAFAF8] border border-gray-200">
             <div>
               <label className="block text-xs font-heading uppercase tracking-wider text-gray-700 font-semibold mb-1.5">
-                Price (USD $) *
+                Base Price (USD $) *
               </label>
               <input
                 type="number"
@@ -1168,9 +1382,21 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                 onChange={(e) => setPrice(Number(e.target.value))}
                 className="w-full bg-white border border-gray-300 px-3.5 py-2 rounded-lg text-sm font-semibold text-gray-900 outline-none focus:border-[#7FC8C0]"
               />
-              <span className="text-[10px] text-gray-500 block mt-1">
-                ≈ ₱{(price * 58).toLocaleString()} PHP
-              </span>
+              <div className="text-[10px] text-gray-500 mt-1 space-y-0.5">
+                <div>
+                  Displays as:{' '}
+                  <strong className="text-gray-900">
+                    {currency === 'PHP'
+                      ? `₱${(price * exchangeRate).toLocaleString()} PHP`
+                      : `$${price.toLocaleString()} USD`}
+                  </strong>
+                </div>
+                <div className="text-gray-400">
+                  {currency === 'PHP'
+                    ? `(Base: $${price.toLocaleString()} USD)`
+                    : `(≈ ₱${(price * exchangeRate).toLocaleString()} PHP)`}
+                </div>
+              </div>
             </div>
 
             <div>
@@ -1185,7 +1411,15 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                 placeholder="Optional sale mark"
                 className="w-full bg-white border border-gray-300 px-3.5 py-2 rounded-lg text-sm text-gray-900 outline-none focus:border-[#7FC8C0]"
               />
-              <span className="text-[10px] text-gray-400 block mt-1">Shows strike-through</span>
+              <span className="text-[10px] text-gray-400 block mt-1">
+                {originalPrice
+                  ? `Displays as: ${
+                      currency === 'PHP'
+                        ? `₱${(originalPrice * exchangeRate).toLocaleString()} PHP`
+                        : `$${originalPrice.toLocaleString()} USD`
+                    }`
+                  : 'Shows strike-through'}
+              </span>
             </div>
 
             <div>
