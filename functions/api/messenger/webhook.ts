@@ -36,21 +36,26 @@ export const onRequest = async ({
   const url = new URL(request.url);
 
   
+
 if (request.method === "GET") {
   const mode = url.searchParams.get("hub.mode");
   const token = url.searchParams.get("hub.verify_token");
   const challenge = url.searchParams.get("hub.challenge");
 
-  // Temporary diagnostic. Never returns the secret.
   if (url.searchParams.get("debug") === "1") {
+    const configured = env.META_VERIFY_TOKEN || "";
+
     return Response.json({
       diagnostic: "Crown Pearl webhook",
       functionRunning: true,
-      verifyTokenConfigured: Boolean(env.META_VERIFY_TOKEN),
+      verifyTokenConfigured: Boolean(configured),
       receivedToken: Boolean(token),
-      tokenMatches: Boolean(
-        env.META_VERIFY_TOKEN &&
-        token === env.META_VERIFY_TOKEN
+      configuredLength: configured.length,
+      receivedLength: token?.length ?? 0,
+      exactMatch: Boolean(configured && token === configured),
+      trimmedMatch: Boolean(
+        configured && token &&
+        configured.trim() === token.trim()
       ),
       modeMatches: mode === "subscribe",
       challengeReceived: Boolean(challenge)
@@ -69,6 +74,7 @@ if (request.method === "GET") {
     status: 403
   });
 }
+
 
 
   if (request.method !== "POST") {
