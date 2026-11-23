@@ -8,7 +8,7 @@ interface MessengerContext {
   request: Request;
   env: Env;
 }
-
+ 
 interface MessengerEvent {
   sender?: { id?: string };
   recipient?: { id?: string };
