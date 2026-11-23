@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
-import { MessageCircle, X, Send, Sparkles } from 'lucide-react';
 
-// 👇 1. REPLACE THIS WITH YOUR FACEBOOK PAGE USERNAME OR NUMBER ID
-const FB_PAGE_USERNAME = 'delmapearlonline'; // e.g. 'yourpage' from facebook.com/yourpage
+import React, { useState } from 'react';
+import {
+  MessageCircle,
+  X,
+  Send,
+  Sparkles
+} from 'lucide-react';
+
+const FB_PAGE_USERNAME = 'delmapearlonline';
 
 export const FBMessegerButton: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,112 +20,115 @@ export const FBMessegerButton: React.FC = () => {
   ];
 
   const handleSendMessenger = (textToSend: string) => {
-    const encoded = encodeURIComponent(
-      textToSend || 'Hello Crown, I am browsing Crown Pearl and would appreciate concierge assistance.'
+    const message =
+      textToSend.trim() ||
+      'Hello Crown Pearl, I would appreciate your assistance.';
+
+    const messengerUrl =
+      `https://m.me/${FB_PAGE_USERNAME}`;
+
+    // Open the Page conversation.
+    // The customer can send the message inside Messenger.
+    window.open(
+      messengerUrl,
+      '_blank',
+      'noopener,noreferrer'
     );
-    // Direct link to open Facebook Messenger chat with your page:
-    window.open(`https://m.me/${FB_PAGE_USERNAME}?text=${encoded}`, '_blank', 'noopener,noreferrer');
+
     setIsOpen(false);
   };
 
   return (
     <div className="fixed bottom-6 right-6 z-40">
+
       {isOpen && (
-        <div className="mb-3 w-80 sm:w-96 bg-white rounded-xl shadow-2xl border border-[#C9D1D3]/70 overflow-hidden animate-fade-in">
-          {/* Header */}
+        <div className="mb-3 w-80 sm:w-96 bg-white rounded-xl shadow-2xl border border-[#C9D1D3]/70 overflow-hidden">
+
           <div className="bg-[#0084FF] text-white p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="relative">
-                <div className="w-10 h-10 rounded-full bg-white/20 border border-white flex items-center justify-center font-script text-2xl text-white">
-                  C
-                </div>
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 rounded-full ring-2 ring-[#0084FF]"></span>
+              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center font-script text-2xl">
+                C
               </div>
+
               <div>
-                <h4 className="font-heading text-xs font-semibold uppercase tracking-wider">
+                <h4 className="text-xs font-semibold uppercase tracking-wider">
                   Crown Atelier Concierge
                 </h4>
                 <p className="text-[11px] text-white/80 flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-white" />
-                  <span>Messenger Chat · Online</span>
+                  <Sparkles className="w-3 h-3" />
+                  Messenger Chat
                 </p>
               </div>
             </div>
+
             <button
               onClick={() => setIsOpen(false)}
-              className="text-white/80 hover:text-white p-1 rounded transition-colors"
-              aria-label="Close concierge chat"
+              aria-label="Close chat"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          {/* Body */}
           <div className="p-4 bg-[#FAFAF8] space-y-3">
-            <div className="bg-white p-3 rounded-lg border border-[#E5E7EB] text-xs text-[#111111] leading-relaxed shadow-sm">
-              <p className="font-serif italic text-sm text-[#3B4A50] mb-1">
-                "Welcome to Crown Pearl. Click below to message us directly on Facebook Messenger."
+
+            <div className="bg-white p-3 rounded-lg border text-xs">
+              <p className="font-serif italic text-sm text-[#3B4A50]">
+                Welcome to Crown Pearl. How may we assist you today?
               </p>
-              <span className="text-[10px] text-[#3B4A50]/70 font-heading uppercase tracking-widest">
-                — Delma, Jeweler
-              </span>
             </div>
 
-            <div className="text-[11px] font-heading uppercase tracking-wider text-[#3B4A50]/80">
+            <p className="text-[11px] uppercase tracking-wider">
               Quick Questions
-            </div>
-            <div className="space-y-1.5">
-              {quickInquiries.map((q, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => handleSendMessenger(q)}
-                  className="w-full text-left text-xs p-2 rounded bg-white hover:bg-[#0084FF]/10 border border-[#E5E7EB] hover:border-[#0084FF] text-[#3B4A50] transition-colors"
-                >
-                  {q}
-                </button>
-              ))}
-            </div>
+            </p>
 
-            {/* Input */}
-            <div className="pt-2 flex items-center gap-2">
+            {quickInquiries.map((q, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleSendMessenger(q)}
+                className="w-full text-left text-xs p-2 rounded bg-white border hover:border-[#0084FF] text-[#3B4A50]"
+              >
+                {q}
+              </button>
+            ))}
+
+            <div className="flex gap-2">
               <input
                 type="text"
                 value={customMsg}
                 onChange={(e) => setCustomMsg(e.target.value)}
-                placeholder="Type your message on Messenger..."
-                className="flex-1 bg-white border border-[#C9D1D3] rounded px-3 py-2 text-xs focus:outline-none focus:border-[#0084FF]"
+                placeholder="Type your inquiry..."
+                className="flex-1 bg-white border rounded px-3 py-2 text-xs"
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') handleSendMessenger(customMsg);
+                  if (e.key === 'Enter') {
+                    handleSendMessenger(customMsg);
+                  }
                 }}
               />
+
               <button
-                type="button"
                 onClick={() => handleSendMessenger(customMsg)}
-                className="p-2 bg-[#0084FF] hover:bg-[#0073e6] text-white rounded transition-colors"
-                aria-label="Send Messenger message"
+                className="p-2 bg-[#0084FF] text-white rounded"
+                aria-label="Open Messenger"
               >
                 <Send className="w-4 h-4" />
               </button>
             </div>
+
           </div>
         </div>
       )}
 
-      {/* Floating Trigger Button */}
       <button
-        type="button"
         onClick={() => setIsOpen(!isOpen)}
-        aria-label="Chat with Crown Agent on Facebook Messenger"
-        className="flex items-center gap-2.5 bg-[#0084FF] hover:bg-[#0073e6] text-white px-4 py-3 rounded-full shadow-lg border border-white/20 transition-all duration-300 hover:scale-105 group"
+        className="flex items-center gap-2.5 bg-[#0084FF] text-white px-4 py-3 rounded-full shadow-lg"
+        aria-label="Chat on Messenger"
       >
-        <div className="relative">
-          <MessageCircle className="w-5 h-5 text-white" />
-          <span className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-400 rounded-full animate-ping"></span>
-        </div>
-        <span className="font-heading text-xs font-semibold uppercase tracking-widest hidden sm:inline">
+        <MessageCircle className="w-5 h-5" />
+        <span className="text-xs font-semibold uppercase tracking-widest">
           Chat on Messenger
         </span>
       </button>
+
     </div>
   );
 };
