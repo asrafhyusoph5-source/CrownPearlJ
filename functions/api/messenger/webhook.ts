@@ -35,23 +35,41 @@ export const onRequest = async ({
 }: MessengerContext): Promise<Response> => {
   const url = new URL(request.url);
 
-  if (request.method === "GET") {
-    const mode = url.searchParams.get("hub.mode");
-    const token = url.searchParams.get("hub.verify_token");
-    const challenge = url.searchParams.get("hub.challenge");
+  
+if (request.method === "GET") {
+  const mode = url.searchParams.get("hub.mode");
+  const token = url.searchParams.get("hub.verify_token");
+  const challenge = url.searchParams.get("hub.challenge");
 
-    if (
-      mode === "subscribe" &&
-      token === env.META_VERIFY_TOKEN &&
-      challenge
-    ) {
-      return new Response(challenge, { status: 200 });
-    }
-
-    return new Response("Webhook verification failed", {
-      status: 403
+  // Temporary diagnostic. Never returns the secret.
+  if (url.searchParams.get("debug") === "1") {
+    return Response.json({
+      diagnostic: "Crown Pearl webhook",
+      functionRunning: true,
+      verifyTokenConfigured: Boolean(env.META_VERIFY_TOKEN),
+      receivedToken: Boolean(token),
+      tokenMatches: Boolean(
+        env.META_VERIFY_TOKEN &&
+        token === env.META_VERIFY_TOKEN
+      ),
+      modeMatches: mode === "subscribe",
+      challengeReceived: Boolean(challenge)
     });
   }
+
+  if (
+    mode === "subscribe" &&
+    token === env.META_VERIFY_TOKEN &&
+    challenge
+  ) {
+    return new Response(challenge, { status: 200 });
+  }
+
+  return new Response("Webhook verification failed", {
+    status: 403
+  });
+}
+
 
   if (request.method !== "POST") {
     return new Response("Method not allowed", { status: 405 });
