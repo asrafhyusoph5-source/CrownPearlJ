@@ -16,9 +16,23 @@ import type {
   MessengerMessage,
 } from '../../types/messenger';
 
+import React, { useEffect, useMemo, useState } from 'react';
+import { Navigate } from 'react-router-dom';
+
+import {
+  subscribeAdminAuth,
+  logoutAdmin,
+  type AdminSession,
+} from '../../services/adminAuth';
+
 export const AdminMessengerPage: React.FC = () => {
   const [conversations, setConversations] =
     useState<MessengerConversation[]>(DEMO_CONVERSATIONS);
+
+  const sendMessage = () => {
+  // ...
+  setConversations(...)
+};
 
   const [selectedId, setSelectedId] = useState<string | null>(
     DEMO_CONVERSATIONS[0]?.id ?? null
@@ -27,6 +41,33 @@ export const AdminMessengerPage: React.FC = () => {
   const [search, setSearch] = useState('');
   const [message, setMessage] = useState('');
   const [mobileChatOpen, setMobileChatOpen] = useState(false);
+
+  const [session, setSession] = useState<AdminSession | null>(null);
+const [authLoading, setAuthLoading] = useState(true);
+
+useEffect(() => {
+  const unsubscribe = subscribeAdminAuth((currentSession) => {
+    setSession(currentSession);
+    setAuthLoading(false);
+  });
+
+  if (authLoading) {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      Checking administrator access...
+    </div>
+  );
+}
+
+if (
+  !session?.isAuthenticated ||
+  session.uid !== 'EZymoDyHyuTH5wPxl3JoCE4OuUw1'
+) {
+  return <Navigate to="/admin/login" replace />;
+}
+  
+  return () => unsubscribe();
+}, []);
 
   const selected = conversations.find(
     (item) => item.id === selectedId
