@@ -1,9 +1,14 @@
 
 import {
-  Env,
+  type Env,
   saveMessengerMessage,
   verifyMetaSignature
 } from "./_lib";
+
+interface MessengerContext {
+  request: Request;
+  env: Env;
+}
 
 interface MessengerEvent {
   sender?: { id?: string };
@@ -24,10 +29,10 @@ interface WebhookPayload {
   }>;
 }
 
-export const onRequest: PagesFunction<Env> = async ({
+export const onRequest = async ({
   request,
   env
-}) => {
+}: MessengerContext): Promise<Response> => {
   const url = new URL(request.url);
 
   if (request.method === "GET") {
