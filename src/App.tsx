@@ -31,6 +31,7 @@ import { CertificateVerificationPage } from './pages/CertificateVerificationPage
 import { CertificateImportPage } from './pages/CertificateImportPage';
 import { QrGeneratorPage } from './pages/QrGeneratorPage';
 import { AdminProductsPage } from './pages/AdminProductsPage';
+import { AdminMessengerPage } from './pages/admin/AdminMessengerPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
 function ScrollToTop() {
@@ -71,8 +72,7 @@ export default function App() {
               <Route path="/login" element={<AdminProductsPage />} />
               <Route path="/admin/products" element={<AdminProductsPage />} />
               <Route path="/admin" element={<AdminProductsPage />} />
-
-
+              <Route path="/admin/messenger" element={<AdminMessengerPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>
