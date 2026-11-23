@@ -1,10 +1,15 @@
 
-import { Env } from "./_lib";
+import type { Env } from "./_lib";
 
-export const onRequest: PagesFunction<Env> = async ({
+interface MessengerContext {
+  request: Request;
+  env: Env;
+}
+
+export const onRequest = async ({
   request,
   env
-}) => {
+}: MessengerContext): Promise<Response> => {
   if (request.method !== "GET") {
     return new Response("Method not allowed", { status: 405 });
   }
