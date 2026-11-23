@@ -1,18 +1,22 @@
+
 import {
   signInWithPopup,
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
   sendPasswordResetEmail,
-  updateProfile,
+  sendEmailVerification,
   GoogleAuthProvider,
   signOut,
   onAuthStateChanged,
+  reload,
   User,
 } from 'firebase/auth';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
+
+import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from './firebase';
 
-const ADMIN_STORAGE_KEY = 'crown_pearl_admin_session';
+// Only this Firebase account is authorized to administer Crown Pearl.
+const ADMIN_UID = 'EZymoDyHyuTH5wPxl3JoCE4OuUw1';
+const ADMIN_EMAIL = 'delmapearl17@gmail.com';
 
 export interface AdminSession {
   isAuthenticated: boolean;
@@ -23,33 +27,22 @@ export interface AdminSession {
   uid?: string;
 }
 
-const MASTER_PASSCODES = ['delma2003', 'crownpearl', 'admin2026', 'palawan'];
-
+/**
+ * Do not use localStorage as proof of administrator identity.
+ * Firebase Authentication is the source of truth.
+ */
 export function getAdminSession(): AdminSession | null {
-  try {
-    const raw = localStorage.getItem(ADMIN_STORAGE_KEY);
-    if (raw) {
-      return JSON.parse(raw);
-    }
-  } catch {
-    // fallback
-  }
   return null;
 }
 
-export function setAdminSession(session: AdminSession | null) {
-  if (session) {
-    localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(session));
-  } else {
-    localStorage.removeItem(ADMIN_STORAGE_KEY);
-  }
+export function setAdminSession(_session: AdminSession | null): void {
+  // Intentionally disabled. Admin sessions come from Firebase Auth.
 }
 
-/**
- * Format Firebase Auth errors into clear, friendly guidance
- */
 export function getFriendlyAuthErrorMessage(error: unknown): string {
-  if (!(error instanceof Error)) return 'Authentication failed. Please check your credentials.';
+  if (!(error instanceof Error)) {
+    return 'Authentication failed. Please check your credentials.';
+  }
 
   const code = (error as { code?: string }).code || '';
 
@@ -57,209 +50,239 @@ export function getFriendlyAuthErrorMessage(error: unknown): string {
     case 'auth/invalid-credential':
     case 'auth/wrong-password':
     case 'auth/user-not-found':
-      return 'Invalid email or password. Please verify your details or use Password Reset.';
+      return 'Invalid email or password. Please check your login details.';
+
     case 'auth/email-already-in-use':
-      return 'This email address is already registered. Please sign in or reset your password.';
+      return 'This email address is already registered. Please sign in instead.';
+
     case 'auth/weak-password':
       return 'Password should be at least 6 characters long.';
+
     case 'auth/invalid-email':
       return 'Please enter a valid email address.';
+
     case 'auth/user-disabled':
-      return 'This manager account has been disabled. Please contact the administrator.';
+      return 'This account has been disabled.';
+
     case 'auth/popup-closed-by-user':
-      return 'Google sign-in popup was closed before completing. Please try again.';
+      return 'Google sign-in was closed before completing. Please try again.';
+
     case 'auth/popup-blocked':
-      return 'Pop-up was blocked by your browser. Please allow popups for this site.';
+      return 'Your browser blocked the sign-in popup. Please allow popups.';
+
     case 'auth/operation-not-allowed':
-      return 'This sign-in provider is not enabled in your Firebase console. Please ensure Email/Password and Google are enabled in Firebase Authentication.';
+      return 'This sign-in provider is not enabled in Firebase Authentication.';
+
     case 'auth/too-many-requests':
-      return 'Access to this account has been temporarily disabled due to many failed login attempts. You can reset your password or try again later.';
+      return 'Too many unsuccessful attempts. Please try again later.';
+
     case 'auth/network-request-failed':
-      return 'Network error encountered. Please check your internet connection.';
+      return 'Network error. Please check your internet connection.';
+
     default:
-      return error.message || 'Authentication encountered an error. Please try again.';
+      return error.message || 'Authentication failed. Please try again.';
   }
 }
 
 /**
- * Sync authenticated user details to Firestore admins collection
+ * Verify the actual Firebase user, not a browser-stored session.
+ */
+async function verifyAdminUser(user: User): Promise<AdminSession> {
+  await reload(user);
+
+  const currentUser = auth.currentUser;
+
+  if (
+    !currentUser ||
+    currentUser.uid !== ADMIN_UID ||
+    currentUser.email?.toLowerCase() !== ADMIN_EMAIL
+  ) {
+    await signOut(auth);
+    throw new Error(
+      'This Firebase account is not authorized to access Crown Pearl administration.'
+    );
+  }
+
+  if (!currentUser.emailVerified) {
+    try {
+      await sendEmailVerification(currentUser);
+    } catch {
+      // The user can request another verification email later.
+    }
+
+    await signOut(auth);
+
+    throw new Error(
+      'Your email address is not verified. We have attempted to send a verification link to your email. Open that link, then sign in again.'
+    );
+  }
+
+  return {
+    isAuthenticated: true,
+    userEmail: ADMIN_EMAIL,
+    displayName:
+      currentUser.displayName || 'Crown Pearl Owner',
+    role: 'owner',
+    loginMethod: currentUser.providerData.some(
+      (provider) => provider.providerId === 'google.com'
+    )
+      ? 'google'
+      : 'email',
+    uid: currentUser.uid,
+  };
+}
+
+/**
+ * Optional admin profile record.
+ * Firestore rules must independently authorize this write.
  */
 async function syncAdminRecord(user: User): Promise<void> {
-  if (!user.uid) return;
+  if (user.uid !== ADMIN_UID) return;
+
   try {
-    const adminRef = doc(db, 'admins', user.uid);
-    const existing = await getDoc(adminRef);
-    if (!existing.exists()) {
-      await setDoc(adminRef, {
-        email: user.email || 'manager@crownpearl.ph',
-        displayName: user.displayName || user.email?.split('@')[0] || 'Atelier Staff',
+    await setDoc(
+      doc(db, 'admins', ADMIN_UID),
+      {
+        email: ADMIN_EMAIL,
+        displayName: user.displayName || 'Crown Pearl Owner',
         role: 'owner',
-        createdAt: new Date().toISOString(),
-      });
-    }
-  } catch (err) {
-    // Non-blocking: admin record sync failure should not interrupt login session
-    console.warn('Admin record sync notice:', err);
+        updatedAt: new Date().toISOString(),
+      },
+      { merge: true }
+    );
+  } catch (error) {
+    console.warn('Admin profile sync notice:', error);
   }
 }
 
 /**
- * Sign in using Google OAuth via Firebase Auth
+ * Sign in using Google.
  */
 export async function loginWithGoogle(): Promise<AdminSession> {
   const provider = new GoogleAuthProvider();
   provider.setCustomParameters({ prompt: 'select_account' });
+
   const result = await signInWithPopup(auth, provider);
-  const user = result.user;
+  const session = await verifyAdminUser(result.user);
 
-  const session: AdminSession = {
-    isAuthenticated: true,
-    userEmail: user.email || 'manager@crownpearl.ph',
-    displayName: user.displayName || user.email?.split('@')[0] || 'Atelier Manager',
-    role: 'owner',
-    loginMethod: 'google',
-    uid: user.uid,
-  };
-
-  setAdminSession(session);
-  syncAdminRecord(user);
+  await syncAdminRecord(result.user);
   return session;
 }
 
 /**
- * Sign in using Email & Password via Firebase Auth
+ * Sign in using Email and Password.
  */
-export async function loginWithEmail(email: string, password: string): Promise<AdminSession> {
-  const result = await signInWithEmailAndPassword(auth, email.trim(), password);
-  const user = result.user;
+export async function loginWithEmail(
+  email: string,
+  password: string
+): Promise<AdminSession> {
+  if (email.trim().toLowerCase() !== ADMIN_EMAIL) {
+    throw new Error(
+      'This email address is not authorized to access Crown Pearl administration.'
+    );
+  }
 
-  const session: AdminSession = {
-    isAuthenticated: true,
-    userEmail: user.email || email.trim(),
-    displayName: user.displayName || user.email?.split('@')[0] || 'Atelier Manager',
-    role: 'owner',
-    loginMethod: 'email',
-    uid: user.uid,
-  };
+  const result = await signInWithEmailAndPassword(
+    auth,
+    email.trim(),
+    password
+  );
 
-  setAdminSession(session);
-  syncAdminRecord(user);
+  const session = await verifyAdminUser(result.user);
+
+  await syncAdminRecord(result.user);
   return session;
 }
 
 /**
- * Create a new manager account with Email & Password via Firebase Auth
+ * Public registration is disabled.
+ * The existing administrator account remains unchanged.
  */
 export async function registerWithEmail(
-  email: string,
-  password: string,
-  displayName?: string
+  _email: string,
+  _password: string,
+  _displayName?: string
 ): Promise<AdminSession> {
-  const result = await createUserWithEmailAndPassword(auth, email.trim(), password);
-  const user = result.user;
-
-  if (displayName?.trim()) {
-    try {
-      await updateProfile(user, { displayName: displayName.trim() });
-    } catch {
-      // ignore
-    }
-  }
-
-  const session: AdminSession = {
-    isAuthenticated: true,
-    userEmail: user.email || email.trim(),
-    displayName: displayName?.trim() || user.displayName || user.email?.split('@')[0] || 'Atelier Manager',
-    role: 'owner',
-    loginMethod: 'email',
-    uid: user.uid,
-  };
-
-  setAdminSession(session);
-  syncAdminRecord(user);
-  return session;
+  throw new Error(
+    'New administrator registration is disabled. Contact the Crown Pearl owner.'
+  );
 }
 
 /**
- * Send password reset email via Firebase Auth
+ * Send password reset email.
  */
 export async function resetPassword(email: string): Promise<void> {
-  if (!email.trim()) {
-    throw new Error('Please enter your email address to receive a password reset link.');
+  if (email.trim().toLowerCase() !== ADMIN_EMAIL) {
+    throw new Error(
+      'Password reset is available only for the authorized administrator account.'
+    );
   }
-  await sendPasswordResetEmail(auth, email.trim());
+
+  await sendPasswordResetEmail(auth, ADMIN_EMAIL);
 }
 
 /**
- * Sign in using Atelier Master Passcode / Key (Local fallback)
+ * Passcode login is permanently disabled.
  */
-export async function loginWithPasscode(passcode: string, customEmail?: string): Promise<AdminSession> {
-  const clean = passcode.trim().toLowerCase();
-  const isValid = MASTER_PASSCODES.includes(clean);
-
-  if (!isValid) {
-    throw new Error('Invalid Atelier Master Passcode. Please check with Delma or use your Firebase credentials.');
-  }
-
-  const session: AdminSession = {
-    isAuthenticated: true,
-    userEmail: customEmail?.trim() || 'delmapearl17@gmail.com',
-    displayName: 'Delma (Palawan Atelier Founder)',
-    role: 'owner',
-    loginMethod: 'passcode',
-  };
-
-  setAdminSession(session);
-  return session;
+export async function loginWithPasscode(
+  _passcode: string,
+  _customEmail?: string
+): Promise<AdminSession> {
+  throw new Error(
+    'Passcode login has been disabled. Please use your Firebase email and password.'
+  );
 }
 
 /**
- * Log out current admin
+ * Sign out.
  */
 export async function logoutAdmin(): Promise<void> {
-  try {
-    await signOut(auth);
-  } catch {
-    // ignore
-  }
-  setAdminSession(null);
+  await signOut(auth);
 }
 
 /**
- * Check if current user is logged in as Admin
+ * Synchronous UI convenience check only.
+ * Firestore Security Rules remain the actual security boundary.
  */
 export function isCurrentlyAdmin(): boolean {
-  const session = getAdminSession();
-  if (session && session.isAuthenticated) return true;
-  if (auth.currentUser) return true;
-  return false;
+  const user = auth.currentUser;
+
+  return Boolean(
+    user &&
+      user.uid === ADMIN_UID &&
+      user.email?.toLowerCase() === ADMIN_EMAIL &&
+      user.emailVerified
+  );
 }
 
-export function subscribeAdminAuth(callback: (session: AdminSession | null) => void): () => void {
-  // Check initial
-  callback(getAdminSession());
+/**
+ * Listen for Firebase authentication changes.
+ */
+export function subscribeAdminAuth(
+  callback: (session: AdminSession | null) => void
+): () => void {
+  let active = true;
 
-  const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
-    if (user) {
-      const session: AdminSession = {
-        isAuthenticated: true,
-        userEmail: user.email || 'manager@crownpearl.ph',
-        displayName: user.displayName || user.email?.split('@')[0] || 'Atelier Manager',
-        role: 'owner',
-        loginMethod: user.providerData?.some((p) => p.providerId === 'google.com') ? 'google' : 'email',
-        uid: user.uid,
-      };
-      setAdminSession(session);
-      callback(session);
-    } else {
-      const existing = getAdminSession();
-      if (existing && existing.loginMethod === 'passcode') {
-        callback(existing);
-      } else {
-        callback(null);
+  const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      if (active) callback(null);
+      return;
+    }
+
+    try {
+      const session = await verifyAdminUser(user);
+
+      if (active) {
+        await syncAdminRecord(user);
+        callback(session);
       }
+    } catch {
+      if (active) callback(null);
     }
   });
 
-  return unsubscribe;
+  return () => {
+    active = false;
+    unsubscribe();
+  };
 }
