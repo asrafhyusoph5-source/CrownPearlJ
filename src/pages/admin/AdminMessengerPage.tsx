@@ -1,5 +1,7 @@
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Navigate } from 'react-router-dom';
+
 import {
   Search,
   Send,
@@ -8,16 +10,8 @@ import {
   MoreVertical,
   CheckCheck,
   Inbox,
+  LogOut,
 } from 'lucide-react';
-
-import { DEMO_CONVERSATIONS } from '../../services/messengerService';
-import type {
-  MessengerConversation,
-  MessengerMessage,
-} from '../../types/messenger';
-
-import React, { useEffect, useMemo, useState } from 'react';
-import { Navigate } from 'react-router-dom';
 
 import {
   subscribeAdminAuth,
@@ -25,14 +19,23 @@ import {
   type AdminSession,
 } from '../../services/adminAuth';
 
+import { DEMO_CONVERSATIONS } from '../../services/messengerService';
+
+import type {
+  MessengerConversation,
+  MessengerMessage,
+} from '../../types/messenger';
+
+const ADMIN_UID = 'EZymoDyHyuTH5wPxl3JoCE4OuUw1';
+
 export const AdminMessengerPage: React.FC = () => {
+  // Authentication
+  const [session, setSession] = useState<AdminSession | null>(null);
+  const [authLoading, setAuthLoading] = useState(true);
+
+  // Messenger state
   const [conversations, setConversations] =
     useState<MessengerConversation[]>(DEMO_CONVERSATIONS);
-
-  const sendMessage = () => {
-  // ...
-  setConversations(...)
-};
 
   const [selectedId, setSelectedId] = useState<string | null>(
     DEMO_CONVERSATIONS[0]?.id ?? null
@@ -42,54 +45,43 @@ export const AdminMessengerPage: React.FC = () => {
   const [message, setMessage] = useState('');
   const [mobileChatOpen, setMobileChatOpen] = useState(false);
 
-  const [session, setSession] = useState<AdminSession | null>(null);
-const [authLoading, setAuthLoading] = useState(true);
+  // Listen to Firebase Authentication
+  useEffect(() => {
+    const unsubscribe = subscribeAdminAuth((currentSession) => {
+      setSession(currentSession);
+      setAuthLoading(false);
+    });
 
-useEffect(() => {
-  const unsubscribe = subscribeAdminAuth((currentSession) => {
-    setSession(currentSession);
-    setAuthLoading(false);
-  });
+    return () => unsubscribe();
+  }, []);
 
-  if (authLoading) {
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      Checking administrator access...
-    </div>
-  );
-}
-
-if (
-  !session?.isAuthenticated ||
-  session.uid !== 'EZymoDyHyuTH5wPxl3JoCE4OuUw1'
-) {
-  return <Navigate to="/admin/login" replace />;
-}
-  
-  return () => unsubscribe();
-}, []);
-
+  // Selected conversation
   const selected = conversations.find(
     (item) => item.id === selectedId
   );
 
+  // Search conversations
   const filtered = useMemo(() => {
     return conversations.filter((item) =>
       item.customerName.toLowerCase().includes(search.toLowerCase())
     );
   }, [conversations, search]);
 
+  // Select conversation
   const selectConversation = (id: string) => {
     setSelectedId(id);
     setMobileChatOpen(true);
 
     setConversations((previous) =>
       previous.map((item) =>
-        item.id === id ? { ...item, unreadCount: 0 } : item
+        item.id === id
+          ? { ...item, unreadCount: 0 }
+          : item
       )
     );
   };
 
+  // Send demo message locally
   const sendMessage = () => {
     if (!message.trim() || !selectedId) return;
 
@@ -121,27 +113,63 @@ if (
     setMessage('');
   };
 
+  // Authentication loading
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#F4F6F5]">
+        <p className="text-gray-500">
+          Checking administrator access...
+        </p>
+      </div>
+    );
+  }
+
+  // Protect Messenger inbox
+  if (
+    !session?.isAuthenticated ||
+    session.uid !== ADMIN_UID
+  ) {
+    return <Navigate to="/admin/login" replace />;
+  }
+
+  // Logout
+  const handleLogout = async () => {
+    await logoutAdmin();
+  };
+
   return (
     <div className="min-h-screen bg-[#F4F6F5] p-3 sm:p-6">
-
       <div className="max-w-7xl mx-auto">
 
+        {/* Page Header */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <div>
             <h1 className="text-2xl font-serif text-[#3B4A50]">
               Messenger Inbox
             </h1>
+
             <p className="text-sm text-gray-500 mt-1">
               Crown Pearl Customer Conversations
             </p>
           </div>
 
-          <div className="flex items-center gap-2 text-xs bg-amber-50 text-amber-700 border border-amber-200 rounded-full px-3 py-2">
-            <span className="w-2 h-2 rounded-full bg-amber-500" />
-            Demo Mode
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 text-xs bg-amber-50 text-amber-700 border border-amber-200 rounded-full px-3 py-2">
+              <span className="w-2 h-2 rounded-full bg-amber-500" />
+              Demo Mode
+            </div>
+
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 text-sm bg-white border border-gray-200 rounded-lg px-3 py-2 hover:bg-gray-50"
+            >
+              <LogOut size={16} />
+              <span className="hidden sm:inline">Sign Out</span>
+            </button>
           </div>
         </div>
 
+        {/* Messenger Container */}
         <div className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
 
           <div className="grid grid-cols-1 md:grid-cols-[320px_1fr] h-[680px]">
@@ -187,6 +215,7 @@ if (
                         <span className="font-semibold text-sm truncate">
                           {item.customerName}
                         </span>
+
                         <span className="text-[10px] text-gray-400">
                           {item.lastMessageTime}
                         </span>
@@ -239,6 +268,7 @@ if (
                         <h3 className="font-semibold text-sm">
                           {selected.customerName}
                         </h3>
+
                         <p className="text-xs text-gray-400">
                           Facebook Messenger · Demo
                         </p>
@@ -273,6 +303,7 @@ if (
 
                           <div className="flex items-center gap-1 text-[10px] text-gray-400 mt-1">
                             {msg.timestamp}
+
                             {msg.sender === 'page' && (
                               <CheckCheck className="w-3 h-3" />
                             )}
@@ -325,3 +356,5 @@ if (
     </div>
   );
 };
+
+export default AdminMessengerPage;
