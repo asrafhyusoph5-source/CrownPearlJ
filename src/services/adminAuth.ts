@@ -87,9 +87,8 @@ export function getFriendlyAuthErrorMessage(error: unknown): string {
 /**
  * Verify the actual Firebase user, not a browser-stored session.
  */
-async function verifyAdminUser(user: User): Promise<AdminSession> {
-  await reload(user);
 
+async function verifyAdminUser(user: User): Promise<AdminSession> {
   const currentUser = auth.currentUser;
 
   if (
@@ -98,36 +97,20 @@ async function verifyAdminUser(user: User): Promise<AdminSession> {
     currentUser.email?.toLowerCase() !== ADMIN_EMAIL
   ) {
     await signOut(auth);
+
     throw new Error(
       'This Firebase account is not authorized to access Crown Pearl administration.'
-    );
-  }
-
-  if (!currentUser.emailVerified) {
-    try {
-      await sendEmailVerification(currentUser);
-    } catch {
-      // The user can request another verification email later.
-    }
-
-    await signOut(auth);
-
-    throw new Error(
-      'Your email address is not verified. We have attempted to send a verification link to your email. Open that link, then sign in again.'
     );
   }
 
   return {
     isAuthenticated: true,
     userEmail: ADMIN_EMAIL,
-    displayName:
-      currentUser.displayName || 'Crown Pearl Owner',
+    displayName: currentUser.displayName || 'Crown Pearl Owner',
     role: 'owner',
     loginMethod: currentUser.providerData.some(
       (provider) => provider.providerId === 'google.com'
-    )
-      ? 'google'
-      : 'email',
+    ) ? 'google' : 'email',
     uid: currentUser.uid,
   };
 }
